@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <stdio.h>
+#include <QTimer>
 namespace Ui {
 class MainWindow;
 }
@@ -18,6 +19,9 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_kenh_1_clicked();
+
+    void onRecvUART();
 private:
     Ui::MainWindow *ui;
 };

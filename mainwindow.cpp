@@ -3,6 +3,7 @@
 #include "wiringPi.h"
 #include "wiringSerial.h"
 #define BYTE_SIZE
+#define NUM_OF_CHANEL 9
 QTimer *rxTimer;
 int fd;
 unsigned char command[8] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         //printf(ui->lineEdit->text().toStdString().data());
         fflush (stdout) ;
-        ui->pushButton->setText("Fail:"+ui->lineEdit->text()) ;
+        ui->lineEdit->setText("Not connected") ;
         return ;
     }
 }
@@ -34,8 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     double phase;
     double ampl;
 };
-txChanel chanelList[8];
-int selectedChanel = 0;
+txChanel chanelList[NUM_OF_CHANEL];
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -51,26 +51,28 @@ void MainWindow::onRecvUART()
 
     }
     //fflush(stdout);
-    if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
+    //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
+    //ui->lineEdit->
 
 }
 void MainWindow::on_pushButton_clicked()
 {
-    serialPutchar (fd, 60) ;
+//    serialPutchar (fd, 60) ;
 
-    QByteArray dataFrame = QByteArray::fromHex(QByteArray(ui->lineEdit->text().toStdString().c_str()));
-    for(short i=0;i<dataFrame.size();i++)
-    {
-        serialPutchar (fd, dataFrame.at(i)) ;
+//    QByteArray dataFrame = QByteArray::fromHex(QByteArray(ui->lineEdit->text().toStdString().c_str()));
+//    for(short i=0;i<dataFrame.size();i++)
+//    {
+//        serialPutchar (fd, dataFrame.at(i)) ;
 
-    }
+//    }
+
     serialFlush(fd);
 //    while (true)
 //    {
 
       //serialPutchar (fd, 71) ;
       //serialFlush(fd);
-      //printf ("-\nć);
+      //printf ("-\n);
         //delay(1);
 //        printf ("+\n%d", serialGetchar (fd)) ;
 
@@ -80,9 +82,10 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_kenh_1_clicked()
 {
+    selectChanel(0);
     //unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
-    command[1] = 0x00;
-    ui->label_chanel_num->setText("1");
+    //command[1] = 0x00;
+    //ui->label_chanel_num->setText("1");
 //    serialPutchar (fd, byte[0]) ;
 //    serialPutchar (fd, byte[1]) ;
 //    serialPutchar (fd, byte[2]) ;
@@ -97,73 +100,102 @@ void MainWindow::on_pushButton_num_11_clicked()
 {
     ui->lineEdit->clear();
 }
-
+void MainWindow::inputText(QString text)
+{
+    ui->lineEdit->setText( ui->lineEdit->text() + text);
+}
 void MainWindow::on_pushButton_num_1_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "1");
+    inputText("1");
 }
 
 void MainWindow::on_pushButton_num_2_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "2");
+    inputText("2");
 }
 
 void MainWindow::on_pushButton_num_3_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "3");
+    inputText("3");
 }
 
 void MainWindow::on_pushButton_num_4_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "4");
+    inputText("4");
 }
 
 void MainWindow::on_pushButton_num_5_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "5");
+    inputText("5");
 }
 
 void MainWindow::on_pushButton_num_6_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "6");
+    inputText("6");
 }
 
 void MainWindow::on_pushButton_num_7_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "7");
+    inputText("7");
 }
 
 void MainWindow::on_pushButton_num_8_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "8");
+    inputText("8");
 }
 
 void MainWindow::on_pushButton_num_9_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text() + "9");
+    inputText("9");
 }
 
 void MainWindow::on_pushButton_num_0_clicked()
 {
-     ui->lineEdit->setText( ui->lineEdit->text() + "0");
+     inputText("0");
 }
 
 void MainWindow::on_pushButton_num_back_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text().chop(1););
+    ui->lineEdit->setText( ui->lineEdit->text().chop(1));
 }
+int curChanelIndex = 0;
 void MainWindow::selectChanel(unsigned char chanelNum)
 {
     if(chanelNum>7)
     {
-        chanelNum = 0xaa;
+        //chanelNum = 0xaa;
+        curChanelIndex=8;
+    }
+    else
+    {
+        curChanelIndex=chanelNum;
+        //command[1] = chanelNum;
+
+    }
+    updateChanelInfo();
+}
+void MainWindow::updateChanelInfo()
+{
+    if(curChanelIndex>7)
+    {
         ui->label_chanel_num->setText("all");
     }
     else
     {
-        command[1] = chanelNum;
-        ui->label_chanel_num->setText(QString::number(chanelNum));
+        ui->label_chanel_num->setText(QString::number(curChanelIndex+1));
     }
+    if(chanelList[curChanelIndex].isOn)
+    {
+        ui->label_chanel_stat->setText("On");
+    }
+    else
+    {
+        ui->label_chanel_stat->setText("Off");
+    }
+    ui->label_chanel_freq->setText(QString::number(chanelList[curChanelIndex].freq));
+    ui->label_chanel_phase->setText(QString::number(chanelList[curChanelIndex].phase));
+    ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl);
+
 }
 void MainWindow::on_pushButton_kenh_2_clicked()
 {
@@ -204,4 +236,9 @@ void MainWindow::on_pushButton_kenh_8_clicked()
 void MainWindow::on_pushButton_kenh_9_clicked()
 {
     selectChanel(8);
+}
+
+void MainWindow::on_pushButton_num_10_clicked()
+{
+    inputText(".");
 }

@@ -62,8 +62,13 @@ private slots:
 
     void on_pushButton_kenh_9_clicked();
 
+    void on_pushButton_num_10_clicked();
+
 private:
     Ui::MainWindow *ui;
+    void selectChanel(unsigned char chanelNum);
+    void inputText(QString text);
+    void updateChanelInfo();
 };
 
 #endif // MAINWINDOW_H

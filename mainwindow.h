@@ -64,6 +64,10 @@ private slots:
 
     void on_pushButton_num_10_clicked();
 
+    void on_pushButton_kenh_16_clicked();
+
+    void on_pushButton_kenh_17_clicked();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);

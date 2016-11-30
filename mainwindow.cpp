@@ -2,11 +2,20 @@
 #include "ui_mainwindow.h"
 #include "wiringPi.h"
 #include "wiringSerial.h"
-#define BYTE_SIZE
+#define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9
+struct txChanel
+{
+   double freq;
+   bool isOn;
+   double phase;
+   double ampl;
+};
+unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
+txChanel chanelList[NUM_OF_CHANEL];
 QTimer *rxTimer;
 int fd;
-unsigned char command[8] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -28,14 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
         return ;
     }
 }
- struct txChanel
-{
-    double freq;
-    bool isOn;
-    double phase;
-    double ampl;
-};
-txChanel chanelList[NUM_OF_CHANEL];
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -50,6 +52,7 @@ void MainWindow::onRecvUART()
         //printf (rd.data());
 
     }
+    if(rd.size())ui->textEdit_data_log->append(rd.toHex());
     //fflush(stdout);
     //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
     //ui->lineEdit->
@@ -103,6 +106,7 @@ void MainWindow::on_pushButton_num_11_clicked()
 void MainWindow::inputText(QString text)
 {
     ui->lineEdit->setText( ui->lineEdit->text() + text);
+
 }
 void MainWindow::on_pushButton_num_1_clicked()
 {
@@ -180,7 +184,7 @@ void MainWindow::updateChanelInfo()
 {
     if(curChanelIndex>7)
     {
-        ui->label_chanel_num->setText("all");
+        ui->label_chanel_num->setText("All");
     }
     else
     {
@@ -243,4 +247,39 @@ void MainWindow::on_pushButton_kenh_9_clicked()
 void MainWindow::on_pushButton_num_10_clicked()
 {
     inputText(".");
+}
+
+void MainWindow::on_pushButton_kenh_16_clicked()
+{
+    if(curChanelIndex>7)
+    command[1] = 0xAA;
+    else
+        command[1] = curChanelIndex;
+    command[2] = 4;
+    command[3] = 0;
+    command[4] = 0;
+    command[5] = 0;
+    command[6] = 0;
+    sendCommand();
+}
+void MainWindow::sendCommand()
+{
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+        serialPutchar (fd, command[i]) ;
+    }
+    serialFlush(fd);
+}
+void MainWindow::on_pushButton_kenh_17_clicked()
+{
+    if(curChanelIndex>7)
+    command[1] = 0xAA;
+    else
+        command[1] = curChanelIndex;
+    command[2] = 5;
+    command[3] = 0;
+    command[4] = 0;
+    command[5] = 0;
+    command[6] = 0;
+    sendCommand();
 }

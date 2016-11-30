@@ -441,7 +441,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>781</width>
+      <width>741</width>
       <height>461</height>
      </rect>
     </property>
@@ -457,7 +457,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1497,7 +1497,7 @@
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QTextEdit" name="textEdit_data_log">
       <property name="geometry">
        <rect>
         <x>240</x>

@@ -76,6 +76,21 @@ void MainWindow::on_pushButton_clicked()
 //        serialPutchar (fd, dataFrame.at(i)) ;
 
 //    }
+    if(ui->pushButton_num_control_amp->isChecked())
+    {
+        command[2] = 0x02;
+        int value =  (ui->lineEdit->text().toInt());
+        if(value<10||value>70)
+        {
+            ui->pushButton->setText("Over Flow");
+        }
+        else
+        {
+            ui->pushButton->setText("Send");
+        }
+        command[3] = value>>8;
+        command[4] = value;
+    }
 #ifndef Q_OS_WIN
     serialFlush(fd);
 #endif
@@ -165,12 +180,13 @@ void MainWindow::selectChanel(unsigned char chanelNum)
     if(chanelNum>7)
     {
         //chanelNum = 0xaa;
+        command[1] = 0xaa;
         curChanelIndex=8;
     }
     else
     {
         curChanelIndex=chanelNum;
-        //command[1] = chanelNum;
+        command[1] = chanelNum;
 
     }
     updateChanelInfo();
@@ -270,7 +286,7 @@ void MainWindow::on_pushButton_kenh_16_clicked()
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
-    chanelList[curChanelIndex].isOn = false;
+    chanelList[curChanelIndex].isOn = true;
     sendCommand();
 }
 void MainWindow::sendCommand()
@@ -279,7 +295,7 @@ void MainWindow::sendCommand()
     {
 #ifndef Q_OS_WIN
         serialPutchar (fd, command[i]) ;
-        serialFlush(fd);
+        serialFlush(fd);delay(20);
 #endif
     }
 
@@ -297,7 +313,7 @@ void MainWindow::on_pushButton_kenh_17_clicked()
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
-    chanelList[curChanelIndex].isOn = true;
+    chanelList[curChanelIndex].isOn = false;
 
     sendCommand();
 }

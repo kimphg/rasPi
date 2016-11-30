@@ -317,3 +317,14 @@ void MainWindow::on_pushButton_kenh_17_clicked()
 
     sendCommand();
 }
+
+void MainWindow::on_pushButton_num_control_phase_comp_2_clicked()
+{
+    command[1] = 0;
+    command[2] = 7;
+    command[3] = 0;
+    command[4] = 0;
+    command[5] = 0;
+    command[6] = 0;
+    sendCommand();
+}

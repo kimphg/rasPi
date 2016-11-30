@@ -44,6 +44,24 @@ private slots:
 
     void on_pushButton_num_0_clicked();
 
+    void on_pushButton_num_back_clicked();
+
+    void on_pushButton_kenh_2_clicked();
+
+    void on_pushButton_kenh_3_clicked();
+
+    void on_pushButton_kenh_4_clicked();
+
+    void on_pushButton_kenh_5_clicked();
+
+    void on_pushButton_kenh_6_clicked();
+
+    void on_pushButton_kenh_7_clicked();
+
+    void on_pushButton_kenh_8_clicked();
+
+    void on_pushButton_kenh_9_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -5,6 +5,7 @@
 #define BYTE_SIZE
 QTimer *rxTimer;
 int fd;
+unsigned char command[8] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,7 +27,15 @@ MainWindow::MainWindow(QWidget *parent) :
         return ;
     }
 }
-
+ struct txChanel
+{
+    double freq;
+    bool isOn;
+    double phase;
+    double ampl;
+};
+txChanel chanelList[8];
+int selectedChanel = 0;
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -71,15 +80,17 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_kenh_1_clicked()
 {
-    unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
-    serialPutchar (fd, byte[0]) ;
-    serialPutchar (fd, byte[1]) ;
-    serialPutchar (fd, byte[2]) ;
-    serialPutchar (fd, byte[3]) ;
-    serialPutchar (fd, byte[4]) ;
-    serialPutchar (fd, byte[5]) ;
-    serialPutchar (fd, byte[6]) ;
-    serialPutchar (fd, byte[7]) ;
+    //unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
+    command[1] = 0x00;
+    ui->label_chanel_num->setText("1");
+//    serialPutchar (fd, byte[0]) ;
+//    serialPutchar (fd, byte[1]) ;
+//    serialPutchar (fd, byte[2]) ;
+//    serialPutchar (fd, byte[3]) ;
+//    serialPutchar (fd, byte[4]) ;
+//    serialPutchar (fd, byte[5]) ;
+//    serialPutchar (fd, byte[6]) ;
+//    serialPutchar (fd, byte[7]) ;
 }
 
 void MainWindow::on_pushButton_num_11_clicked()
@@ -89,50 +100,108 @@ void MainWindow::on_pushButton_num_11_clicked()
 
 void MainWindow::on_pushButton_num_1_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "1";
+    ui->lineEdit->setText( ui->lineEdit->text() + "1");
 }
 
 void MainWindow::on_pushButton_num_2_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "2";
+    ui->lineEdit->setText( ui->lineEdit->text() + "2");
 }
 
 void MainWindow::on_pushButton_num_3_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "3";
+    ui->lineEdit->setText( ui->lineEdit->text() + "3");
 }
 
 void MainWindow::on_pushButton_num_4_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "4";
+    ui->lineEdit->setText( ui->lineEdit->text() + "4");
 }
 
 void MainWindow::on_pushButton_num_5_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "5";
+    ui->lineEdit->setText( ui->lineEdit->text() + "5");
 }
 
 void MainWindow::on_pushButton_num_6_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "6";
+    ui->lineEdit->setText( ui->lineEdit->text() + "6");
 }
 
 void MainWindow::on_pushButton_num_7_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "7";
+    ui->lineEdit->setText( ui->lineEdit->text() + "7");
 }
 
 void MainWindow::on_pushButton_num_8_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "8";
+    ui->lineEdit->setText( ui->lineEdit->text() + "8");
 }
 
 void MainWindow::on_pushButton_num_9_clicked()
 {
-    ui->lineEdit->text() = ui->lineEdit->text() + "9";
+    ui->lineEdit->setText( ui->lineEdit->text() + "9");
 }
 
 void MainWindow::on_pushButton_num_0_clicked()
 {
-     ui->lineEdit->text() = ui->lineEdit->text() + "0";
+     ui->lineEdit->setText( ui->lineEdit->text() + "0");
+}
+
+void MainWindow::on_pushButton_num_back_clicked()
+{
+    ui->lineEdit->setText( ui->lineEdit->text().chop(1););
+}
+void MainWindow::selectChanel(unsigned char chanelNum)
+{
+    if(chanelNum>7)
+    {
+        chanelNum = 0xaa;
+        ui->label_chanel_num->setText("all");
+    }
+    else
+    {
+        command[1] = chanelNum;
+        ui->label_chanel_num->setText(QString::number(chanelNum));
+    }
+}
+void MainWindow::on_pushButton_kenh_2_clicked()
+{
+
+    selectChanel(1);
+}
+
+void MainWindow::on_pushButton_kenh_3_clicked()
+{
+    selectChanel(2);
+}
+
+void MainWindow::on_pushButton_kenh_4_clicked()
+{
+    selectChanel(3);
+}
+
+void MainWindow::on_pushButton_kenh_5_clicked()
+{
+    selectChanel(4);
+}
+
+void MainWindow::on_pushButton_kenh_6_clicked()
+{
+    selectChanel(5);
+}
+
+void MainWindow::on_pushButton_kenh_7_clicked()
+{
+    selectChanel(6);
+}
+
+void MainWindow::on_pushButton_kenh_8_clicked()
+{
+    selectChanel(7);
+}
+
+void MainWindow::on_pushButton_kenh_9_clicked()
+{
+    selectChanel(8);
 }

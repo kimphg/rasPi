@@ -19,3 +19,6 @@ HEADERS  += mainwindow.h
 HEADERS  += wiringSerial.h
 FORMS    += mainwindow.ui
 LIBS     += -lwiringPi
+
+RESOURCES += \
+    res.qrc

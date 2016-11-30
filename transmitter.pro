@@ -18,7 +18,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 HEADERS  += wiringSerial.h
 FORMS    += mainwindow.ui
-LIBS     += -lwiringPi
+
+unix:LIBS     += -lwiringPi
 
 RESOURCES += \
     res.qrc

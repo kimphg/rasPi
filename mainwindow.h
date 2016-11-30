@@ -73,6 +73,8 @@ private:
     void selectChanel(unsigned char chanelNum);
     void inputText(QString text);
     void updateChanelInfo();
+    void sendCommand();
+    int curChanelIndex ;
 };
 
 #endif // MAINWINDOW_H

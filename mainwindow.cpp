@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
-    rxTimer->start(50);
+    rxTimer->start(10);
     curChanelIndex = 0;
     updateChanelInfo();
 #ifndef Q_OS_WIN
@@ -320,7 +320,7 @@ void MainWindow::sendCommand()
         serialFlush(fd);delay(20);
 #endif
     }
-
+    onRecvUART();
 
     updateChanelInfo();
 }

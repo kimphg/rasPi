@@ -87,9 +87,31 @@ void MainWindow::on_pushButton_clicked()
         else
         {
             ui->pushButton->setText("Send");
+            value = value<<2;
+            command[3] = value>>8;
+            command[4] = value;
+            sendCommand();
         }
-        command[3] = value>>8;
-        command[4] = value;
+
+    }
+    else if(ui->pushButton_num_control_phase->isChecked())
+    {
+        command[2] = 0x01;
+        int value =  (ui->lineEdit->text().toInt());
+        if(value<0||value>360)
+        {
+            ui->pushButton->setText("Over Flow");
+        }
+        else
+        {
+            ui->pushButton->setText("Send");
+            value = value/360.0*(double)(1<<16);
+            command[3] = value>>8;
+            command[4] = value;
+            sendCommand();
+        }
+
+
     }
 #ifndef Q_OS_WIN
     serialFlush(fd);

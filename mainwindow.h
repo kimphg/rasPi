@@ -68,6 +68,8 @@ private slots:
 
     void on_pushButton_kenh_17_clicked();
 
+    void on_pushButton_num_control_phase_comp_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);

@@ -156,7 +156,9 @@ void MainWindow::on_pushButton_num_0_clicked()
 
 void MainWindow::on_pushButton_num_back_clicked()
 {
-    ui->lineEdit->setText( ui->lineEdit->text().chop(1));
+    QString str = ui->lineEdit->text();
+    str.chop(1);
+    ui->lineEdit->setText(str);
 }
 int curChanelIndex = 0;
 void MainWindow::selectChanel(unsigned char chanelNum)
@@ -194,7 +196,7 @@ void MainWindow::updateChanelInfo()
     }
     ui->label_chanel_freq->setText(QString::number(chanelList[curChanelIndex].freq));
     ui->label_chanel_phase->setText(QString::number(chanelList[curChanelIndex].phase));
-    ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl);
+    ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl));
 
 }
 void MainWindow::on_pushButton_kenh_2_clicked()

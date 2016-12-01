@@ -5,6 +5,7 @@
 #include "wiringSerial.h"
 #endif
 #define MY_PATLETTE QColor(40,90,130)
+#define MY_PATLETTE_HL QColor(255,150,30)
 #define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9
 struct txChanel
@@ -276,39 +277,39 @@ void MainWindow::updateChanelInfo()
         ui->label_chanel_stat->setText("On");
         switch (curChanelIndex) {
         case 0:
-            ui->pushButton_kenh_1->setPalette(Qt::red);
+            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
             break;
         case 1:
-            ui->pushButton_kenh_2->setPalette(Qt::red);
+            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
             break;
         case 2:
-            ui->pushButton_kenh_3->setPalette(Qt::red);
+            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
             break;
         case 3:
-            ui->pushButton_kenh_4->setPalette(Qt::red);
+            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
             break;
         case 4:
-            ui->pushButton_kenh_5->setPalette(Qt::red);
+            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
             break;
         case 5:
-            ui->pushButton_kenh_6->setPalette(Qt::red);
+            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
             break;
         case 6:
-            ui->pushButton_kenh_7->setPalette(Qt::red);
+            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
             break;
         case 7:
-            ui->pushButton_kenh_8->setPalette(Qt::red);
+            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
             break;
         case 8:
-            ui->pushButton_kenh_9->setPalette(Qt::red);
-            ui->pushButton_kenh_8->setPalette(Qt::red);
-            ui->pushButton_kenh_7->setPalette(Qt::red);
-            ui->pushButton_kenh_6->setPalette(Qt::red);
-            ui->pushButton_kenh_5->setPalette(Qt::red);
-            ui->pushButton_kenh_4->setPalette(Qt::red);
-            ui->pushButton_kenh_3->setPalette(Qt::red);
-            ui->pushButton_kenh_2->setPalette(Qt::red);
-            ui->pushButton_kenh_1->setPalette(Qt::red);
+            ui->pushButton_kenh_9->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
+            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
             break;
         default:
             break;

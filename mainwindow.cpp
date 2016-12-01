@@ -4,7 +4,7 @@
 #include "wiringPi.h"
 #include "wiringSerial.h"
 #endif
-#define MY_PATLETTE QColor(40,90,130)
+#define MY_PATLETTE QColor(40,100,150)
 #define MY_PATLETTE_HL QColor(255,150,30)
 #define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9

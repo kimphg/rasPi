@@ -25,9 +25,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>701</width>
-      <height>461</height>
+      <y>30</y>
+      <width>761</width>
+      <height>414</height>
      </rect>
     </property>
     <property name="font">
@@ -42,14 +42,14 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideMiddle</enum>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Điều khiển</string>
      </attribute>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="2" column="0" colspan="2">
@@ -859,6 +859,13 @@
          <property name="bottomMargin">
           <number>6</number>
          </property>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Tần số:</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
@@ -873,17 +880,24 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
+         <item row="3" column="1">
+          <widget class="QLabel" name="label_chanel_phase">
            <property name="text">
-            <string>Trạng thái:</string>
+            <string>--</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label_chanel_stat">
+         <item row="4" column="1">
+          <widget class="QLabel" name="label_chanel_freq">
            <property name="text">
             <string>--</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Pha:</string>
            </property>
           </widget>
          </item>
@@ -901,29 +915,29 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Pha:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLabel" name="label_chanel_phase">
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_chanel_stat">
            <property name="text">
             <string>--</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_8">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Tần số:</string>
+            <string>Trạng thái:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_chanel_freq">
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Nhiệt độ:::!!</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QLabel" name="label_chanel_freq_2">
            <property name="text">
             <string>--</string>
            </property>
@@ -1035,17 +1049,249 @@
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Input</string>
      </attribute>
      <widget class="QTextEdit" name="textEdit_data_log">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>30</x>
+        <y>20</y>
         <width>461</width>
         <height>281</height>
        </rect>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Cài đặt</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>130</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Send</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>80</y>
+        <width>659</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="text">
+          <string>255</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>kênh 1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 7</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>kênh 8</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_3"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_4"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_6"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_7"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_8"/>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_9">
+         <property name="text">
+          <string>255</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>Page</string>
+     </attribute>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>15</x>
+        <y>21</y>
+        <width>701</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="rowCount">
+       <number>100</number>
+      </property>
+      <property name="columnCount">
+       <number>8</number>
+      </property>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
      </widget>
     </widget>
    </widget>

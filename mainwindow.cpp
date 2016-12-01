@@ -26,8 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
-    rxTimer->start(10);
-    rxTimer = new QTimer(this);
+    rxTimer->start(20);
+    IOupdateTimer =  new QTimer(this);
     connect(IOupdateTimer, SIGNAL(timeout()), this, SLOT(ioUpdate()));
     IOupdateTimer->start(20000);
     curChanelIndex = 0;
@@ -239,6 +239,16 @@ void MainWindow::updateChanelInfo()
     if(chanelList[curChanelIndex].isOn)
     {
         ui->label_chanel_stat->setText("On");
+        switch (curChanelIndex) {
+        case 0:
+            ui->pushButton_kenh_1->setPalette(Qt::red);
+            break;
+        case 1:
+            ui->pushButton_kenh_2->setPalette(Qt::red);
+            break;
+        default:
+            break;
+        }
     }
     else
     {

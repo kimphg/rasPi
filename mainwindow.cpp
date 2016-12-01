@@ -17,7 +17,7 @@ struct txChanel
 unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
 txChanel chanelList[NUM_OF_CHANEL];
 QTimer *rxTimer;
-QTimer *IOupdateTimer;
+//QTimer *IOupdateTimer;
 int fd;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
     rxTimer->start(20);
-    IOupdateTimer =  new QTimer(this);
-    connect(IOupdateTimer, SIGNAL(timeout()), this, SLOT(ioUpdate()));
-    IOupdateTimer->start(20000);
+    //IOupdateTimer =  new QTimer(this);
+    //connect(IOupdateTimer, SIGNAL(timeout()), this, SLOT(ioUpdate()));
+    //IOupdateTimer->start(20000);
     curChanelIndex = 0;
     updateChanelInfo();
 #ifndef Q_OS_WIN
@@ -62,7 +62,13 @@ void MainWindow::ioUpdate()
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
-    sendCommand();
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+#ifndef Q_OS_WIN
+        serialPutchar (fd, command[i]) ;
+
+#endif
+    }
 
 }
 void MainWindow::onRecvUART()
@@ -239,14 +245,13 @@ void MainWindow::selectChanel(unsigned char chanelNum)
 {
     if(chanelNum>7)
     {
-        //chanelNum = 0xaa;
-        command[1] = 0xaa;
+
         curChanelIndex=8;
     }
     else
     {
         curChanelIndex=chanelNum;
-        command[1] = chanelNum;
+
 
     }
     updateChanelInfo();
@@ -429,6 +434,14 @@ void MainWindow::on_pushButton_kenh_16_pressed()
 }
 void MainWindow::sendCommand()
 {
+    if(curChanelIndex>7)
+    {
+        command[1] = 0xaa;
+    }
+    else
+    {
+        command[1] = curChanelIndex;
+    }
     for(int i=0;i<COMMAND_LEN;i++)
     {
 #ifndef Q_OS_WIN

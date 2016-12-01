@@ -96,7 +96,7 @@ void MainWindow::on_pushButton_pressed()
     if(ui->pushButton_num_control_amp->isChecked())
     {
         command[2] = 0x02;
-        int value =  (ui->lineEdit->text().toInt());
+        double value =  (ui->lineEdit->text().toDouble());
         if(value<10||value>70)
         {
             ui->pushButton->setText("Over Flow");
@@ -104,9 +104,9 @@ void MainWindow::on_pushButton_pressed()
         else
         {
             ui->pushButton->setText("Send");
-            value = value<<2;
-            command[3] = value>>8;
-            command[4] = value;
+            int a = value*4 + 0.5;
+            command[3] = a>>8;
+            command[4] = a;
             sendCommand();
         }
 
@@ -114,7 +114,7 @@ void MainWindow::on_pushButton_pressed()
     else if(ui->pushButton_num_control_phase->isChecked())
     {
         command[2] = 0x01;
-        int value =  (ui->lineEdit->text().toInt());
+        double value =  (ui->lineEdit->text().toDouble());
         if(value<0||value>360)
         {
             ui->pushButton->setText("Over Flow");
@@ -122,9 +122,32 @@ void MainWindow::on_pushButton_pressed()
         else
         {
             ui->pushButton->setText("Send");
-            value = value/360.0*(double)(1<<16);
-            command[3] = value>>8;
-            command[4] = value;
+            value = value*182.0444444444444+0.5;
+            int a= value;
+            command[3] = a>>8;
+            command[4] = a;
+            sendCommand();
+        }
+
+
+    }
+    else if(ui->pushButton_num_control_afreq->isChecked())
+    {
+        command[2] = 0x00;
+        double value =  (ui->lineEdit->text().toDouble());
+        if(value<10||value>700)
+        {
+            ui->pushButton->setText("Over Flow");
+        }
+        else
+        {
+            ui->pushButton->setText("Send");
+            value = value*1720740.1+0.5;
+            int a = int(value);
+            command[3] = a>>24;
+            command[4] = a>>16;
+            command[5] = a>>8;
+            command[6] = a;
             sendCommand();
         }
 
@@ -414,7 +437,7 @@ void MainWindow::sendCommand()
 #endif
     }
     //delay(1);
-    onRecvUART();
+    //onRecvUART();
     updateChanelInfo();
 }
 void MainWindow::on_pushButton_kenh_17_pressed()

@@ -70,6 +70,10 @@ private slots:
 
     void on_pushButton_num_control_phase_comp_2_clicked();
 
+    void on_pushButton_num_control_afreq_pressed();
+
+    void on_pushButton_num_control_phase_pressed();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);

@@ -16,6 +16,7 @@ struct txChanel
 unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
 txChanel chanelList[NUM_OF_CHANEL];
 QTimer *rxTimer;
+QTimer *IOupdateTimer;
 int fd;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,7 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
-    rxTimer->start(50);
+    rxTimer->start(10);
+    rxTimer = new QTimer(this);
+    connect(IOupdateTimer, SIGNAL(timeout()), this, SLOT(ioUpdate()));
+    IOupdateTimer->start(20000);
     curChanelIndex = 0;
     updateChanelInfo();
 #ifndef Q_OS_WIN
@@ -48,6 +52,17 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::ioUpdate()
+{
+    command[1] = 0;
+    command[2] = 7;
+    command[3] = 0;
+    command[4] = 0;
+    command[5] = 0;
+    command[6] = 0;
+    sendCommand();
+
+}
 void MainWindow::onRecvUART()
 {
     QByteArray rd;
@@ -66,7 +81,7 @@ void MainWindow::onRecvUART()
     //ui->lineEdit->
 
 }
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_pressed()
 {
 //    serialPutchar (fd, 60) ;
 
@@ -113,9 +128,7 @@ void MainWindow::on_pushButton_clicked()
 
 
     }
-#ifndef Q_OS_WIN
-    serialFlush(fd);
-#endif
+
 //    while (true)
 //    {
 
@@ -131,66 +144,66 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-void MainWindow::on_pushButton_num_11_clicked()
-{
-    ui->lineEdit->clear();
-}
+//void MainWindow::on_pushButton_num_11_pressed()
+//{
+//    ui->lineEdit->clear();
+//}
 void MainWindow::inputText(QString text)
 {
     ui->lineEdit->setText( ui->lineEdit->text() + text);
 
 }
-void MainWindow::on_pushButton_num_1_clicked()
+void MainWindow::on_pushButton_num_1_pressed()
 {
     inputText("1");
 }
 
-void MainWindow::on_pushButton_num_2_clicked()
+void MainWindow::on_pushButton_num_2_pressed()
 {
     inputText("2");
 }
 
-void MainWindow::on_pushButton_num_3_clicked()
+void MainWindow::on_pushButton_num_3_pressed()
 {
     inputText("3");
 }
 
-void MainWindow::on_pushButton_num_4_clicked()
+void MainWindow::on_pushButton_num_4_pressed()
 {
     inputText("4");
 }
 
-void MainWindow::on_pushButton_num_5_clicked()
+void MainWindow::on_pushButton_num_5_pressed()
 {
     inputText("5");
 }
 
-void MainWindow::on_pushButton_num_6_clicked()
+void MainWindow::on_pushButton_num_6_pressed()
 {
     inputText("6");
 }
 
-void MainWindow::on_pushButton_num_7_clicked()
+void MainWindow::on_pushButton_num_7_pressed()
 {
     inputText("7");
 }
 
-void MainWindow::on_pushButton_num_8_clicked()
+void MainWindow::on_pushButton_num_8_pressed()
 {
     inputText("8");
 }
 
-void MainWindow::on_pushButton_num_9_clicked()
+void MainWindow::on_pushButton_num_9_pressed()
 {
     inputText("9");
 }
 
-void MainWindow::on_pushButton_num_0_clicked()
+void MainWindow::on_pushButton_num_0_pressed()
 {
      inputText("0");
 }
 
-void MainWindow::on_pushButton_num_back_clicked()
+void MainWindow::on_pushButton_num_back_pressed()
 {
     QString str = ui->lineEdit->text();
     str.chop(1);
@@ -236,7 +249,7 @@ void MainWindow::updateChanelInfo()
     ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl));
 
 }
-void MainWindow::on_pushButton_kenh_1_clicked()
+void MainWindow::on_pushButton_kenh_1_pressed()
 {
     selectChanel(0);
     //unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
@@ -251,53 +264,53 @@ void MainWindow::on_pushButton_kenh_1_clicked()
 //    serialPutchar (fd, byte[6]) ;
 //    serialPutchar (fd, byte[7]) ;
 }
-void MainWindow::on_pushButton_kenh_2_clicked()
+void MainWindow::on_pushButton_kenh_2_pressed()
 {
 
     selectChanel(1);
 }
 
-void MainWindow::on_pushButton_kenh_3_clicked()
+void MainWindow::on_pushButton_kenh_3_pressed()
 {
     selectChanel(2);
 }
 
-void MainWindow::on_pushButton_kenh_4_clicked()
+void MainWindow::on_pushButton_kenh_4_pressed()
 {
     selectChanel(3);
 }
 
-void MainWindow::on_pushButton_kenh_5_clicked()
+void MainWindow::on_pushButton_kenh_5_pressed()
 {
     selectChanel(4);
 }
 
-void MainWindow::on_pushButton_kenh_6_clicked()
+void MainWindow::on_pushButton_kenh_6_pressed()
 {
     selectChanel(5);
 }
 
-void MainWindow::on_pushButton_kenh_7_clicked()
+void MainWindow::on_pushButton_kenh_7_pressed()
 {
     selectChanel(6);
 }
 
-void MainWindow::on_pushButton_kenh_8_clicked()
+void MainWindow::on_pushButton_kenh_8_pressed()
 {
     selectChanel(7);
 }
 
-void MainWindow::on_pushButton_kenh_9_clicked()
+void MainWindow::on_pushButton_kenh_9_pressed()
 {
     selectChanel(8);
 }
 
-void MainWindow::on_pushButton_num_10_clicked()
+void MainWindow::on_pushButton_num_10_pressed()
 {
     inputText(".");
 }
 
-void MainWindow::on_pushButton_kenh_16_clicked()
+void MainWindow::on_pushButton_kenh_16_pressed()
 {
     if(curChanelIndex>7)
     command[1] = 0xAA;
@@ -317,14 +330,14 @@ void MainWindow::sendCommand()
     {
 #ifndef Q_OS_WIN
         serialPutchar (fd, command[i]) ;
-        serialFlush(fd);delay(20);
+
 #endif
     }
-
-
+    //delay(1);
+    onRecvUART();
     updateChanelInfo();
 }
-void MainWindow::on_pushButton_kenh_17_clicked()
+void MainWindow::on_pushButton_kenh_17_pressed()
 {
     if(curChanelIndex>7)
     command[1] = 0xAA;
@@ -340,13 +353,14 @@ void MainWindow::on_pushButton_kenh_17_clicked()
     sendCommand();
 }
 
-void MainWindow::on_pushButton_num_control_phase_comp_2_clicked()
+void MainWindow::on_pushButton_num_control_phase_comp_2_pressed()
 {
-    command[1] = 0;
-    command[2] = 7;
-    command[3] = 0;
-    command[4] = 0;
-    command[5] = 0;
-    command[6] = 0;
-    sendCommand();
+    ioUpdate();
 }
+
+void MainWindow::on_pushButton_num_control_amp_pressed()
+{
+    ui->label_unit->setText("x(-1)dBm");
+}
+
+

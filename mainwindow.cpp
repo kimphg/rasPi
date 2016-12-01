@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setPalette(Qt::blue);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
     rxTimer->start(20);
@@ -246,6 +247,35 @@ void MainWindow::updateChanelInfo()
         case 1:
             ui->pushButton_kenh_2->setPalette(Qt::red);
             break;
+        case 2:
+            ui->pushButton_kenh_3->setPalette(Qt::red);
+            break;
+        case 3:
+            ui->pushButton_kenh_4->setPalette(Qt::red);
+            break;
+        case 4:
+            ui->pushButton_kenh_5->setPalette(Qt::red);
+            break;
+        case 5:
+            ui->pushButton_kenh_6->setPalette(Qt::red);
+            break;
+        case 6:
+            ui->pushButton_kenh_7->setPalette(Qt::red);
+            break;
+        case 7:
+            ui->pushButton_kenh_8->setPalette(Qt::red);
+            break;
+        case 8:
+            ui->pushButton_kenh_9->setPalette(Qt::red);
+            ui->pushButton_kenh_8->setPalette(Qt::red);
+            ui->pushButton_kenh_7->setPalette(Qt::red);
+            ui->pushButton_kenh_6->setPalette(Qt::red);
+            ui->pushButton_kenh_5->setPalette(Qt::red);
+            ui->pushButton_kenh_4->setPalette(Qt::red);
+            ui->pushButton_kenh_3->setPalette(Qt::red);
+            ui->pushButton_kenh_2->setPalette(Qt::red);
+            ui->pushButton_kenh_1->setPalette(Qt::red);
+            break;
         default:
             break;
         }
@@ -253,6 +283,45 @@ void MainWindow::updateChanelInfo()
     else
     {
         ui->label_chanel_stat->setText("Off");
+        switch (curChanelIndex) {
+        case 0:
+            ui->pushButton_kenh_1->setPalette(Qt::blue);
+            break;
+        case 1:
+            ui->pushButton_kenh_2->setPalette(Qt::blue);
+            break;
+        case 2:
+            ui->pushButton_kenh_3->setPalette(Qt::blue);
+            break;
+        case 3:
+            ui->pushButton_kenh_4->setPalette(Qt::blue);
+            break;
+        case 4:
+            ui->pushButton_kenh_5->setPalette(Qt::blue);
+            break;
+        case 5:
+            ui->pushButton_kenh_6->setPalette(Qt::blue);
+            break;
+        case 6:
+            ui->pushButton_kenh_7->setPalette(Qt::blue);
+            break;
+        case 7:
+            ui->pushButton_kenh_8->setPalette(Qt::blue);
+            break;
+        case 8:
+            ui->pushButton_kenh_9->setPalette(Qt::blue);
+            ui->pushButton_kenh_8->setPalette(Qt::blue);
+            ui->pushButton_kenh_7->setPalette(Qt::blue);
+            ui->pushButton_kenh_6->setPalette(Qt::blue);
+            ui->pushButton_kenh_5->setPalette(Qt::blue);
+            ui->pushButton_kenh_4->setPalette(Qt::blue);
+            ui->pushButton_kenh_3->setPalette(Qt::blue);
+            ui->pushButton_kenh_2->setPalette(Qt::blue);
+            ui->pushButton_kenh_1->setPalette(Qt::blue);
+            break;
+        default:
+            break;
+        }
     }
     ui->label_chanel_freq->setText(QString::number(chanelList[curChanelIndex].freq));
     ui->label_chanel_phase->setText(QString::number(chanelList[curChanelIndex].phase));

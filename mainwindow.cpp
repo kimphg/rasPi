@@ -577,7 +577,7 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
     {
 
 
-        double frequency = ui->tableWidget->item(tabitem->column(),0)->text().toDouble();
+        double frequency = ui->tableWidget->item(0,tabitem->column())->text().toDouble();
         if(frequency>0)
         {
             unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
@@ -587,16 +587,27 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
             if(value>=0&&value<360)
             {
 #ifndef Q_OS_WIN
+                setCursor(Qt::WaitCursor);
                 value = value*182.0444444444444+0.5;
                 int a= value;
                 command[3] = a>>8;
                 command[4] = a;
                 sendCommand(&command[0]);
-                tabitem->setBackgroundColor(QColor(120,180,250));
-                setCursor(Qt::WaitCursor);
-                delay(1000);
-                setCursor(Qt::ArrowCursor);
+                //
+                delay(100);
+                command[2] = 0x00;
+                value =  frequency;
+                value = value*1720740.1+0.5;
+                a = int(value);
+                command[3] = a>>24;
+                command[4] = a>>16;
+                command[5] = a>>8;
+                command[6] = a;
+                sendCommand(&command[0]);
+                delay(500);
                 ioUpdate();
+                setCursor(Qt::ArrowCursor);
+                tabitem->setBackgroundColor(QColor(120,180,250));
 #endif
                 return;
             }

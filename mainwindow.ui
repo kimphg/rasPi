@@ -640,6 +640,30 @@
          <property name="bottomMargin">
           <number>6</number>
          </property>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="pushButton_num_control_ioupdate_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Reset</string>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
           <widget class="QPushButton" name="pushButton_num_control_ioupdate">
            <property name="sizePolicy">
@@ -654,7 +678,7 @@
             </font>
            </property>
            <property name="text">
-            <string>I/O Update</string>
+            <string> Update</string>
            </property>
            <property name="checkable">
             <bool>false</bool>
@@ -664,35 +688,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="pushButton_num_control_left">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="res.qrc">
-             <normaloff>:/1480496108_arrow-left-01.ico</normaloff>:/1480496108_arrow-left-01.ico</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
+         <item row="0" column="6">
           <widget class="QPushButton" name="pushButton_num_control_up">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -720,7 +716,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="3">
           <widget class="QPushButton" name="pushButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -733,20 +729,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_unit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Mhz</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="4">
+         <item row="0" column="0" colspan="5">
           <widget class="QLineEdit" name="lineEdit">
            <property name="font">
             <font>
@@ -755,7 +738,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="5">
+         <item row="1" column="7">
           <widget class="QPushButton" name="pushButton_num_control_right">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -783,7 +766,7 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="4">
+         <item row="1" column="6">
           <widget class="QPushButton" name="pushButton_num_control_down">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -811,7 +794,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="5">
+         <item row="0" column="7">
           <widget class="QPushButton" name="pushButton_num_control_up_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -826,6 +809,47 @@
            </property>
            <property name="text">
             <string>Clear</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5">
+          <widget class="QLabel" name="label_unit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Mhz</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5">
+          <widget class="QPushButton" name="pushButton_num_control_left">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="res.qrc">
+             <normaloff>:/1480496108_arrow-left-01.ico</normaloff>:/1480496108_arrow-left-01.ico</iconset>
            </property>
            <property name="iconSize">
             <size>

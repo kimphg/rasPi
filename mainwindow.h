@@ -93,12 +93,14 @@ private slots:
 
     void on_pushButton_sort_table_2_pressed();
 
+    void on_pushButton_num_control_ioupdate_2_pressed();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);
     void inputText(QString text);
     void updateChanelInfo();
-    void sendCommand(unsigned char *command);
+    void sendCommand(unsigned char *command, short chanel);
     int curChanelIndex ;
 
 };

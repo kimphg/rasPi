@@ -59,12 +59,12 @@ MainWindow::~MainWindow()
 }
 void MainWindow::ioUpdate()
 {
-    command[1] = 0;
-    command[2] = 7;
-    command[3] = 0;
-    command[4] = 0;
-    command[5] = 0;
-    command[6] = 0;
+    command[1] = 0x0a;
+    command[2] = 0x0a;
+    command[3] = 0x0a;
+    command[4] = 0x0a;
+    command[5] = 0x0a;
+    command[6] = 0x0a;
     for(int i=0;i<COMMAND_LEN;i++)
     {
 #ifndef Q_OS_WIN
@@ -118,7 +118,7 @@ void MainWindow::on_pushButton_pressed()
             int a = value*4 + 0.5;
             command[3] = a>>8;
             command[4] = a;
-            sendCommand(&command[0]);
+            sendCommand(&command[0],curChanelIndex);
 
         }
 
@@ -139,7 +139,7 @@ void MainWindow::on_pushButton_pressed()
             int a= value;
             command[3] = a>>8;
             command[4] = a;
-            sendCommand(&command[0]);
+            sendCommand(&command[0],curChanelIndex);
         }
 
 
@@ -162,7 +162,7 @@ void MainWindow::on_pushButton_pressed()
             command[4] = a>>16;
             command[5] = a>>8;
             command[6] = a;
-            sendCommand(&command[0]);
+            sendCommand(&command[0],curChanelIndex);
         }
 
 
@@ -438,25 +438,34 @@ void MainWindow::on_pushButton_kenh_16_pressed()
     command[5] = 0;
     command[6] = 0;
     chanelList[curChanelIndex].isOn = true;
-    sendCommand(&command[0]);
+    sendCommand(&command[0],curChanelIndex);
 }
-void MainWindow::sendCommand(unsigned char* command)
+void MainWindow::sendCommand(unsigned char* command,short chanel)
 {
     ui->pushButton_num_control_ioupdate->setChecked(false);
-    if(curChanelIndex>7)
+    if(chanel==8)
     {
-        command[1] = 0xaa;
+
+        command[1] = 0x0c;
+        for(int i=0;i<COMMAND_LEN;i++)
+        {
+            #ifndef Q_OS_WIN
+            serialPutchar (fd, command[i]) ;
+            #endif
+        }
+
     }
     else
     {
-        command[1] = curChanelIndex;
+        command[1] = chanel;
+        for(int i=0;i<COMMAND_LEN;i++)
+        {
+            #ifndef Q_OS_WIN
+            serialPutchar (fd, command[i]) ;
+            #endif
+        }
     }
-    for(int i=0;i<COMMAND_LEN;i++)
-    {
-#ifndef Q_OS_WIN
-        serialPutchar (fd, command[i]) ;
-#endif
-    }
+
     //delay(1);
     //onRecvUART();
     updateChanelInfo();
@@ -465,16 +474,14 @@ void MainWindow::sendCommand(unsigned char* command)
 void MainWindow::on_pushButton_kenh_17_pressed()
 {
     if(curChanelIndex>7)
-    command[1] = 0xAA;
-    else
-        command[1] = curChanelIndex;
+    curChanelIndex = 8;
     command[2] = 5;
     command[3] = 0;
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
     chanelList[curChanelIndex].isOn = false;
-    sendCommand(&command[0]);
+    sendCommand(&command[0],curChanelIndex);
 }
 
 
@@ -573,15 +580,14 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
 {
 
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
-    if(tabitem)
+    if(tabitem->row()>0)
     {
 
-
-        double frequency = ui->tableWidget->item(0,tabitem->column())->text().toDouble();
-        if(frequency>0)
+        //double frequency = ui->tableWidget->item(0,tabitem->column())->text().toDouble();
+        if(true)
         {
             unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
-            command[1] = tabitem->row()-1;
+            int chanel = tabitem->row()-1;
             command[2] = 0x01;
             double value =  tabitem->text().toDouble();
             if(value>=0&&value<360)
@@ -592,18 +598,18 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
                 int a= value;
                 command[3] = a>>8;
                 command[4] = a;
-                sendCommand(&command[0]);
+                sendCommand(&command[0],chanel);
                 //
-                delay(100);
-                command[2] = 0x00;
-                value =  frequency;
-                value = value*1720740.1+0.5;
-                a = int(value);
-                command[3] = a>>24;
-                command[4] = a>>16;
-                command[5] = a>>8;
-                command[6] = a;
-                sendCommand(&command[0]);
+//                delay(100);
+//                command[2] = 0x00;
+//                value =  frequency;
+//                value = value*1720740.1+0.5;
+//                a = int(value);
+//                command[3] = a>>24;
+//                command[4] = a>>16;
+//                command[5] = a>>8;
+//                command[6] = a;
+//                sendCommand(&command[0],chanel);
                 delay(500);
                 ioUpdate();
                 setCursor(Qt::ArrowCursor);
@@ -615,4 +621,20 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
 
     }
     tabitem->setBackgroundColor(QColor(250,120,20));
+}
+
+void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
+{
+    command[1] = 0x0b;
+    command[2] = 0x0b;
+    command[3] = 0x0b;
+    command[4] = 0x0b;
+    command[5] = 0x0b;
+    command[6] = 0x0b;
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+#ifndef Q_OS_WIN
+        serialPutchar (fd, command[i]) ;
+#endif
+    }
 }

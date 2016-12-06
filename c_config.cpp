@@ -4,7 +4,7 @@
  
 CConfig::CConfig(void)
 {
-    setDefault();
+    //setDefault();
     LoadFromFile();
 }
 

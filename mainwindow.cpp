@@ -586,12 +586,18 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
             double value =  tabitem->text().toDouble();
             if(value>=0&&value<360)
             {
+#ifndef Q_OS_WIN
                 value = value*182.0444444444444+0.5;
                 int a= value;
                 command[3] = a>>8;
                 command[4] = a;
                 sendCommand(&command[0]);
                 tabitem->setBackgroundColor(QColor(120,180,250));
+                setCursor(Qt::WaitCursor);
+                delay(1000);
+                setCursor(Qt::ArrowCursor);
+                ioUpdate();
+#endif
                 return;
             }
         }

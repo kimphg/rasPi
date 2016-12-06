@@ -13,12 +13,16 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    c_config.cpp \
+    tinyxml/tinyxml2.cpp
 
-HEADERS  += mainwindow.h
-HEADERS  += wiringSerial.h
+HEADERS  += mainwindow.h \
+    c_config.h \
+    tinyxml/tinyxml2.h
+unix:HEADERS  += wiringSerial.h
 FORMS    += mainwindow.ui
-
+INCLUDEPATH += $$PWD/tinyxml/
 unix:LIBS     += -lwiringPi
 
 RESOURCES += \

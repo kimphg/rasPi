@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <stdio.h>
 #include <QTimer>
+#include <c_config.h>
 namespace Ui {
 class MainWindow;
 }
@@ -80,12 +81,24 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_num_control_up_2_pressed();
+
+    void on_pushButton_commit_pressed();
+
+    void on_pushButton_load_config_table_pressed();
+
+//    void on_pushButton_sort_table_pressed();
+
+    void on_pushButton_commit_2_pressed();
+
+    void on_pushButton_sort_table_2_pressed();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);
     void inputText(QString text);
     void updateChanelInfo();
-    void sendCommand();
+    void sendCommand(unsigned char *command);
     int curChanelIndex ;
 
 };

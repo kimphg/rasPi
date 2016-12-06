@@ -15,6 +15,7 @@ struct txChanel
    double phase;
    double ampl;
 };
+CConfig config;
 unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
 txChanel chanelList[NUM_OF_CHANEL];
 QTimer *rxTimer;
@@ -26,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->frame_config_edit->setVisible(false);
     this->setPalette(MY_PATLETTE);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
@@ -116,7 +118,7 @@ void MainWindow::on_pushButton_pressed()
             int a = value*4 + 0.5;
             command[3] = a>>8;
             command[4] = a;
-            sendCommand();
+            sendCommand(&command[0]);
 
         }
 
@@ -137,7 +139,7 @@ void MainWindow::on_pushButton_pressed()
             int a= value;
             command[3] = a>>8;
             command[4] = a;
-            sendCommand();
+            sendCommand(&command[0]);
         }
 
 
@@ -160,7 +162,7 @@ void MainWindow::on_pushButton_pressed()
             command[4] = a>>16;
             command[5] = a>>8;
             command[6] = a;
-            sendCommand();
+            sendCommand(&command[0]);
         }
 
 
@@ -436,9 +438,9 @@ void MainWindow::on_pushButton_kenh_16_pressed()
     command[5] = 0;
     command[6] = 0;
     chanelList[curChanelIndex].isOn = true;
-    sendCommand();
+    sendCommand(&command[0]);
 }
-void MainWindow::sendCommand()
+void MainWindow::sendCommand(unsigned char* command)
 {
     ui->pushButton_num_control_ioupdate->setChecked(false);
     if(curChanelIndex>7)
@@ -472,7 +474,7 @@ void MainWindow::on_pushButton_kenh_17_pressed()
     command[5] = 0;
     command[6] = 0;
     chanelList[curChanelIndex].isOn = false;
-    sendCommand();
+    sendCommand(&command[0]);
 }
 
 
@@ -502,4 +504,98 @@ void MainWindow::on_pushButton_num_control_ioupdate_pressed()
 void MainWindow::on_pushButton_clicked()
 {
 
+}
+
+void MainWindow::on_pushButton_num_control_up_2_pressed()
+{
+    ui->lineEdit->clear();
+}
+
+void MainWindow::on_pushButton_commit_pressed()
+{
+    //=  ui->tableWidget->item(1,1);
+    config.clearItem();
+    for(int i=0;i<1000;i++)
+    {
+        //int selCol = itemList.at(0)->column();
+        phase_item item;
+        QTableWidgetItem *itab;
+        itab= ui->tableWidget->item(0,i);
+        if(itab)item.freg = itab->text().toDouble();
+        else continue;
+        if(item.freg==0)continue;
+        for(int row=1; row < 9;row++)
+        {
+            itab = ui->tableWidget->item(row,i);
+            if(itab)
+            {
+                item.phaseChanel[row-1] = itab->text().toDouble();
+            }
+            else
+            {
+                item.phaseChanel[row-1] = 0;
+            }
+        }
+        config.addItem(&item);
+    }
+    config.sortItems();
+    config.SaveToFile();
+        //printf("\n%f",itemList.at(0)->text().toDouble());
+}
+
+void MainWindow::on_pushButton_load_config_table_pressed()
+{
+    int curCol = 0;
+    for(int i=0;i<config.getItemListSize();i++)
+    {
+        phase_item item = config.getItem(i);
+        QTableWidgetItem *tabitem = new QTableWidgetItem;
+        tabitem->setText(QString::number(item.freg,'f'));
+        ui->tableWidget->setItem(0,curCol,tabitem);
+        for(int j=0;j<8;j++)
+        {
+            tabitem = new QTableWidgetItem;
+            tabitem->setText(QString::number(item.phaseChanel[j],'f',0));
+            ui->tableWidget->setItem(1+j,curCol,tabitem);
+        }
+        curCol++;
+    }
+}
+
+
+
+void MainWindow::on_pushButton_commit_2_pressed()
+{
+    if(ui->lineEdit_pass->text()=="cndt")ui->frame_config_edit->setVisible(true);
+}
+
+void MainWindow::on_pushButton_sort_table_2_pressed()
+{
+
+    QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
+    if(tabitem)
+    {
+
+
+        double frequency = ui->tableWidget->item(tabitem->column(),0)->text().toDouble();
+        if(frequency>0)
+        {
+            unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
+            command[1] = tabitem->row()-1;
+            command[2] = 0x01;
+            double value =  tabitem->text().toDouble();
+            if(value>=0&&value<360)
+            {
+                value = value*182.0444444444444+0.5;
+                int a= value;
+                command[3] = a>>8;
+                command[4] = a;
+                sendCommand(&command[0]);
+                tabitem->setBackgroundColor(QColor(120,180,250));
+                return;
+            }
+        }
+
+    }
+    tabitem->setBackgroundColor(QColor(250,120,20));
 }

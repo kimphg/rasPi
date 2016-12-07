@@ -95,6 +95,10 @@ private slots:
 
     void on_pushButton_num_control_ioupdate_2_pressed();
 
+    void on_pushButton_send_8bytes_pressed();
+
+    void on_pushButton_set_all_freq_pressed();
+
 private:
     Ui::MainWindow *ui;
     void selectChanel(unsigned char chanelNum);
@@ -103,6 +107,8 @@ private:
     void sendCommand(unsigned char *command, short chanel);
     int curChanelIndex ;
 
+    bool setfreq(double value, int chanel);
+    bool setPhase(double value, int chanel);
 };
 
 #endif // MAINWINDOW_H

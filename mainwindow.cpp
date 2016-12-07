@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if ((fd = serialOpen ("/dev/ttyS0", 9600)) < 0)
     {
         //printf(ui->lineEdit->text().toStdString().data());
-        fflush (stdout) ;
+        //fflush (stdout) ;
         ui->lineEdit->setText("Not connected") ;
         return ;
     }
@@ -74,6 +74,7 @@ void MainWindow::ioUpdate()
     }
 
 }
+
 void MainWindow::onRecvUART()
 {
     QByteArray rd;
@@ -86,7 +87,18 @@ void MainWindow::onRecvUART()
 
     }
 #endif
-    if(rd.size())ui->textEdit_data_log->append(rd.toHex());
+    if(rd.size())
+    {
+        if(rd.size()>2)
+        {
+            if(rd.at(rd.size()-2)==0xff)
+            {
+                double temp = rd.at(rd.size()-1)/4.0;
+                ui->label_temp->setText(QString::number(temp));
+            }
+        }
+        ui->textEdit_data_log->append(rd.toHex());
+    }
     //fflush(stdout);
     //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
     //ui->lineEdit->
@@ -94,15 +106,6 @@ void MainWindow::onRecvUART()
 }
 void MainWindow::on_pushButton_pressed()
 {
-//    serialPutchar (fd, 60) ;
-
-//    QByteArray dataFrame = QByteArray::fromHex(QByteArray(ui->lineEdit->text().toStdString().c_str()));
-//    for(short i=0;i<dataFrame.size();i++)
-//    {
-//        serialPutchar (fd, dataFrame.at(i)) ;
-
-//    }
-
     if(ui->pushButton_num_control_amp->isChecked())
     {
         command[2] = 0x02;
@@ -125,47 +128,16 @@ void MainWindow::on_pushButton_pressed()
     }
     else if(ui->pushButton_num_control_phase->isChecked())
     {
-        command[2] = 0x01;
+
         double value =  (ui->lineEdit->text().toDouble());
-        if(value<0||value>360)
-        {
-            ui->pushButton->setText("Over Flow");
-        }
-        else
-        {
-            ui->pushButton->setText("Send");
-            chanelList[curChanelIndex].phase = value;
-            value = value*182.0444444444444+0.5;
-            int a= value;
-            command[3] = a>>8;
-            command[4] = a;
-            sendCommand(&command[0],curChanelIndex);
-        }
-
-
+        double phaseComp= config.getValue(chanelList[curChanelIndex].freq,curChanelIndex);
+        if (phaseComp>0)value+=phaseComp;
+        setPhase(value,curChanelIndex);
     }
     else if(ui->pushButton_num_control_afreq->isChecked())
     {
-        command[2] = 0x00;
         double value =  (ui->lineEdit->text().toDouble());
-        if(value<10||value>700)
-        {
-            ui->pushButton->setText("Over Flow");
-        }
-        else
-        {
-            ui->pushButton->setText("Send");
-            chanelList[curChanelIndex].freq = value;
-            value = value*1720740.1+0.5;
-            int a = int(value);
-            command[3] = a>>24;
-            command[4] = a>>16;
-            command[5] = a>>8;
-            command[6] = a;
-            sendCommand(&command[0],curChanelIndex);
-        }
-
-
+        setfreq(value,curChanelIndex);
     }
 
 //    while (true)
@@ -442,34 +414,33 @@ void MainWindow::on_pushButton_kenh_16_pressed()
 }
 void MainWindow::sendCommand(unsigned char* command,short chanel)
 {
-    ui->pushButton_num_control_ioupdate->setChecked(false);
-    if(chanel==8)
+    //ui->pushButton_num_control_ioupdate->setChecked(false);
+    if(chanel<0||chanel>8)
+    {
+        printf("\nWrong chanel");
+        return;
+    }
+    else if(chanel==8)
     {
 
         command[1] = 0x0c;
-        for(int i=0;i<COMMAND_LEN;i++)
-        {
-            #ifndef Q_OS_WIN
-            serialPutchar (fd, command[i]) ;
-            #endif
-        }
 
     }
     else
     {
         command[1] = chanel;
-        for(int i=0;i<COMMAND_LEN;i++)
-        {
-            #ifndef Q_OS_WIN
-            serialPutchar (fd, command[i]) ;
-            #endif
-        }
-    }
 
+    }
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+        #ifndef Q_OS_WIN
+        serialPutchar (fd, command[i]) ;
+        #endif
+    }
     //delay(1);
     //onRecvUART();
     updateChanelInfo();
-    QApplication::beep();
+    //QApplication::beep();
 }
 void MainWindow::on_pushButton_kenh_17_pressed()
 {
@@ -586,35 +557,22 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
         //double frequency = ui->tableWidget->item(0,tabitem->column())->text().toDouble();
         if(true)
         {
-            unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
+            //unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
             int chanel = tabitem->row()-1;
-            command[2] = 0x01;
+            //command[2] = 0x01;
             double value =  tabitem->text().toDouble();
             if(value>=0&&value<360)
             {
-#ifndef Q_OS_WIN
+                ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[8].freq));
                 setCursor(Qt::WaitCursor);
-                value = value*182.0444444444444+0.5;
-                int a= value;
-                command[3] = a>>8;
-                command[4] = a;
-                sendCommand(&command[0],chanel);
-                //
-//                delay(100);
-//                command[2] = 0x00;
-//                value =  frequency;
-//                value = value*1720740.1+0.5;
-//                a = int(value);
-//                command[3] = a>>24;
-//                command[4] = a>>16;
-//                command[5] = a>>8;
-//                command[6] = a;
-//                sendCommand(&command[0],chanel);
-                delay(500);
+                setPhase(value,chanel);
+                #ifndef Q_OS_WIN
+                delay(1000);
+                #endif
                 ioUpdate();
                 setCursor(Qt::ArrowCursor);
                 tabitem->setBackgroundColor(QColor(120,180,250));
-#endif
+
                 return;
             }
         }
@@ -637,4 +595,73 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
         serialPutchar (fd, command[i]) ;
 #endif
     }
+}
+
+void MainWindow::on_pushButton_send_8bytes_pressed()
+{
+    unsigned char command[8];
+    command[0] = ui->lineEdit_cmd_byte_1->text().toInt();
+    command[1] = ui->lineEdit_cmd_byte_2->text().toInt();
+    command[2] = ui->lineEdit_cmd_byte_3->text().toInt();
+    command[3] = ui->lineEdit_cmd_byte_4->text().toInt();
+    command[4] = ui->lineEdit_cmd_byte_5->text().toInt();
+    command[5] = ui->lineEdit_cmd_byte_6->text().toInt();
+    command[6] = ui->lineEdit_cmd_byte_7->text().toInt();
+    command[7] = ui->lineEdit_cmd_byte_8->text().toInt();
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+#ifndef Q_OS_WIN
+        serialPutchar (fd, command[i]) ;
+#endif
+    }
+}
+bool MainWindow::setPhase(double value, int chanel)
+{
+    command[2] = 0x01;
+    if(value<0)value+=360;
+    if(value>=360)value-=360;
+    if(value<0||value>360)
+    {
+        printf("Over Flow");
+        return false;
+    }
+    else
+    {
+        chanelList[chanel].phase = value;
+        value = value*182.0444444444444+0.5;
+        int a= value;
+        command[3] = a>>8;
+        command[4] = a;
+        sendCommand(&command[0],chanel);
+        return true;
+    }
+}
+bool MainWindow::setfreq(double value,int chanel)
+{
+
+    command[2] = 0x00;
+    if(value<10||value>700)
+    {
+        printf("\nOver flow, freq = %f",value);
+        return false;
+    }
+    else
+    {
+        chanelList[chanel].freq = value;
+        value = value*1720740.1+0.5;
+        int a = int(value);
+        command[3] = a>>24;
+        command[4] = a>>16;
+        command[5] = a>>8;
+        command[6] = a;
+        sendCommand(&command[0],chanel);
+        return true;
+
+    }
+}
+void MainWindow::on_pushButton_set_all_freq_pressed()
+{
+    double value = ui->lineEdit_pass_freq_set_all->text().toDouble();
+    setfreq(value,8);
+
 }

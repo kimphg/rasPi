@@ -38,6 +38,7 @@ public:
     int getItemListSize();
     void sortItems();
     void clearItem();
+    double getValue(double freq, int chanel);
 private:
     QList <phase_item> itemList;
 };

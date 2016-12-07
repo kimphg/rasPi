@@ -22,6 +22,23 @@ void CConfig::clearItem()
     itemList.clear();
 
 }
+double CConfig::getValue(double freq, int chanel)
+{
+    for(int i=0;i<itemList.size()-1;i++)
+    {
+        if(itemList.at(i).freg<freq)
+        {
+            if(itemList.at(i).freg>itemList.at(i+1).freg)this->sortItems();
+
+            double k = (freq - itemList.at(i).freg)/(itemList.at(i+1).freg-itemList.at(i).freg);
+            double phase = itemList.at(i).phaseChanel[chanel]
+                    +k*(itemList.at(i+1).phaseChanel[chanel]-itemList.at(i).phaseChanel[chanel]);
+            return phase;
+
+        }
+    }
+    return -1;
+}
 phase_item CConfig::getItem(int index) const
 {
     return itemList.at(index);

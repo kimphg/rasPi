@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QKeyEvent>
 #include <QStatusBar>
 #ifndef Q_OS_WIN
 #include "wiringPi.h"
@@ -118,35 +119,47 @@ void MainWindow::showStatus(QString str)
 {
     statusBar()->showMessage(str,5000);
 }
-void MainWindow::on_pushButton_pressed()
-{
-    if(ui->pushButton_num_control_amp->isChecked())
+void MainWindow::setAmp(double value,int chanel){
+
+    if(value<10||value>70)
     {
-        command[2] = 0x02;
-        double value =  (ui->lineEdit->text().toDouble());
-        if(value<10||value>70)
+        showStatus("Wrong value, amplitude should be from -10 to -70 dBm");
+    }
+    else
+    {
+        if(chanel>7)
         {
-
-            showStatus("Wrong value, amplitude should be from -10 to -70 dBm");
-
+            chanelList[curChanelIndex].ampl = value;
+            for(int i = 0;i<8;i++)
+            {
+                setAmp(value,i);
+            }
         }
         else
         {
-
             chanelList[curChanelIndex].ampl = value;
+            command[2] = 0x02;
             int a = value*4 + 0.5;
             command[3] = a>>8;
             command[4] = a;
             sendCommand(&command[0],curChanelIndex);
-
         }
+    }
+
+}
+void MainWindow::on_pushButton_pressed()
+{
+    if(ui->pushButton_num_control_amp->isChecked())
+    {
+
+        double value =  (ui->lineEdit->text().toDouble());
+        setAmp(value,curChanelIndex);
 
     }
     else if(ui->pushButton_num_control_phase->isChecked())
     {
 
         double value =  (ui->lineEdit->text().toDouble());
-
         setPhaseComp(value,curChanelIndex);
 
     }
@@ -182,59 +195,70 @@ void MainWindow::inputText(QString text)
 }
 void MainWindow::on_pushButton_num_1_pressed()
 {
-    inputText("1");
+    //inputText("1");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_1,Qt::NoModifier,"1");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_2_pressed()
 {
-    inputText("2");
+    //inputText("2");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_2,Qt::NoModifier,"2");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_3_pressed()
 {
-    inputText("3");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_3,Qt::NoModifier,"3");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_4_pressed()
 {
-    inputText("4");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_4,Qt::NoModifier,"4");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_5_pressed()
 {
-    inputText("5");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_5,Qt::NoModifier,"5");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_6_pressed()
 {
-    inputText("6");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_6,Qt::NoModifier,"6");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_7_pressed()
 {
-    inputText("7");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_7,Qt::NoModifier,"7");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_8_pressed()
 {
-    inputText("8");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_8,Qt::NoModifier,"8");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_9_pressed()
 {
-    inputText("9");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_9,Qt::NoModifier,"9");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_0_pressed()
 {
-     inputText("0");
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_0,Qt::NoModifier,"0");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::on_pushButton_num_back_pressed()
 {
-    QString str = ui->lineEdit->text();
-    str.chop(1);
-    ui->lineEdit->setText(str);
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Backspace,Qt::NoModifier);
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
 void MainWindow::selectChanel(unsigned char chanelNum)
@@ -411,7 +435,17 @@ void MainWindow::on_pushButton_kenh_9_pressed()
 
 void MainWindow::on_pushButton_num_10_pressed()
 {
-    inputText(".");
+
+    QStringList strlist = ui->lineEdit->text().split('.');
+    if(strlist.length()>1)
+    {
+        return;
+    }
+    else
+    {
+        QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Period,Qt::NoModifier,".");
+        qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
+    }
 }
 
 void MainWindow::on_pushButton_kenh_16_pressed()
@@ -575,7 +609,6 @@ void MainWindow::on_pushButton_sort_table_2_pressed()//test button
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
     if(tabitem->row()>0)
     {
-
         //double frequency = ui->tableWidget->item(0,tabitem->column())->text().toDouble();
         if(true)
         {
@@ -585,16 +618,13 @@ void MainWindow::on_pushButton_sort_table_2_pressed()//test button
             double value =  tabitem->text().toDouble();
             if(value>=0&&value<360)
             {
-                ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[8].freq));
+                ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[0].freq));
                 setCursor(Qt::WaitCursor);
                 setPhaseTrue(value,chanel);
-                #ifndef Q_OS_WIN
-                delay(1000);
-                #endif
+                delayms(1000);
                 ioUpdate();
                 setCursor(Qt::ArrowCursor);
                 tabitem->setBackgroundColor(QColor(120,180,250));
-
                 return;
             }
         }
@@ -669,7 +699,7 @@ void MainWindow::setPhaseComp(double value, int chanel)
     chanelList[chanel].phase = value;
     if(chanel>7)
     {
-
+        chanelList[chanel].phase = value;
         for(int i = 0;i<8;i++)
         {
             showStatus("Sending all chanel, please wait..."+QString::number((8-i)/2.0));
@@ -683,6 +713,7 @@ void MainWindow::setPhaseComp(double value, int chanel)
     }
     else
     {
+        chanelList[chanel].phase = value;
         double phaseComp= config.getValue(chanelList[curChanelIndex].freq,curChanelIndex);
         setPhaseTrue(value+phaseComp,chanel);
     }
@@ -700,7 +731,6 @@ bool MainWindow::setPhaseTrue(double value, int chanel)
     }
     else
     {
-        
         value = value*182.0444444444444+0.5;
         int a= value;
         command[3] = a>>8;
@@ -709,6 +739,12 @@ bool MainWindow::setPhaseTrue(double value, int chanel)
         return true;
     }
 }
+void MainWindow::delayms(int msec)
+{
+#ifndef Q_OS_WIN
+    delay (msec) ;
+#endif
+}
 bool MainWindow::setfreq(double value,int chanel)
 {
     if(chanel>7)
@@ -716,10 +752,11 @@ bool MainWindow::setfreq(double value,int chanel)
         for(int i=0; i<8;i++)
         {
             setfreq(value,i);
-            delay(500);
+            delayms (500) ;
         }
-        delay(500);
+        delayms (500) ;
         ioUpdate();
+        return true;
     }
     else
     {
@@ -728,7 +765,6 @@ bool MainWindow::setfreq(double value,int chanel)
         if(value<10||value>700)
         {
             showStatus("Wrong value, frequency should be from 10 to 700Mhz");
-            return false;
         }
         else
         {
@@ -743,10 +779,32 @@ bool MainWindow::setfreq(double value,int chanel)
             return true;
         }
     }
+    return false;
 }
 void MainWindow::on_pushButton_set_all_freq_pressed()
 {
     double value = ui->lineEdit_pass_freq_set_all->text().toDouble();
     setfreq(value,8);
 
+}
+
+void MainWindow::on_pushButton_num_control_up_pressed()
+{
+    ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()+1));
+}
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+    ui->lineEdit->setFocus();
+
+}
+
+void MainWindow::on_pushButton_num_control_down_2_pressed()
+{
+    ui->lineEdit->cursorBackward(false);
+}
+
+void MainWindow::on_pushButton_num_control_down_3_pressed()
+{
+    ui->lineEdit->cursorForward(false);
 }

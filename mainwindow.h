@@ -99,8 +99,16 @@ private slots:
 
     void on_pushButton_set_all_freq_pressed();
 
+    void on_pushButton_num_control_up_pressed();
+    void on_pushButton_num_control_down_2_pressed();
+
+    void on_pushButton_num_control_down_3_pressed();
+
+protected:
+    void paintEvent(QPaintEvent *event);
 private:
     Ui::MainWindow *ui;
+
     void selectChanel(unsigned char chanelNum);
     void inputText(QString text);
     void updateChanelInfo();
@@ -112,6 +120,8 @@ private:
     void loadConfigTable();
     void showStatus(QString str);
     void setPhaseComp(double value, int chanel);
+    void delayms(int msec);
+    void setAmp(double value, int chanel);
 };
 
 #endif // MAINWINDOW_H

@@ -108,9 +108,10 @@ private:
     int curChanelIndex ;
 
     bool setfreq(double value, int chanel);
-    bool setPhase(double value, int chanel);
+    bool setPhaseTrue(double value, int chanel);
     void loadConfigTable();
     void showStatus(QString str);
+    void setPhaseComp(double value, int chanel);
 };
 
 #endif // MAINWINDOW_H

@@ -146,9 +146,9 @@ void MainWindow::on_pushButton_pressed()
     {
 
         double value =  (ui->lineEdit->text().toDouble());
-        double phaseComp= config.getValue(chanelList[curChanelIndex].freq,curChanelIndex);
-        if (phaseComp>0)value+=phaseComp;
-        setPhase(value,curChanelIndex);
+
+        setPhaseComp(value,curChanelIndex);
+
     }
     else if(ui->pushButton_num_control_afreq->isChecked())
     {
@@ -569,7 +569,7 @@ void MainWindow::on_pushButton_commit_2_pressed()
     /*if(ui->lineEdit_pass->text()=="cndt")*/ui->frame_config_edit->setVisible(true);
 }
 
-void MainWindow::on_pushButton_sort_table_2_pressed()
+void MainWindow::on_pushButton_sort_table_2_pressed()//test button
 {
 
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
@@ -587,7 +587,7 @@ void MainWindow::on_pushButton_sort_table_2_pressed()
             {
                 ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[8].freq));
                 setCursor(Qt::WaitCursor);
-                setPhase(value,chanel);
+                setPhaseTrue(value,chanel);
                 #ifndef Q_OS_WIN
                 delay(1000);
                 #endif
@@ -621,9 +621,12 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
     ui->tabWidget->hide();
     showStatus("Device restarting");
     update();
+    repaint();
 #ifndef Q_OS_WIN
-    delay(3000);
+    delay(1000);
     serialFlush(fd);
+    update();
+    repaint();
 #endif
     int k=0;
     while (true)
@@ -661,7 +664,31 @@ void MainWindow::on_pushButton_send_8bytes_pressed()
 #endif
     }
 }
-bool MainWindow::setPhase(double value, int chanel)
+void MainWindow::setPhaseComp(double value, int chanel)
+{
+
+    if(chanel>7)
+    {
+
+        for(int i = 0;i<8;i++)
+        {
+            showStatus("Sending all chanel, please wait..."+QString::number((8-i)/2.0));
+            setPhaseComp(value,i);
+            update();
+            repaint();
+            #ifndef Q_OS_WIN
+                delay (500) ;
+            #endif
+        }
+    }
+    else
+    {
+        double phaseComp= config.getValue(chanelList[curChanelIndex].freq,curChanelIndex);
+        setPhaseTrue(value+phaseComp,chanel);
+    }
+
+}
+bool MainWindow::setPhaseTrue(double value, int chanel)
 {
     command[2] = 0x01;
     if(value<0)value+=360;

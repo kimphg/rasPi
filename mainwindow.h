@@ -109,6 +109,7 @@ private:
 
     bool setfreq(double value, int chanel);
     bool setPhase(double value, int chanel);
+    void loadConfigTable();
 };
 
 #endif // MAINWINDOW_H

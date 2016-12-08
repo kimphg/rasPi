@@ -420,7 +420,7 @@ void MainWindow::on_pushButton_kenh_16_pressed()
     command[1] = 0xAA;
     else
         command[1] = curChanelIndex;
-    command[2] = 4;
+    command[2] = 3;
     command[3] = 0;
     command[4] = 0;
     command[5] = 0;
@@ -465,7 +465,7 @@ void MainWindow::on_pushButton_kenh_17_pressed()
 {
     if(curChanelIndex>7)
     curChanelIndex = 8;
-    command[2] = 5;
+    command[2] = 4;
     command[3] = 0;
     command[4] = 0;
     command[5] = 0;
@@ -666,7 +666,7 @@ void MainWindow::on_pushButton_send_8bytes_pressed()
 }
 void MainWindow::setPhaseComp(double value, int chanel)
 {
-
+    chanelList[chanel].phase = value;
     if(chanel>7)
     {
 
@@ -700,7 +700,7 @@ bool MainWindow::setPhaseTrue(double value, int chanel)
     }
     else
     {
-        chanelList[chanel].phase = value;
+        
         value = value*182.0444444444444+0.5;
         int a= value;
         command[3] = a>>8;
@@ -711,24 +711,37 @@ bool MainWindow::setPhaseTrue(double value, int chanel)
 }
 bool MainWindow::setfreq(double value,int chanel)
 {
-
-    command[2] = 0x00;
-    if(value<10||value>700)
+    if(chanel>7)
     {
-        showStatus("Wrong value, frequency should be from 10 to 700Mhz");
-        return false;
+        for(int i=0; i<8;i++)
+        {
+            setfreq(value,i);
+            delay(500);
+        }
+        delay(500);
+        ioUpdate();
     }
     else
     {
-        chanelList[chanel].freq = value;
-        value = value*1720740.1+0.5;
-        int a = int(value);
-        command[3] = a>>24;
-        command[4] = a>>16;
-        command[5] = a>>8;
-        command[6] = a;
-        sendCommand(&command[0],chanel);
-        return true;
+        command[1] = chanel;
+        command[2] = 0x00;
+        if(value<10||value>700)
+        {
+            showStatus("Wrong value, frequency should be from 10 to 700Mhz");
+            return false;
+        }
+        else
+        {
+            chanelList[chanel].freq = value;
+            value = value*1720740.1+0.5;
+            int a = int(value);
+            command[3] = a>>24;
+            command[4] = a>>16;
+            command[5] = a>>8;
+            command[6] = a;
+            sendCommand(&command[0],chanel);
+            return true;
+        }
     }
 }
 void MainWindow::on_pushButton_set_all_freq_pressed()

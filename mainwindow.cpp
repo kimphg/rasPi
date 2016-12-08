@@ -457,7 +457,7 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
 
     //delay(1);
     //onRecvUART();
-    showStatus("Device  not ready");
+    //showStatus("Device  not ready");
     updateChanelInfo();
     //QApplication::beep();
 }

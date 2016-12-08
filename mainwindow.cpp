@@ -6,7 +6,8 @@
 #include "wiringPi.h"
 #include "wiringSerial.h"
 #endif
-#define MY_PATLETTE QColor(40,100,150)
+#define MY_PATLETTE_WAITING QColor(40,100,150)
+#define MY_PATLETTE_NORMAL QColor(40,100,150)
 #define MY_PATLETTE_HL QColor(255,150,30)
 #define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame_config_edit->setVisible(false);
-    this->setPalette(MY_PATLETTE);
+    this->setPalette(MY_PATLETTE_NORMAL);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
     rxTimer->start(20);
@@ -78,7 +79,7 @@ void MainWindow::ioUpdate()
 
 }
 
-void MainWindow::onRecvUART()
+int MainWindow::onRecvUART()
 {
     QByteArray rd;
 #ifndef Q_OS_WIN
@@ -101,11 +102,21 @@ void MainWindow::onRecvUART()
             }
         }
         ui->textEdit_data_log->append(rd.toHex());
+        return rd.size();
     }
+    else
+    {
+        return 0;
+    }
+    showStatus("Device ready");
     //fflush(stdout);
     //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
     //ui->lineEdit->
 
+}
+void MainWindow::showStatus(QString str)
+{
+    statusBar()->showMessage(str,5000);
 }
 void MainWindow::on_pushButton_pressed()
 {
@@ -116,11 +127,12 @@ void MainWindow::on_pushButton_pressed()
         if(value<10||value>70)
         {
 
-            statusBar()->showMessage(tr("Wrong value, amplitude should be from -10 to -70dBm"));
+            showStatus("Wrong value, amplitude should be from -10 to -70 dBm");
+
         }
         else
         {
-            ui->pushButton->setText("Send");
+
             chanelList[curChanelIndex].ampl = value;
             int a = value*4 + 0.5;
             command[3] = a>>8;
@@ -298,39 +310,39 @@ void MainWindow::updateChanelInfo()
         ui->label_chanel_stat->setText("Off");
         switch (curChanelIndex) {
         case 0:
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 1:
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 2:
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 3:
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 4:
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 5:
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 6:
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 7:
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
             break;
         case 8:
-            ui->pushButton_kenh_9->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE);
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE);
+            ui->pushButton_kenh_9->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
+            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
             break;
         default:
             break;
@@ -421,7 +433,8 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
     //ui->pushButton_num_control_ioupdate->setChecked(false);
     if(chanel<0||chanel>8)
     {
-        printf("\nWrong chanel");
+        showStatus("Wrong chanel");
+
         return;
     }
     else if(chanel==8)
@@ -441,8 +454,10 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
         serialPutchar (fd, command[i]) ;
         #endif
     }
+
     //delay(1);
     //onRecvUART();
+    showStatus("Device  not ready");
     updateChanelInfo();
     //QApplication::beep();
 }
@@ -536,12 +551,12 @@ void MainWindow::loadConfigTable()
     {
         phase_item item = config.getItem(i);
         QTableWidgetItem *tabitem = new QTableWidgetItem;
-        tabitem->setText(QString::number(item.freg,'f'));
+        tabitem->setText(QString::number(item.freg));
         ui->tableWidget->setItem(0,curCol,tabitem);
         for(int j=0;j<8;j++)
         {
             tabitem = new QTableWidgetItem;
-            tabitem->setText(QString::number(item.phaseChanel[j],'f',0));
+            tabitem->setText(QString::number(item.phaseChanel[j]));
             ui->tableWidget->setItem(1+j,curCol,tabitem);
         }
         curCol++;
@@ -551,7 +566,7 @@ void MainWindow::loadConfigTable()
 
 void MainWindow::on_pushButton_commit_2_pressed()
 {
-    if(ui->lineEdit_pass->text()=="cndt")ui->frame_config_edit->setVisible(true);
+    /*if(ui->lineEdit_pass->text()=="cndt")*/ui->frame_config_edit->setVisible(true);
 }
 
 void MainWindow::on_pushButton_sort_table_2_pressed()
@@ -602,6 +617,30 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
         serialPutchar (fd, command[i]) ;
 #endif
     }
+    this->setPalette(QPalette(MY_PATLETTE_WAITING));
+    ui->tabWidget->hide();
+    showStatus("Device restarting");
+    update();
+#ifndef Q_OS_WIN
+    delay(3000);
+    serialFlush(fd);
+#endif
+    int k=0;
+    while (true)
+    {
+        if(onRecvUART()>7)break;
+        #ifndef Q_OS_WIN
+            delay(500);
+        #endif
+        k++;
+        if(k>40)
+        {
+            showStatus("Device not ready");
+            break;
+        }
+    }
+    ui->tabWidget->show();
+    this->setPalette(QPalette(MY_PATLETTE_NORMAL));
 }
 
 void MainWindow::on_pushButton_send_8bytes_pressed()
@@ -629,7 +668,7 @@ bool MainWindow::setPhase(double value, int chanel)
     if(value>=360)value-=360;
     if(value<0||value>360)
     {
-        statusBar()->showMessage(tr("Wrong value, chanel phase should be from 0 to 360 degrees"));
+        showStatus("Wrong value, chanel phase should be from 0 to 360 degrees");
         return false;
     }
     else
@@ -649,7 +688,7 @@ bool MainWindow::setfreq(double value,int chanel)
     command[2] = 0x00;
     if(value<10||value>700)
     {
-        statusBar()->showMessage(tr("Wrong value, frequency should be from 10 to 700Mhz"));
+        showStatus("Wrong value, frequency should be from 10 to 700Mhz");
         return false;
     }
     else

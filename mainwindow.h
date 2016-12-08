@@ -22,7 +22,7 @@ private slots:
 
     void on_pushButton_kenh_1_pressed();
 
-    void onRecvUART();
+    int onRecvUART();
     //void on_pushButton_num_11_pressed();
 
     void on_pushButton_num_1_pressed();
@@ -110,6 +110,7 @@ private:
     bool setfreq(double value, int chanel);
     bool setPhase(double value, int chanel);
     void loadConfigTable();
+    void showStatus(QString str);
 };
 
 #endif // MAINWINDOW_H

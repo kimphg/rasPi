@@ -115,7 +115,8 @@ void MainWindow::on_pushButton_pressed()
         double value =  (ui->lineEdit->text().toDouble());
         if(value<10||value>70)
         {
-            ui->pushButton->setText("Over Flow");
+
+            statusBar()->showMessage(tr("Wrong value, amplitude should be from -10 to -70dBm"));
         }
         else
         {
@@ -628,7 +629,7 @@ bool MainWindow::setPhase(double value, int chanel)
     if(value>=360)value-=360;
     if(value<0||value>360)
     {
-        printf("Over Flow");
+        statusBar()->showMessage(tr("Wrong value, chanel phase should be from 0 to 360 degrees"));
         return false;
     }
     else
@@ -648,9 +649,7 @@ bool MainWindow::setfreq(double value,int chanel)
     command[2] = 0x00;
     if(value<10||value>700)
     {
-        printf("\nOver flow, freq = %f",value);
-        statusBar()->showMessage(tr("Frequency over flow"));
-
+        statusBar()->showMessage(tr("Wrong value, frequency should be from 10 to 700Mhz"));
         return false;
     }
     else
@@ -664,7 +663,6 @@ bool MainWindow::setfreq(double value,int chanel)
         command[6] = a;
         sendCommand(&command[0],chanel);
         return true;
-
     }
 }
 void MainWindow::on_pushButton_set_all_freq_pressed()

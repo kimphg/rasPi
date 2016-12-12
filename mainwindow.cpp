@@ -786,7 +786,7 @@ bool MainWindow::setfreq(double value,int chanel)
             delayms (500) ;
         }
         delayms (500) ;
-        //ioUpdate();
+        ioUpdate();
         return true;
     }
     else

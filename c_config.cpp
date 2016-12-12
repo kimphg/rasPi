@@ -112,9 +112,10 @@ void CConfig::setDefault()
 bool CConfig::LoadFromFile()
 {
     tinyxml2::XMLDocument xmlDoc;
-    if(xmlDoc.LoadFile(CFG_FILE_NAME)==0)
+    if(true)
     {
         //TiXmlHandle hDoc(&doc);
+        xmlDoc.LoadFile(CFG_FILE_NAME);
         tinyxml2::XMLElement  *pParm;
 
         pParm = xmlDoc.FirstChildElement("phase_config");
@@ -143,12 +144,7 @@ bool CConfig::LoadFromFile()
 //        if(pName)mapFilename.append(pName);
         return true;
     }
-    else
-    {
-        printf("Could not load config file.");
-        //setDefault();
-        return false;
-    }
+
     /*
     QFile file(CFG_FILE);
     if(!file.open(QIODevice::ReadOnly))

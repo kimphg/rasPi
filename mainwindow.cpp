@@ -556,7 +556,7 @@ void MainWindow::on_pushButton_kenh_17_pressed()
 
 void MainWindow::on_pushButton_num_control_amp_pressed()
 {
-    ui->label_unit->setText("(-1)dBm");
+    ui->label_unit->setText("dBm");
 }
 
 

@@ -481,7 +481,7 @@ void MainWindow::txOff(int chanel)
     {
         for(int i=0; i<8;i++)
         {
-            txOn(i);
+            txOff(i);
             delayms (500) ;
         }
         delayms (500) ;

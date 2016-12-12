@@ -23,7 +23,7 @@ CConfig config;
 unsigned char command[COMMAND_LEN] = {0xff,0x00,0x00,0x00,0x00,0x00,0x00,0xff };
 txChanel chanelList[NUM_OF_CHANEL];
 QTimer *rxTimer;
-//QTimer *IOupdateTimer;
+QTimer *updateTimer;
 int fd;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,9 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
     rxTimer->start(20);
-    //IOupdateTimer =  new QTimer(this);
-    //connect(IOupdateTimer, SIGNAL(timeout()), this, SLOT(ioUpdate()));
-    //IOupdateTimer->start(20000);
+    updateTimer =  new QTimer(this);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateTemp()));
+    updateTimer->start(10000);
     curChanelIndex = 0;
     updateChanelInfo();
     loadConfigTable();
@@ -538,6 +538,15 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
     updateChanelInfo();
     //QApplication::beep();
 }
+void MainWindow::sendCommand(unsigned char*command)
+{
+    for(int i=0;i<COMMAND_LEN;i++)
+    {
+        #ifndef Q_OS_WIN
+        serialPutchar (fd, command[i]) ;
+        #endif
+    }
+}
 void MainWindow::on_pushButton_kenh_17_pressed()
 {
     txOff( curChanelIndex);
@@ -651,7 +660,7 @@ void MainWindow::on_pushButton_sort_table_2_pressed()//test button
             int chanel = tabitem->row()-1;
             //command[2] = 0x01;
             double value =  tabitem->text().toDouble();
-            if(value>=0&&value<360)
+            if(value>=-360&&value<360)
             {
                 ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[0].freq));
                 setCursor(Qt::WaitCursor);
@@ -838,4 +847,20 @@ void MainWindow::on_pushButton_num_control_down_2_pressed()
 void MainWindow::on_pushButton_num_control_down_3_pressed()
 {
     ui->lineEdit->cursorForward(false);
+}
+
+void MainWindow::on_pushButton_num_control_down_pressed()
+{
+    ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()-1));
+
+}
+void MainWindow::updateTemp()
+{
+    command[1] = 0xff;
+    command[2] = 0xff;
+    command[3] = 0xff;
+    command[4] = 0xff;
+    command[5] = 0xff;
+    command[6] = 0xff;
+    sendCommand(&command[0]);
 }

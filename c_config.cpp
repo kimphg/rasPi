@@ -26,7 +26,7 @@ double CConfig::getValue(double freq, int chanel)
 {
     for(int i=0;i<itemList.size()-1;i++)
     {
-        if(itemList.at(i).freg<freq)
+        if(itemList.at(i).freg<=freq)
         {
             if(itemList.at(i).freg>itemList.at(i+1).freg)this->sortItems();
 

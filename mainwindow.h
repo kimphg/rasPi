@@ -19,7 +19,7 @@ public:
 
 private slots:
     void on_pushButton_pressed();
-
+    void updateTemp();
     void on_pushButton_kenh_1_pressed();
 
     int onRecvUART();
@@ -104,6 +104,8 @@ private slots:
 
     void on_pushButton_num_control_down_3_pressed();
 
+    void on_pushButton_num_control_down_pressed();
+
 protected:
     void paintEvent(QPaintEvent *event);
 private:
@@ -124,6 +126,8 @@ private:
     void setAmp(double value, int chanel);
     void txOn(int chanel);
     void txOff(int chanel);
+
+    void sendCommand(unsigned char *command);
 };
 
 #endif // MAINWINDOW_H

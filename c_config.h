@@ -5,7 +5,7 @@
 #define SCALE_MAX 80
 #define SCALE_MIN 5
 
-#define CFG_FILE_NAME    "phase_config.xml"
+#define CFG_FILE_NAME    "/home/pi/phase_config.xml"
 #define DEFAULT_LAT		20.707f
 #define DEFAULT_LONG	106.78f
 #define LAT_MIN			5

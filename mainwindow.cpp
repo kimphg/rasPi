@@ -133,7 +133,9 @@ void MainWindow::setAmp(double value,int chanel){
             for(int i = 0;i<8;i++)
             {
                 setAmp(value,i);
+                delayms (500) ;
             }
+            delayms(500);
         }
         else
         {
@@ -704,11 +706,7 @@ void MainWindow::setPhaseComp(double value, int chanel)
         {
             showStatus("Sending all chanel, please wait..."+QString::number((8-i)/2.0));
             setPhaseComp(value,i);
-            update();
-            repaint();
-            #ifndef Q_OS_WIN
-                delay (500) ;
-            #endif
+            delayms(500);
         }
     }
     else
@@ -795,7 +793,7 @@ void MainWindow::on_pushButton_num_control_up_pressed()
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    ui->lineEdit->setFocus();
+    if((QApplication::mouseButtons()==(Qt::NoButton))&&(ui->tabWidget->currentIndex()==0))ui->lineEdit->setFocus();
 
 }
 

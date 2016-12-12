@@ -141,6 +141,7 @@ void MainWindow::setAmp(double value,int chanel){
         {
             chanelList[curChanelIndex].ampl = value;
             command[2] = 0x02;
+            value = value+2*(700.0-chanelList[curChanelIndex].freq)/690.0;
             int a = value*4 + 0.5;
             command[3] = a>>8;
             command[4] = a;

@@ -449,20 +449,61 @@ void MainWindow::on_pushButton_num_10_pressed()
         qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
     }
 }
-
-void MainWindow::on_pushButton_kenh_16_pressed()
+void MainWindow::txOn(int chanel)
 {
     if(curChanelIndex>7)
-    command[1] = 0xAA;
+    {
+        for(int i=0; i<8;i++)
+        {
+            txOn(i);
+            delayms (500) ;
+        }
+        delayms (500) ;
+        //ioUpdate();
+        return;
+    }
+
     else
-        command[1] = curChanelIndex;
+    {
+        command[1] = chanel;
     command[2] = 3;
     command[3] = 0;
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
-    chanelList[curChanelIndex].isOn = true;
-    sendCommand(&command[0],curChanelIndex);
+    chanelList[chanel].isOn = true;
+    sendCommand(&command[0],chanel);
+    }
+}
+void MainWindow::txOff(int chanel)
+{
+    if(curChanelIndex>7)
+    {
+        for(int i=0; i<8;i++)
+        {
+            txOn(i);
+            delayms (500) ;
+        }
+        delayms (500) ;
+        //ioUpdate();
+        return;
+    }
+
+    else
+    {
+        command[1] = chanel;
+    command[2] = 4;
+    command[3] = 0;
+    command[4] = 0;
+    command[5] = 0;
+    command[6] = 0;
+    chanelList[chanel].isOn = true;
+    sendCommand(&command[0],chanel);
+    }
+}
+void MainWindow::on_pushButton_kenh_16_pressed()
+{
+    txOn(curChanelIndex);
 }
 void MainWindow::sendCommand(unsigned char* command,short chanel)
 {
@@ -499,15 +540,7 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
 }
 void MainWindow::on_pushButton_kenh_17_pressed()
 {
-    if(curChanelIndex>7)
-    curChanelIndex = 8;
-    command[2] = 4;
-    command[3] = 0;
-    command[4] = 0;
-    command[5] = 0;
-    command[6] = 0;
-    chanelList[curChanelIndex].isOn = false;
-    sendCommand(&command[0],curChanelIndex);
+    txOff( curChanelIndex);
 }
 
 
@@ -753,7 +786,7 @@ bool MainWindow::setfreq(double value,int chanel)
             delayms (500) ;
         }
         delayms (500) ;
-        ioUpdate();
+        //ioUpdate();
         return true;
     }
     else

@@ -122,6 +122,8 @@ private:
     void setPhaseComp(double value, int chanel);
     void delayms(int msec);
     void setAmp(double value, int chanel);
+    void txOn(int chanel);
+    void txOff(int chanel);
 };
 
 #endif // MAINWINDOW_H

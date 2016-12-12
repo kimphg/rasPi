@@ -144,7 +144,7 @@ void MainWindow::setAmp(double value,int chanel){
             int a = value*4 + 0.5;
             command[3] = a>>8;
             command[4] = a;
-            sendCommand(&command[0],curChanelIndex);
+            sendCommand(&command[0],chanel);
         }
     }
 
@@ -451,7 +451,7 @@ void MainWindow::on_pushButton_num_10_pressed()
 }
 void MainWindow::txOn(int chanel)
 {
-    if(curChanelIndex>7)
+    if(chanel>7)
     {
         for(int i=0; i<8;i++)
         {
@@ -477,7 +477,7 @@ void MainWindow::txOn(int chanel)
 }
 void MainWindow::txOff(int chanel)
 {
-    if(curChanelIndex>7)
+    if(chanel>7)
     {
         for(int i=0; i<8;i++)
         {
@@ -745,7 +745,7 @@ void MainWindow::setPhaseComp(double value, int chanel)
     else
     {
         chanelList[chanel].phase = value;
-        double phaseComp= config.getValue(chanelList[curChanelIndex].freq,curChanelIndex);
+        double phaseComp= config.getValue(chanelList[chanel].freq,chanel);
         setPhaseTrue(value+phaseComp,chanel);
     }
 

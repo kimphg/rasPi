@@ -37,7 +37,7 @@ double CConfig::getValue(double freq, int chanel)
 
         }
     }
-    return -1;
+    return 0;
 }
 phase_item CConfig::getItem(int index) const
 {

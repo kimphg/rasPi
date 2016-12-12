@@ -106,6 +106,8 @@ private slots:
 
     void on_pushButton_num_control_down_pressed();
 
+    void on_pushButton_num_minus_pressed();
+
 protected:
     void paintEvent(QPaintEvent *event);
 private:

@@ -153,9 +153,9 @@ void MainWindow::on_pushButton_pressed()
 {
     if(ui->pushButton_num_control_amp->isChecked())
     {
-
+        if(ui->lineEdit->text().toDouble()>0)ui->lineEdit->setText("-"+ui->lineEdit->text());
         double value =  (ui->lineEdit->text().toDouble());
-        setAmp(value,curChanelIndex);
+        setAmp(-value,curChanelIndex);
 
     }
     else if(ui->pushButton_num_control_phase->isChecked())
@@ -863,4 +863,10 @@ void MainWindow::updateTemp()
     command[5] = 0xff;
     command[6] = 0xff;
     sendCommand(&command[0]);
+}
+
+void MainWindow::on_pushButton_num_minus_pressed()
+{
+    QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Minus,Qt::NoModifier,"-");
+    qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }

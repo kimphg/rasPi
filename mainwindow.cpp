@@ -150,7 +150,7 @@ void MainWindow::setAmp(double value,int chanel){
     }
 
 }
-void MainWindow::on_pushButton_pressed()
+void MainWindow::on_pushButton_clicked()
 {
     if(ui->pushButton_num_control_amp->isChecked())
     {
@@ -187,7 +187,7 @@ void MainWindow::on_pushButton_pressed()
 
 
 
-//void MainWindow::on_pushButton_num_11_pressed()
+//void MainWindow::on_pushButton_num_11_clicked()
 //{
 //    ui->lineEdit->clear();
 //}
@@ -196,69 +196,69 @@ void MainWindow::inputText(QString text)
     ui->lineEdit->setText( ui->lineEdit->text() + text);
 
 }
-void MainWindow::on_pushButton_num_1_pressed()
+void MainWindow::on_pushButton_num_1_clicked()
 {
     //inputText("1");
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_1,Qt::NoModifier,"1");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_2_pressed()
+void MainWindow::on_pushButton_num_2_clicked()
 {
     //inputText("2");
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_2,Qt::NoModifier,"2");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_3_pressed()
+void MainWindow::on_pushButton_num_3_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_3,Qt::NoModifier,"3");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_4_pressed()
+void MainWindow::on_pushButton_num_4_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_4,Qt::NoModifier,"4");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_5_pressed()
+void MainWindow::on_pushButton_num_5_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_5,Qt::NoModifier,"5");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_6_pressed()
+void MainWindow::on_pushButton_num_6_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_6,Qt::NoModifier,"6");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_7_pressed()
+void MainWindow::on_pushButton_num_7_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_7,Qt::NoModifier,"7");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_8_pressed()
+void MainWindow::on_pushButton_num_8_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_8,Qt::NoModifier,"8");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_9_pressed()
+void MainWindow::on_pushButton_num_9_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_9,Qt::NoModifier,"9");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_0_pressed()
+void MainWindow::on_pushButton_num_0_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_0,Qt::NoModifier,"0");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_back_pressed()
+void MainWindow::on_pushButton_num_back_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Backspace,Qt::NoModifier);
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
@@ -289,90 +289,93 @@ void MainWindow::updateChanelInfo()
     {
         ui->label_chanel_num->setText(QString::number(curChanelIndex+1));
     }
-    if(chanelList[curChanelIndex].isOn)
+    for(int chanel = 0;chanel<8;chanel++)
     {
-        ui->label_chanel_stat->setText("On");
-        switch (curChanelIndex) {
-        case 0:
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
-            break;
-        case 1:
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
-            break;
-        case 2:
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
-            break;
-        case 3:
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
-            break;
-        case 4:
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
-            break;
-        case 5:
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
-            break;
-        case 6:
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
-            break;
-        case 7:
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
-            break;
-        case 8:
-            ui->pushButton_kenh_9->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
-            break;
-        default:
-            break;
+        if(chanelList[chanel].isOn)
+        {
+            if(chanel==curChanelIndex)ui->label_chanel_stat->setText("On");
+            switch (chanel) {
+            case 0:
+                ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
+                break;
+            case 1:
+                ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
+                break;
+            case 2:
+                ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
+                break;
+            case 3:
+                ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
+                break;
+            case 4:
+                ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
+                break;
+            case 5:
+                ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
+                break;
+            case 6:
+                ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
+                break;
+            case 7:
+                ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
+                break;
+            case 8:
+                ui->pushButton_kenh_9->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_8->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_7->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_6->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_5->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_4->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_3->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_2->setPalette(MY_PATLETTE_HL);
+                ui->pushButton_kenh_1->setPalette(MY_PATLETTE_HL);
+                break;
+            default:
+                break;
+            }
         }
-    }
-    else
-    {
-        ui->label_chanel_stat->setText("Off");
-        switch (curChanelIndex) {
-        case 0:
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 1:
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 2:
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 3:
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 4:
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 5:
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 6:
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 7:
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        case 8:
-            ui->pushButton_kenh_9->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
-            ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
-            break;
-        default:
-            break;
+        else
+        {
+            if(chanel==curChanelIndex) ui->label_chanel_stat->setText("Off");
+            switch (chanel) {
+            case 0:
+                ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 1:
+                ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 2:
+                ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 3:
+                ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 4:
+                ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 5:
+                ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 6:
+                ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 7:
+                ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            case 8:
+                ui->pushButton_kenh_9->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_8->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_7->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_6->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_5->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_4->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_3->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_2->setPalette(MY_PATLETTE_NORMAL);
+                ui->pushButton_kenh_1->setPalette(MY_PATLETTE_NORMAL);
+                break;
+            default:
+                break;
+            }
         }
     }
     ui->label_chanel_freq->setText(QString::number(chanelList[curChanelIndex].freq));
@@ -380,7 +383,7 @@ void MainWindow::updateChanelInfo()
     ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl));
 
 }
-void MainWindow::on_pushButton_kenh_1_pressed()
+void MainWindow::on_pushButton_kenh_1_clicked()
 {
     selectChanel(0);
     //unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
@@ -395,48 +398,48 @@ void MainWindow::on_pushButton_kenh_1_pressed()
 //    serialPutchar (fd, byte[6]) ;
 //    serialPutchar (fd, byte[7]) ;
 }
-void MainWindow::on_pushButton_kenh_2_pressed()
+void MainWindow::on_pushButton_kenh_2_clicked()
 {
 
     selectChanel(1);
 }
 
-void MainWindow::on_pushButton_kenh_3_pressed()
+void MainWindow::on_pushButton_kenh_3_clicked()
 {
     selectChanel(2);
 }
 
-void MainWindow::on_pushButton_kenh_4_pressed()
+void MainWindow::on_pushButton_kenh_4_clicked()
 {
     selectChanel(3);
 }
 
-void MainWindow::on_pushButton_kenh_5_pressed()
+void MainWindow::on_pushButton_kenh_5_clicked()
 {
     selectChanel(4);
 }
 
-void MainWindow::on_pushButton_kenh_6_pressed()
+void MainWindow::on_pushButton_kenh_6_clicked()
 {
     selectChanel(5);
 }
 
-void MainWindow::on_pushButton_kenh_7_pressed()
+void MainWindow::on_pushButton_kenh_7_clicked()
 {
     selectChanel(6);
 }
 
-void MainWindow::on_pushButton_kenh_8_pressed()
+void MainWindow::on_pushButton_kenh_8_clicked()
 {
     selectChanel(7);
 }
 
-void MainWindow::on_pushButton_kenh_9_pressed()
+void MainWindow::on_pushButton_kenh_9_clicked()
 {
     selectChanel(8);
 }
 
-void MainWindow::on_pushButton_num_10_pressed()
+void MainWindow::on_pushButton_num_10_clicked()
 {
 
     QStringList strlist = ui->lineEdit->text().split('.');
@@ -502,7 +505,7 @@ void MainWindow::txOff(int chanel)
     sendCommand(&command[0],chanel);
     }
 }
-void MainWindow::on_pushButton_kenh_16_pressed()
+void MainWindow::on_pushButton_kenh_16_clicked()
 {
     txOn(curChanelIndex);
 }
@@ -548,46 +551,43 @@ void MainWindow::sendCommand(unsigned char*command)
         #endif
     }
 }
-void MainWindow::on_pushButton_kenh_17_pressed()
+void MainWindow::on_pushButton_kenh_17_clicked()
 {
     txOff( curChanelIndex);
 }
 
 
 
-void MainWindow::on_pushButton_num_control_amp_pressed()
+void MainWindow::on_pushButton_num_control_amp_clicked()
 {
     ui->label_unit->setText("dBm");
 }
 
 
 
-void MainWindow::on_pushButton_num_control_afreq_pressed()
+void MainWindow::on_pushButton_num_control_afreq_clicked()
 {
     ui->label_unit->setText("Mhz");
 }
 
-void MainWindow::on_pushButton_num_control_phase_pressed()
+void MainWindow::on_pushButton_num_control_phase_clicked()
 {
     ui->label_unit->setText("deg");
 }
 
-void MainWindow::on_pushButton_num_control_ioupdate_pressed()
+void MainWindow::on_pushButton_num_control_ioupdate_clicked()
 {
     ioUpdate();
 }
 
-void MainWindow::on_pushButton_clicked()
-{
 
-}
 
-void MainWindow::on_pushButton_num_control_up_2_pressed()
+void MainWindow::on_pushButton_num_control_up_2_clicked()
 {
     ui->lineEdit->clear();
 }
 
-void MainWindow::on_pushButton_commit_pressed()
+void MainWindow::on_pushButton_commit_clicked()
 {
     //=  ui->tableWidget->item(1,1);
     config.clearItem();
@@ -619,7 +619,7 @@ void MainWindow::on_pushButton_commit_pressed()
         //printf("\n%f",itemList.at(0)->text().toDouble());
 }
 
-void MainWindow::on_pushButton_load_config_table_pressed()
+void MainWindow::on_pushButton_load_config_table_clicked()
 {
     loadConfigTable();
 }
@@ -643,12 +643,12 @@ void MainWindow::loadConfigTable()
 }
 
 
-void MainWindow::on_pushButton_commit_2_pressed()
+void MainWindow::on_pushButton_commit_2_clicked()
 {
     /*if(ui->lineEdit_pass->text()=="cndt")*/ui->frame_config_edit->setVisible(true);
 }
 
-void MainWindow::on_pushButton_sort_table_2_pressed()//test button
+void MainWindow::on_pushButton_sort_table_2_clicked()//test button
 {
 
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
@@ -678,7 +678,7 @@ void MainWindow::on_pushButton_sort_table_2_pressed()//test button
     tabitem->setBackgroundColor(QColor(250,120,20));
 }
 
-void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
+void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
 {
     command[1] = 0x0b;
     command[2] = 0x0b;
@@ -721,7 +721,7 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
     this->setPalette(QPalette(MY_PATLETTE_NORMAL));
 }
 
-void MainWindow::on_pushButton_send_8bytes_pressed()
+void MainWindow::on_pushButton_send_8bytes_clicked()
 {
     unsigned char command[8];
     command[0] = ui->lineEdit_cmd_byte_1->text().toInt();
@@ -822,14 +822,14 @@ bool MainWindow::setfreq(double value,int chanel)
     }
     return false;
 }
-void MainWindow::on_pushButton_set_all_freq_pressed()
+void MainWindow::on_pushButton_set_all_freq_clicked()
 {
     double value = ui->lineEdit_pass_freq_set_all->text().toDouble();
     setfreq(value,8);
 
 }
 
-void MainWindow::on_pushButton_num_control_up_pressed()
+void MainWindow::on_pushButton_num_control_up_clicked()
 {
     ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()+1));
 }
@@ -840,17 +840,17 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 }
 
-void MainWindow::on_pushButton_num_control_down_2_pressed()
+void MainWindow::on_pushButton_num_control_down_2_clicked()
 {
     ui->lineEdit->cursorBackward(false);
 }
 
-void MainWindow::on_pushButton_num_control_down_3_pressed()
+void MainWindow::on_pushButton_num_control_down_3_clicked()
 {
     ui->lineEdit->cursorForward(false);
 }
 
-void MainWindow::on_pushButton_num_control_down_pressed()
+void MainWindow::on_pushButton_num_control_down_clicked()
 {
     ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()-1));
 
@@ -866,8 +866,10 @@ void MainWindow::updateTemp()
     sendCommand(&command[0]);
 }
 
-void MainWindow::on_pushButton_num_minus_pressed()
+void MainWindow::on_pushButton_num_minus_clicked()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Minus,Qt::NoModifier,"-");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
+
+

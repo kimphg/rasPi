@@ -133,9 +133,9 @@ void MainWindow::setAmp(double value,int chanel){
             for(int i = 0;i<8;i++)
             {
                 setAmp(value,i);
-                delayms (500) ;
+                delayms (200) ;
             }
-            delayms(500);
+
         }
         else
         {
@@ -460,9 +460,9 @@ void MainWindow::txOn(int chanel)
         for(int i=0; i<8;i++)
         {
             txOn(i);
-            delayms (500) ;
+            delayms (200) ;
         }
-        delayms (500) ;
+        delayms (200) ;
         //ioUpdate();
         return;
     }
@@ -486,9 +486,9 @@ void MainWindow::txOff(int chanel)
         for(int i=0; i<8;i++)
         {
             txOff(i);
-            delayms (500) ;
+            delayms (200) ;
         }
-        delayms (500) ;
+        delayms (200) ;
         //ioUpdate();
         return;
     }
@@ -501,7 +501,7 @@ void MainWindow::txOff(int chanel)
     command[4] = 0;
     command[5] = 0;
     command[6] = 0;
-    chanelList[chanel].isOn = true;
+    chanelList[chanel].isOn = false;
     sendCommand(&command[0],chanel);
     }
 }
@@ -539,7 +539,7 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
     //delay(1);
     //onRecvUART();
     //showStatus("Device  not ready");
-    updateChanelInfo();
+    //updateChanelInfo();
     //QApplication::beep();
 }
 void MainWindow::sendCommand(unsigned char*command)
@@ -553,7 +553,7 @@ void MainWindow::sendCommand(unsigned char*command)
 }
 void MainWindow::on_pushButton_kenh_17_clicked()
 {
-    txOff( curChanelIndex);
+    txOff(curChanelIndex);
 }
 
 
@@ -749,7 +749,7 @@ void MainWindow::setPhaseComp(double value, int chanel)
         {
             showStatus("Sending all chanel, please wait..."+QString::number((8-i)/2.0));
             setPhaseComp(value,i);
-            delayms(500);
+            delayms(200);
         }
     }
     else
@@ -793,7 +793,7 @@ bool MainWindow::setfreq(double value,int chanel)
         for(int i=0; i<8;i++)
         {
             setfreq(value,i);
-            delayms (500) ;
+            delayms (200) ;
         }
         delayms (500) ;
         ioUpdate();

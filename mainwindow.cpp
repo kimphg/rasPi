@@ -12,6 +12,7 @@
 #define MY_PATLETTE_HL QColor(255,150,30)
 #define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9
+bool warmingDone = false;
 struct txChanel
 {
    double freq;
@@ -32,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame_config_edit->setVisible(false);
-    ui->tabWidget->setCurrentIndex(3);
+    ui->tabWidget->setVisible(false);
     this->setPalette(MY_PATLETTE_NORMAL);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
@@ -104,26 +105,24 @@ int MainWindow::onRecvUART()
                 double temp = byte/4.0;
                 ui->label_temp->setText(QString::number(temp));
                 ui->label_temp_2->setText(QString::number(temp));
-                if(ui->tabWidget->currentIndex()==3)
+                if(!warmingDone)
                 {
 
-                    if(temp>=35&&temp<=40)
+                    if(temp>=35)
                     {
                         on_pushButton_num_control_ioupdate_2_clicked();
                         ui->tabWidget->setCurrentIndex(0);
+                        ui->tabWidget->setVisible(true);
+                        warmingDone = true;
+                    }
+                    else
+                    {
+                        ui->label_system_message->setText("Warming up...");
                     }
 
                 }
-<<<<<<< HEAD
-                else if(temp>40||temp<33)
-                {
-                    ui->label_temp->setAutoFillBackground(true);
-                }
-                else
-                {
-                    ui->label_temp->setAutoFillBackground(false);
-                }
-=======
+
+
                  if(temp>40||temp<33)
                 {
                     ui->label_temp->setPalette(MY_PATLETTE_HL);
@@ -132,7 +131,7 @@ int MainWindow::onRecvUART()
                  {
                      ui->label_temp->setPalette(MY_PATLETTE_NORMAL);
                  }
->>>>>>> origin/master
+
             }
         }
 
@@ -721,7 +720,8 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
 {
     this->setPalette(QPalette(MY_PATLETTE_WAITING));
     ui->tabWidget->hide();
-    showStatus("Device restarting");
+    showStatus("Device restarting...");
+    ui->label_system_message->setText("System initializing...");
     update();
 
     command[1] = 0x0b;

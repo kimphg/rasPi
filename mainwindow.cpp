@@ -8,7 +8,7 @@
 #include "wiringSerial.h"
 #endif
 #define MY_PATLETTE_WAITING QColor(40,100,150)
-#define MY_PATLETTE_NORMAL QColor(40,100,150)
+#define MY_PATLETTE_NORMAL QColor(120,150,180)
 #define MY_PATLETTE_HL QColor(255,150,30)
 #define COMMAND_LEN 8
 #define NUM_OF_CHANEL 9
@@ -94,22 +94,26 @@ int MainWindow::onRecvUART()
 #endif
     if(rd.size())
     {
-        if(rd.size()>2)
+
+        if((rd.at(rd.size()-2)==0xff)&&(rd.size()>2))
         {
-            if(rd.at(rd.size()-2)==0xff)
+            int byte = rd.at(rd.size()-1);
+            if(byte!=0xff)
             {
-                double temp = rd.at(rd.size()-1)/4.0;
+                double temp = byte/4.0;
                 ui->label_temp->setText(QString::number(temp));
             }
         }
+
         ui->textEdit_data_log->append(rd.toHex());
+        showStatus("Device ready");
         return rd.size();
     }
     else
     {
         return 0;
     }
-    showStatus("Device ready");
+
     //fflush(stdout);
     //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
     //ui->lineEdit->
@@ -119,35 +123,38 @@ void MainWindow::showStatus(QString str)
 {
     statusBar()->showMessage(str,5000);
 }
-void MainWindow::setAmp(double value,int chanel){
+void MainWindow::setAmp(double value, unsigned int chanel){
 
     if(value<10||value>70)
     {
         showStatus("Wrong value, amplitude should be from -10 to -70 dBm");
+        return;
+    }
+
+
+    if(chanel>8)return;
+    chanelList[curChanelIndex].ampl = value;
+    if(chanel>7)
+    {
+        chanelList[curChanelIndex].ampl = value;
+        for(int i = 0;i<8;i++)
+        {
+            setAmp(value,i);
+            delayms (200) ;
+        }
+
     }
     else
     {
-        if(chanel>7)
-        {
-            chanelList[curChanelIndex].ampl = value;
-            for(int i = 0;i<8;i++)
-            {
-                setAmp(value,i);
-                delayms (200) ;
-            }
 
-        }
-        else
-        {
-            chanelList[curChanelIndex].ampl = value;
-            command[2] = 0x02;
-            value = value+2*(700.0-chanelList[curChanelIndex].freq)/690.0;
-            int a = value*4 + 0.5;
-            command[3] = a>>8;
-            command[4] = a;
-            sendCommand(&command[0],chanel);
-        }
+        command[2] = 0x02;
+        value = value+2*(700.0-chanelList[curChanelIndex].freq)/690.0;
+        int a = value*4 + 0.5;
+        command[3] = a>>8;
+        command[4] = a;
+        sendCommand(&command[0],chanel);
     }
+
 
 }
 void MainWindow::on_pushButton_clicked()
@@ -539,7 +546,7 @@ void MainWindow::sendCommand(unsigned char* command,short chanel)
     //delay(1);
     //onRecvUART();
     //showStatus("Device  not ready");
-    //updateChanelInfo();
+    updateChanelInfo();
     //QApplication::beep();
 }
 void MainWindow::sendCommand(unsigned char*command)
@@ -650,7 +657,7 @@ void MainWindow::on_pushButton_commit_2_clicked()
 
 void MainWindow::on_pushButton_sort_table_2_clicked()//test button
 {
-
+    if(ui->tableWidget->selectedItems().size()==0)showStatus("Please select a value to test");
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
     if(tabitem->row()>0)
     {
@@ -661,15 +668,16 @@ void MainWindow::on_pushButton_sort_table_2_clicked()//test button
             int chanel = tabitem->row()-1;
             //command[2] = 0x01;
             double value =  tabitem->text().toDouble();
+
             if(value>=-360&&value<360)
             {
-                ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[0].freq));
+                //ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[8].freq));
                 setCursor(Qt::WaitCursor);
                 setPhaseTrue(value,chanel);
                 delayms(1000);
-                ioUpdate();
+                //ioUpdate();
                 setCursor(Qt::ArrowCursor);
-                tabitem->setBackgroundColor(QColor(120,180,250));
+                //tabitem->setBackgroundColor(QColor(120,180,250));
                 return;
             }
         }
@@ -680,6 +688,11 @@ void MainWindow::on_pushButton_sort_table_2_clicked()//test button
 
 void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
 {
+    this->setPalette(QPalette(MY_PATLETTE_WAITING));
+    ui->tabWidget->hide();
+    showStatus("Device restarting");
+    update();
+
     command[1] = 0x0b;
     command[2] = 0x0b;
     command[3] = 0x0b;
@@ -692,26 +705,21 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
         serialPutchar (fd, command[i]) ;
 #endif
     }
-    this->setPalette(QPalette(MY_PATLETTE_WAITING));
-    ui->tabWidget->hide();
-    showStatus("Device restarting");
-    update();
-    repaint();
+
 #ifndef Q_OS_WIN
     delay(1000);
     serialFlush(fd);
     update();
-    repaint();
 #endif
     int k=0;
     while (true)
     {
-        if(onRecvUART()>7)break;
+        if(onRecvUART()>1)break;
         #ifndef Q_OS_WIN
             delay(500);
         #endif
         k++;
-        if(k>40)
+        if(k>30)
         {
             showStatus("Device not ready");
             break;
@@ -739,8 +747,14 @@ void MainWindow::on_pushButton_send_8bytes_clicked()
 #endif
     }
 }
-void MainWindow::setPhaseComp(double value, int chanel)
+void MainWindow::setPhaseComp(double value, unsigned int chanel)
 {
+    if(value<0||value>360)
+    {
+        showStatus("Wrong value, phase should be from -360 to 360 degrees");
+        return;
+    }
+    if(chanel > 8)return;
     chanelList[chanel].phase = value;
     if(chanel>7)
     {
@@ -760,14 +774,14 @@ void MainWindow::setPhaseComp(double value, int chanel)
     }
 
 }
-bool MainWindow::setPhaseTrue(double value, int chanel)
+bool MainWindow::setPhaseTrue(double value, unsigned int chanel)
 {
     command[2] = 0x01;
     if(value<0)value+=360;
     if(value>=360)value-=360;
     if(value<0||value>360)
     {
-        showStatus("Wrong value, chanel phase should be from 0 to 360 degrees");
+        showStatus("Wrong value, phase should be from -360 to 360 degrees");
         return false;
     }
     else
@@ -786,30 +800,35 @@ void MainWindow::delayms(int msec)
     delay (msec) ;
 #endif
 }
-bool MainWindow::setfreq(double value,int chanel)
+bool MainWindow::setfreq(double value,unsigned int chanel)
 {
+    if(value<10||value>700)
+    {
+        showStatus("Wrong value, frequency should be from 10Mhz to 700Mhz");
+        return false;
+    }
+    if(chanel>8)return false;
+    chanelList[chanel].freq = value;
     if(chanel>7)
     {
         for(int i=0; i<8;i++)
         {
             setfreq(value,i);
+            showStatus("Sending data, please wait..."+QString::number((8-i)/2.0+0.5));
             delayms (200) ;
         }
         delayms (500) ;
         ioUpdate();
-        return true;
+        delayms(500);
+        setPhaseComp(0,8);
+
     }
     else
     {
         command[1] = chanel;
         command[2] = 0x00;
-        if(value<10||value>700)
-        {
-            showStatus("Wrong value, frequency should be from 10 to 700Mhz");
-        }
-        else
-        {
-            chanelList[chanel].freq = value;
+
+
             value = value*1720740.1+0.5;
             int a = int(value);
             command[3] = a>>24;
@@ -817,10 +836,10 @@ bool MainWindow::setfreq(double value,int chanel)
             command[5] = a>>8;
             command[6] = a;
             sendCommand(&command[0],chanel);
-            return true;
-        }
+
+
     }
-    return false;
+    return true;
 }
 void MainWindow::on_pushButton_set_all_freq_clicked()
 {
@@ -857,13 +876,14 @@ void MainWindow::on_pushButton_num_control_down_clicked()
 }
 void MainWindow::updateTemp()
 {
-    command[1] = 0xff;
-    command[2] = 0xff;
-    command[3] = 0xff;
-    command[4] = 0xff;
-    command[5] = 0xff;
-    command[6] = 0xff;
-    sendCommand(&command[0]);
+    updateChanelInfo();
+//    command[1] = 0xff;
+//    command[2] = 0xff;
+//    command[3] = 0xff;
+//    command[4] = 0xff;
+//    command[5] = 0xff;
+//    command[6] = 0xff;
+//    sendCommand(&command[0]);
 }
 
 void MainWindow::on_pushButton_num_minus_clicked()
@@ -871,5 +891,14 @@ void MainWindow::on_pushButton_num_minus_clicked()
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Minus,Qt::NoModifier,"-");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
+
+void MainWindow::on_tableWidget_itemClicked(QTableWidgetItem *item)
+{
+    QString str = ui->tableWidget->item(0,item->column())->text();
+    //ui->tableWidget->item(0,tabitem->column())->setText(QString::number(chanelList[8].freq));
+    ui->lineEdit_pass_freq_set_all->setText(str);
+}
+
+
 
 

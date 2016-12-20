@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <QTimer>
 #include <c_config.h>
+#include <QTableWidgetItem>
 namespace Ui {
 class MainWindow;
 }
@@ -21,7 +22,6 @@ private slots:
     void on_pushButton_clicked();
     void updateTemp();
     void on_pushButton_kenh_1_clicked();
-
     int onRecvUART();
     //void on_pushButton_num_11_clicked();
 
@@ -109,6 +109,8 @@ private slots:
     void on_pushButton_num_minus_clicked();
 
 
+    void on_tableWidget_itemClicked(QTableWidgetItem *item);
+
 protected:
     void paintEvent(QPaintEvent *event);
 private:
@@ -120,13 +122,13 @@ private:
     void sendCommand(unsigned char *command, short chanel);
     int curChanelIndex ;
 
-    bool setfreq(double value, int chanel);
-    bool setPhaseTrue(double value, int chanel);
+    bool setfreq(double value, unsigned int chanel);
+    bool setPhaseTrue(double value, unsigned int chanel);
     void loadConfigTable();
     void showStatus(QString str);
-    void setPhaseComp(double value, int chanel);
+    void setPhaseComp(double value, unsigned int chanel);
     void delayms(int msec);
-    void setAmp(double value, int chanel);
+    void setAmp(double value, unsigned int chanel);
     void txOn(int chanel);
     void txOff(int chanel);
 

@@ -1567,7 +1567,7 @@
        <string>HỆ THỐNG ĐANG SẤY MÁY, VUI LÒNG CHỜ...</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>100</x>

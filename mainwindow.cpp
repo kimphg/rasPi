@@ -106,8 +106,12 @@ int MainWindow::onRecvUART()
                 ui->label_temp_2->setText(QString::number(temp));
                 if(ui->tabWidget->currentIndex()==3)
                 {
-                    on_pushButton_num_control_ioupdate_2_clicked();
-                    if(temp>=35&&temp<=40)ui->tabWidget->setCurrentIndex(0);
+
+                    if(temp>=35&&temp<=40)
+                    {
+                        on_pushButton_num_control_ioupdate_2_clicked();
+                        ui->tabWidget->setCurrentIndex(0);
+                    }
 
                 }
                 else if(temp>40||temp<33)showStatus("Warning: System temperature is out of range.");
@@ -723,12 +727,12 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
     int k=0;
     while (true)
     {
-        if(onRecvUART()>1)break;
+        if(onRecvUART()>7)break;
         #ifndef Q_OS_WIN
             delay(500);
         #endif
         k++;
-        if(k>30)
+        if(k>40)
         {
             showStatus("Device not ready");
             break;

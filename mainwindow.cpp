@@ -114,7 +114,14 @@ int MainWindow::onRecvUART()
                     }
 
                 }
-                else if(temp>40||temp<33)showStatus("Warning: System temperature is out of range.");
+                 if(temp>40||temp<33)
+                {
+                    ui->label_temp->setPalette(MY_PATLETTE_HL);
+                }
+                 else
+                 {
+                     ui->label_temp->setPalette(MY_PATLETTE_NORMAL);
+                 }
             }
         }
 

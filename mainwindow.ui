@@ -24,10 +24,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
+      <x>10</x>
+      <y>0</y>
       <width>761</width>
-      <height>431</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="font">
@@ -51,7 +51,7 @@
      </size>
     </property>
     <property name="elideMode">
-     <enum>Qt::ElideMiddle</enum>
+     <enum>Qt::ElideNone</enum>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="icon">
@@ -1629,6 +1629,26 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>SYSTEM INITIALIZING...</string>
+    </property>
+   </widget>
+   <zorder>label_4</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

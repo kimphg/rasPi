@@ -652,7 +652,7 @@ void MainWindow::loadConfigTable()
 
 void MainWindow::on_pushButton_commit_2_clicked()
 {
-    /*if(ui->lineEdit_pass->text()=="cndt")*/ui->frame_config_edit->setVisible(true);
+    if(ui->lineEdit_pass->text()=="cndt")ui->frame_config_edit->setVisible(true);
 }
 
 void MainWindow::on_pushButton_sort_table_2_clicked()//test button

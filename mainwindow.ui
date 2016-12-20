@@ -25,15 +25,12 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-<<<<<<< HEAD
       <y>10</y>
       <width>771</width>
       <height>441</height>
-=======
       <y>0</y>
       <width>761</width>
       <height>451</height>
->>>>>>> origin/master
      </rect>
     </property>
     <property name="font">
@@ -1552,7 +1549,6 @@
      </widget>
     </widget>
    </widget>
-<<<<<<< HEAD
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>

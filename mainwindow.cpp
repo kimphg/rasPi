@@ -114,6 +114,16 @@ int MainWindow::onRecvUART()
                     }
 
                 }
+<<<<<<< HEAD
+                else if(temp>40||temp<33)
+                {
+                    ui->label_temp->setAutoFillBackground(true);
+                }
+                else
+                {
+                    ui->label_temp->setAutoFillBackground(false);
+                }
+=======
                  if(temp>40||temp<33)
                 {
                     ui->label_temp->setPalette(MY_PATLETTE_HL);
@@ -122,6 +132,7 @@ int MainWindow::onRecvUART()
                  {
                      ui->label_temp->setPalette(MY_PATLETTE_NORMAL);
                  }
+>>>>>>> origin/master
             }
         }
 
@@ -751,6 +762,7 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
 
 void MainWindow::on_pushButton_send_8bytes_clicked()
 {
+    if(ui->lineEdit_pass->text()!="cndt")return;
     unsigned char command[8];
     command[0] = ui->lineEdit_cmd_byte_1->text().toInt();
     command[1] = ui->lineEdit_cmd_byte_2->text().toInt();

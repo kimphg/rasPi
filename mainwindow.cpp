@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame_config_edit->setVisible(false);
+    ui->tabWidget->setCurrentIndex(3);
     this->setPalette(MY_PATLETTE_NORMAL);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
@@ -102,6 +103,14 @@ int MainWindow::onRecvUART()
             {
                 double temp = byte/4.0;
                 ui->label_temp->setText(QString::number(temp));
+                ui->label_temp_2->setText(QString::number(temp));
+                if(ui->tabWidget->currentIndex()==3)
+                {
+                    on_pushButton_num_control_ioupdate_2_clicked();
+                    if(temp>=35&&temp<=40)ui->tabWidget->setCurrentIndex(0);
+
+                }
+                else if(temp>40||temp<33)showStatus("Warning: System temperature is out of range.");
             }
         }
 

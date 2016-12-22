@@ -42,7 +42,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -375,7 +375,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Biên độ</string>
+            <string>Công suất</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -747,7 +747,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Tần số:</string>
+            <string>Tần số(MHz):</string>
            </property>
           </widget>
          </item>
@@ -807,7 +807,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Pha:</string>
+            <string>Pha(độ):</string>
            </property>
           </widget>
          </item>
@@ -819,7 +819,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Biên độ:</string>
+            <string>Công suất(dBm):</string>
            </property>
           </widget>
          </item>
@@ -867,7 +867,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Nhiệt độ:</string>
+            <string>Nhiệt độ(độ C):</string>
            </property>
           </widget>
          </item>
@@ -1275,8 +1275,8 @@
        <rect>
         <x>460</x>
         <y>30</y>
-        <width>161</width>
-        <height>211</height>
+        <width>190</width>
+        <height>261</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -1303,6 +1303,19 @@
          </property>
          <property name="text">
           <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_return_to_main">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Trở về màn hình chính</string>
          </property>
         </widget>
        </item>
@@ -1435,9 +1448,9 @@
      <widget class="QFrame" name="frame_config_edit">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>310</x>
         <y>0</y>
-        <width>356</width>
+        <width>381</width>
         <height>111</height>
        </rect>
       </property>
@@ -1468,19 +1481,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_sort_table_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Test</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="pushButton_set_all_freq">
          <property name="sizePolicy">
@@ -1504,6 +1504,19 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton_sort_table_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Test</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="layoutWidget">
@@ -1511,7 +1524,7 @@
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>171</width>
+        <width>121</width>
         <height>91</height>
        </rect>
       </property>
@@ -1547,13 +1560,33 @@
        </item>
       </layout>
      </widget>
+     <widget class="QPushButton" name="pushButton_return_to_main_2">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>10</y>
+        <width>151</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Trở về màn
+ hình chính</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>150</y>
+      <x>110</x>
+      <y>170</y>
       <width>481</width>
       <height>41</height>
      </rect>

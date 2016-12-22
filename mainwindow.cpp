@@ -110,7 +110,7 @@ int MainWindow::onRecvUART()
 
                     if(temp>=35)
                     {
-                        on_pushButton_num_control_ioupdate_2_clicked();
+                        on_pushButton_num_control_ioupdate_2_pressed();
                         ui->tabWidget->setCurrentIndex(0);
                         ui->tabWidget->setVisible(true);
                         warmingDone = true;
@@ -136,7 +136,7 @@ int MainWindow::onRecvUART()
         }
 
         ui->textEdit_data_log->append(rd.toHex());
-        showStatus("Device ready");
+        //showStatus("Device ready");
         return rd.size();
     }
     else
@@ -187,7 +187,7 @@ void MainWindow::setAmp(double value, unsigned int chanel){
 
 
 }
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_pressed()
 {
     if(ui->pushButton_num_control_amp->isChecked())
     {
@@ -224,7 +224,7 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-//void MainWindow::on_pushButton_num_11_clicked()
+//void MainWindow::on_pushButton_num_11_pressed()
 //{
 //    ui->lineEdit->clear();
 //}
@@ -233,69 +233,69 @@ void MainWindow::inputText(QString text)
     ui->lineEdit->setText( ui->lineEdit->text() + text);
 
 }
-void MainWindow::on_pushButton_num_1_clicked()
+void MainWindow::on_pushButton_num_1_pressed()
 {
     //inputText("1");
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_1,Qt::NoModifier,"1");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_2_clicked()
+void MainWindow::on_pushButton_num_2_pressed()
 {
     //inputText("2");
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_2,Qt::NoModifier,"2");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_3_clicked()
+void MainWindow::on_pushButton_num_3_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_3,Qt::NoModifier,"3");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_4_clicked()
+void MainWindow::on_pushButton_num_4_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_4,Qt::NoModifier,"4");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_5_clicked()
+void MainWindow::on_pushButton_num_5_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_5,Qt::NoModifier,"5");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_6_clicked()
+void MainWindow::on_pushButton_num_6_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_6,Qt::NoModifier,"6");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_7_clicked()
+void MainWindow::on_pushButton_num_7_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_7,Qt::NoModifier,"7");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_8_clicked()
+void MainWindow::on_pushButton_num_8_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_8,Qt::NoModifier,"8");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_9_clicked()
+void MainWindow::on_pushButton_num_9_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_9,Qt::NoModifier,"9");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_0_clicked()
+void MainWindow::on_pushButton_num_0_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_0,Qt::NoModifier,"0");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
 }
 
-void MainWindow::on_pushButton_num_back_clicked()
+void MainWindow::on_pushButton_num_back_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Backspace,Qt::NoModifier);
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
@@ -417,10 +417,10 @@ void MainWindow::updateChanelInfo()
     }
     ui->label_chanel_freq->setText(QString::number(chanelList[curChanelIndex].freq));
     ui->label_chanel_phase->setText(QString::number(chanelList[curChanelIndex].phase));
-    ui->label_chanel_amp->setText(QString::number(chanelList[curChanelIndex].ampl));
+    ui->label_chanel_amp->setText(QString::number(-chanelList[curChanelIndex].ampl));
 
 }
-void MainWindow::on_pushButton_kenh_1_clicked()
+void MainWindow::on_pushButton_kenh_1_pressed()
 {
     selectChanel(0);
     //unsigned char byte[8] = {0xff,0x00,0x03,0x00,0x00,0x00,0x00,0xff };
@@ -435,48 +435,48 @@ void MainWindow::on_pushButton_kenh_1_clicked()
 //    serialPutchar (fd, byte[6]) ;
 //    serialPutchar (fd, byte[7]) ;
 }
-void MainWindow::on_pushButton_kenh_2_clicked()
+void MainWindow::on_pushButton_kenh_2_pressed()
 {
 
     selectChanel(1);
 }
 
-void MainWindow::on_pushButton_kenh_3_clicked()
+void MainWindow::on_pushButton_kenh_3_pressed()
 {
     selectChanel(2);
 }
 
-void MainWindow::on_pushButton_kenh_4_clicked()
+void MainWindow::on_pushButton_kenh_4_pressed()
 {
     selectChanel(3);
 }
 
-void MainWindow::on_pushButton_kenh_5_clicked()
+void MainWindow::on_pushButton_kenh_5_pressed()
 {
     selectChanel(4);
 }
 
-void MainWindow::on_pushButton_kenh_6_clicked()
+void MainWindow::on_pushButton_kenh_6_pressed()
 {
     selectChanel(5);
 }
 
-void MainWindow::on_pushButton_kenh_7_clicked()
+void MainWindow::on_pushButton_kenh_7_pressed()
 {
     selectChanel(6);
 }
 
-void MainWindow::on_pushButton_kenh_8_clicked()
+void MainWindow::on_pushButton_kenh_8_pressed()
 {
     selectChanel(7);
 }
 
-void MainWindow::on_pushButton_kenh_9_clicked()
+void MainWindow::on_pushButton_kenh_9_pressed()
 {
     selectChanel(8);
 }
 
-void MainWindow::on_pushButton_num_10_clicked()
+void MainWindow::on_pushButton_num_10_pressed()
 {
 
     QStringList strlist = ui->lineEdit->text().split('.');
@@ -499,7 +499,7 @@ void MainWindow::txOn(int chanel)
             txOn(i);
             delayms (200) ;
         }
-        delayms (200) ;
+        //delayms (200) ;
         //ioUpdate();
         return;
     }
@@ -525,7 +525,7 @@ void MainWindow::txOff(int chanel)
             txOff(i);
             delayms (200) ;
         }
-        delayms (200) ;
+        //delayms (200) ;
         //ioUpdate();
         return;
     }
@@ -542,7 +542,7 @@ void MainWindow::txOff(int chanel)
     sendCommand(&command[0],chanel);
     }
 }
-void MainWindow::on_pushButton_kenh_16_clicked()
+void MainWindow::on_pushButton_kenh_16_pressed()
 {
     txOn(curChanelIndex);
 }
@@ -588,43 +588,43 @@ void MainWindow::sendCommand(unsigned char*command)
         #endif
     }
 }
-void MainWindow::on_pushButton_kenh_17_clicked()
+void MainWindow::on_pushButton_kenh_17_pressed()
 {
     txOff(curChanelIndex);
 }
 
 
 
-void MainWindow::on_pushButton_num_control_amp_clicked()
+void MainWindow::on_pushButton_num_control_amp_pressed()
 {
     ui->label_unit->setText("dBm");
 }
 
 
 
-void MainWindow::on_pushButton_num_control_afreq_clicked()
+void MainWindow::on_pushButton_num_control_afreq_pressed()
 {
     ui->label_unit->setText("Mhz");
 }
 
-void MainWindow::on_pushButton_num_control_phase_clicked()
+void MainWindow::on_pushButton_num_control_phase_pressed()
 {
     ui->label_unit->setText("deg");
 }
 
-void MainWindow::on_pushButton_num_control_ioupdate_clicked()
+void MainWindow::on_pushButton_num_control_ioupdate_pressed()
 {
     ioUpdate();
 }
 
 
 
-void MainWindow::on_pushButton_num_control_up_2_clicked()
+void MainWindow::on_pushButton_num_control_up_2_pressed()
 {
     ui->lineEdit->clear();
 }
 
-void MainWindow::on_pushButton_commit_clicked()
+void MainWindow::on_pushButton_commit_pressed()
 {
     //=  ui->tableWidget->item(1,1);
     config.clearItem();
@@ -656,7 +656,7 @@ void MainWindow::on_pushButton_commit_clicked()
         //printf("\n%f",itemList.at(0)->text().toDouble());
 }
 
-void MainWindow::on_pushButton_load_config_table_clicked()
+void MainWindow::on_pushButton_load_config_table_pressed()
 {
     loadConfigTable();
 }
@@ -680,12 +680,12 @@ void MainWindow::loadConfigTable()
 }
 
 
-void MainWindow::on_pushButton_commit_2_clicked()
+void MainWindow::on_pushButton_commit_2_pressed()
 {
     if(ui->lineEdit_pass->text()=="cndt")ui->frame_config_edit->setVisible(true);
 }
 
-void MainWindow::on_pushButton_sort_table_2_clicked()//test button
+void MainWindow::on_pushButton_sort_table_2_pressed()//test button
 {
     if(ui->tableWidget->selectedItems().size()==0)showStatus("Please select a value to test");
     QTableWidgetItem * tabitem =ui->tableWidget->selectedItems().at(0);
@@ -716,7 +716,7 @@ void MainWindow::on_pushButton_sort_table_2_clicked()//test button
     tabitem->setBackgroundColor(QColor(250,120,20));
 }
 
-void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
+void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
 {
     this->setPalette(QPalette(MY_PATLETTE_WAITING));
     ui->tabWidget->hide();
@@ -760,7 +760,7 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
     this->setPalette(QPalette(MY_PATLETTE_NORMAL));
 }
 
-void MainWindow::on_pushButton_send_8bytes_clicked()
+void MainWindow::on_pushButton_send_8bytes_pressed()
 {
     if(ui->lineEdit_pass->text()!="cndt")return;
     unsigned char command[8];
@@ -830,13 +830,14 @@ void MainWindow::delayms(int msec)
 {
 #ifndef Q_OS_WIN
     delay (msec) ;
+    onRecvUART();
 #endif
 }
 bool MainWindow::setfreq(double value,unsigned int chanel)
 {
-    if(value<10||value>700)
+    if(value<1||value>700)
     {
-        showStatus("Wrong value, frequency should be from 10Mhz to 700Mhz");
+        showStatus("Wrong value, frequency should be from 1Mhz to 700Mhz");
         return false;
     }
     if(chanel>8)return false;
@@ -851,7 +852,7 @@ bool MainWindow::setfreq(double value,unsigned int chanel)
         }
         delayms (500) ;
         ioUpdate();
-        delayms(500);
+        delayms(300);
         setPhaseComp(0,8);
 
     }
@@ -873,14 +874,14 @@ bool MainWindow::setfreq(double value,unsigned int chanel)
     }
     return true;
 }
-void MainWindow::on_pushButton_set_all_freq_clicked()
+void MainWindow::on_pushButton_set_all_freq_pressed()
 {
     double value = ui->lineEdit_pass_freq_set_all->text().toDouble();
     setfreq(value,8);
 
 }
 
-void MainWindow::on_pushButton_num_control_up_clicked()
+void MainWindow::on_pushButton_num_control_up_pressed()
 {
     ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()+1));
 }
@@ -891,17 +892,17 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 }
 
-void MainWindow::on_pushButton_num_control_down_2_clicked()
+void MainWindow::on_pushButton_num_control_down_2_pressed()
 {
     ui->lineEdit->cursorBackward(false);
 }
 
-void MainWindow::on_pushButton_num_control_down_3_clicked()
+void MainWindow::on_pushButton_num_control_down_3_pressed()
 {
     ui->lineEdit->cursorForward(false);
 }
 
-void MainWindow::on_pushButton_num_control_down_clicked()
+void MainWindow::on_pushButton_num_control_down_pressed()
 {
     ui->lineEdit->setText(QString::number(ui->lineEdit->text().toDouble()-1));
 
@@ -918,7 +919,7 @@ void MainWindow::updateTemp()
 //    sendCommand(&command[0]);
 }
 
-void MainWindow::on_pushButton_num_minus_clicked()
+void MainWindow::on_pushButton_num_minus_pressed()
 {
     QKeyEvent * eve1 = new QKeyEvent(QEvent::KeyPress,Qt::Key_Minus,Qt::NoModifier,"-");
     qApp->postEvent((QObject*)ui->lineEdit,(QEvent *)eve1);
@@ -934,3 +935,13 @@ void MainWindow::on_tableWidget_itemClicked(QTableWidgetItem *item)
 
 
 
+
+void MainWindow::on_pushButton_return_to_main_pressed()
+{
+    ui->tabWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_return_to_main_2_pressed()
+{
+    ui->tabWidget->setCurrentIndex(0);
+}

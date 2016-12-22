@@ -42,7 +42,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1275,7 +1275,7 @@
        <rect>
         <x>460</x>
         <y>30</y>
-        <width>190</width>
+        <width>206</width>
         <height>261</height>
        </rect>
       </property>

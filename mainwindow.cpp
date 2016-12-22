@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->frame_config_edit->setVisible(false);
     ui->tabWidget->setVisible(false);
+    ui->label_system_message->setText("Initializing...");
     this->setPalette(MY_PATLETTE_NORMAL);
     rxTimer = new QTimer(this);
     connect(rxTimer, SIGNAL(timeout()), this, SLOT(onRecvUART()));
@@ -103,8 +104,10 @@ int MainWindow::onRecvUART()
             if(byte!=0xff)
             {
                 double temp = byte/4.0;
-                ui->label_temp->setText(QString::number(temp));
+                ui->label_temp->setText(QString::number(temp,'f',2));
                 ui->label_temp_2->setText(QString::number(temp));
+                update();
+                repaint();
                 if(!warmingDone)
                 {
 
@@ -114,6 +117,8 @@ int MainWindow::onRecvUART()
                         ui->tabWidget->setCurrentIndex(0);
                         ui->tabWidget->setVisible(true);
                         warmingDone = true;
+
+
                     }
                     else
                     {
@@ -163,10 +168,10 @@ void MainWindow::setAmp(double value, unsigned int chanel){
 
 
     if(chanel>8)return;
-    chanelList[curChanelIndex].ampl = value;
+    chanelList[chanel].ampl = value;
     if(chanel>7)
     {
-        chanelList[curChanelIndex].ampl = value;
+        //chanelList[chanel].ampl = value;
         for(int i = 0;i<8;i++)
         {
             setAmp(value,i);
@@ -178,7 +183,8 @@ void MainWindow::setAmp(double value, unsigned int chanel){
     {
 
         command[2] = 0x02;
-        value = value+2*(700.0-chanelList[curChanelIndex].freq)/690.0;
+        if(chanelList[chanel].freq>2)value = value+2*(700.0-chanelList[chanel].freq)/690.0;
+
         int a = value*4 + 0.5;
         command[3] = a>>8;
         command[4] = a;

@@ -111,7 +111,7 @@ int MainWindow::onRecvUART()
                 if(!warmingDone)
                 {
 
-                    if(temp>=35)
+                    if(temp>=25)
                     {
                         on_pushButton_num_control_ioupdate_2_pressed();
                         ui->tabWidget->setCurrentIndex(0);

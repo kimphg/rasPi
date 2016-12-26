@@ -21,6 +21,75 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>61</x>
+      <y>90</y>
+      <width>662</width>
+      <height>122</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_10">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_temp_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Nhiệt độ:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_temp_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>--</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QLabel" name="label_system_message">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>--</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label_system_message_2">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>THIẾT BỊ KIỂM TRA HỆ THỐNG ĐỊNH HƯỚNG WSG II</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
@@ -63,7 +132,7 @@
      </attribute>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="2" colspan="2">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_2">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -314,7 +383,7 @@
        </widget>
       </item>
       <item row="2" column="2" rowspan="2">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_3">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -413,7 +482,7 @@
        </widget>
       </item>
       <item row="1" column="3" rowspan="3">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_4">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -653,7 +722,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="frame_5">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -713,7 +782,7 @@
        </widget>
       </item>
       <item row="0" column="0" colspan="2">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_6">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -890,7 +959,7 @@
        </widget>
       </item>
       <item row="1" column="0" rowspan="3" colspan="2">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_7">
         <property name="frameShape">
          <enum>QFrame::Box</enum>
         </property>
@@ -1270,7 +1339,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
        <rect>
         <x>460</x>
@@ -1519,7 +1588,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="layoutWidget_3">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1582,109 +1651,11 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>170</y>
-      <width>481</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_temp_4">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Nhiệt độ:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_temp_2">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>--</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>61</x>
-      <y>90</y>
-      <width>631</width>
-      <height>56</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_system_message_2">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>HỆ THỐNG KIỂM TRA ĐỊNH HƯỚNG WGS II</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_system_message">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>--</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="res.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>pushButton_4</sender>
-   <signal>pressed()</signal>
-   <receiver>textEdit_data_log</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>615</x>
-     <y>155</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>429</x>
-     <y>156</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

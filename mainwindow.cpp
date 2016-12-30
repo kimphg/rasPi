@@ -111,11 +111,12 @@ int MainWindow::onRecvUART()
                 if(!warmingDone)
                 {
 
-                    if(temp>=25)
+                    if(temp>=20)
                     {
                         on_pushButton_num_control_ioupdate_2_pressed();
                         ui->tabWidget->setCurrentIndex(0);
                         ui->tabWidget->setVisible(true);
+                        ui->frame->setVisible(false);
                         warmingDone = true;
 
 

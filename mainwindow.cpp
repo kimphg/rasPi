@@ -635,7 +635,8 @@ void MainWindow::on_pushButton_commit_pressed()
 {
     //=  ui->tableWidget->item(1,1);
     config.clearItem();
-    for(int i=0;i<1000;i++)
+    int nitem = ui->tableWidget->columnCount();
+    for(int i=0;i<nitem;i++)
     {
         //int selCol = itemList.at(0)->column();
         phase_item item;

@@ -24,10 +24,10 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>61</x>
-      <y>90</y>
-      <width>662</width>
-      <height>122</height>
+      <x>22</x>
+      <y>71</y>
+      <width>701</width>
+      <height>141</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_10">
@@ -111,7 +111,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1401,7 +1401,7 @@
         <x>20</x>
         <y>110</y>
         <width>601</width>
-        <height>311</height>
+        <height>321</height>
        </rect>
       </property>
       <property name="frameShape">

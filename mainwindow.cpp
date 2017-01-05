@@ -111,7 +111,7 @@ int MainWindow::onRecvUART()
                 if(!warmingDone)
                 {
 
-                    if(temp>=20)
+                    if(temp>=37)
                     {
                         on_pushButton_num_control_ioupdate_2_pressed();
                         ui->tabWidget->setCurrentIndex(0);
@@ -184,8 +184,8 @@ void MainWindow::setAmp(double value, unsigned int chanel){
     {
 
         command[2] = 0x02;
-        //if(chanelList[chanel].freq>2)value = value+2*(700.0-chanelList[chanel].freq)/690.0;
-
+        if(chanelList[chanel].freq>4)value = value- chanelList[chanel].freq*3.4/696.0+3;
+        else value = value + chanelList[chanel].freq*3.4/3.0 - 1.2;
         int a = value*4 + 0.5;
         command[3] = a>>8;
         command[4] = a;

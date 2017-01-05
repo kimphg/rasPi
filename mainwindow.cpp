@@ -184,7 +184,7 @@ void MainWindow::setAmp(double value, unsigned int chanel){
     {
 
         command[2] = 0x02;
-        if(chanelList[chanel].freq>2)value = value+2*(700.0-chanelList[chanel].freq)/690.0;
+        //if(chanelList[chanel].freq>2)value = value+2*(700.0-chanelList[chanel].freq)/690.0;
 
         int a = value*4 + 0.5;
         command[3] = a>>8;

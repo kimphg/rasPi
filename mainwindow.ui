@@ -899,11 +899,11 @@
         </property>
         <property name="font">
          <font>
-          <pointsize>8</pointsize>
+          <pointsize>7</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>BM Công nghệ Điện tử - Viện Tích hợp Hệ thống - HVKTQS</string>
+         <string>BM Công nghệ Điện tử - Viện THHT - HVKTQS</string>
         </property>
        </widget>
       </item>

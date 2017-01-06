@@ -78,7 +78,7 @@ void CConfig::SaveToFile()
         phase_config->SetAttribute("ch6",itemList.at(i).phaseChanel[5]);
         phase_config->SetAttribute("ch7",itemList.at(i).phaseChanel[6]);
         phase_config->SetAttribute("ch8",itemList.at(i).phaseChanel[7]);
-
+        phase_config->SetAttribute("power",itemList.at(i).phaseChanel[8]);
     }
 
     doc.SaveFile(CFG_FILE_NAME);
@@ -131,6 +131,7 @@ bool CConfig::LoadFromFile()
            pParm->QueryDoubleAttribute("ch6",&item.phaseChanel[5]);
            pParm->QueryDoubleAttribute("ch7",&item.phaseChanel[6]);
            pParm->QueryDoubleAttribute("ch8",&item.phaseChanel[7]);
+           pParm->QueryDoubleAttribute("power",&item.phaseChanel[8]);
            this->itemList.push_back(item);
            pParm=pParm->NextSiblingElement() ;
 

@@ -115,6 +115,8 @@ private slots:
 
     void on_pushButton_return_to_main_2_pressed();
 
+    void on_pushButton_4_pressed();
+
 protected:
     void paintEvent(QPaintEvent *event);
 private:

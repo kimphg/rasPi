@@ -607,6 +607,7 @@ void MainWindow::on_pushButton_kenh_17_pressed()
 void MainWindow::on_pushButton_num_control_amp_pressed()
 {
     ui->label_unit->setText("dBm");
+    ui->lineEdit->clear();
 }
 
 
@@ -614,11 +615,13 @@ void MainWindow::on_pushButton_num_control_amp_pressed()
 void MainWindow::on_pushButton_num_control_afreq_pressed()
 {
     ui->label_unit->setText("Mhz");
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_pushButton_num_control_phase_pressed()
 {
     ui->label_unit->setText("deg");
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_pushButton_num_control_ioupdate_pressed()
@@ -954,4 +957,9 @@ void MainWindow::on_pushButton_return_to_main_pressed()
 void MainWindow::on_pushButton_return_to_main_2_pressed()
 {
     ui->tabWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_4_pressed()
+{
+    ui->textEdit_data_log->clear();
 }

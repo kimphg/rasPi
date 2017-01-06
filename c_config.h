@@ -19,7 +19,7 @@
 struct phase_item
 {
     double freg;
-    double phaseChanel[8];
+    double phaseChanel[9];
 };
 
 class CConfig

@@ -184,8 +184,10 @@ void MainWindow::setAmp(double value, unsigned int chanel){
     {
 
         command[2] = 0x02;
-        if(chanelList[chanel].freq>4)value = value- chanelList[chanel].freq*3.4/696.0+3;
-        else value = value + chanelList[chanel].freq*3.4/3.0 - 1.2;
+        double param= config.getValue(chanelList[chanel].freq,8);
+        value +=param;
+//        if(chanelList[chanel].freq>4)value = value- chanelList[chanel].freq*3.4/696.0+3;
+//        else value = value + chanelList[chanel].freq*3.4/3.0 - 1.2;
         int a = value*4 + 0.5;
         command[3] = a>>8;
         command[4] = a;
@@ -645,7 +647,7 @@ void MainWindow::on_pushButton_commit_pressed()
         if(itab)item.freg = itab->text().toDouble();
         else continue;
         if(item.freg==0)continue;
-        for(int row=1; row < 9;row++)
+        for(int row=1; row < 10;row++)
         {
             itab = ui->tableWidget->item(row,i);
             if(itab)
@@ -677,7 +679,7 @@ void MainWindow::loadConfigTable()
         QTableWidgetItem *tabitem = new QTableWidgetItem;
         tabitem->setText(QString::number(item.freg));
         ui->tableWidget->setItem(0,curCol,tabitem);
-        for(int j=0;j<8;j++)
+        for(int j=0;j<9;j++)
         {
             tabitem = new QTableWidgetItem;
             tabitem->setText(QString::number(item.phaseChanel[j]));

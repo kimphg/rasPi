@@ -96,7 +96,7 @@
       <x>10</x>
       <y>10</y>
       <width>781</width>
-      <height>441</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="font">
@@ -111,7 +111,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1399,9 +1399,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>110</y>
+        <y>90</y>
         <width>601</width>
-        <height>321</height>
+        <height>351</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1479,6 +1479,11 @@
         <string>Kênh 8</string>
        </property>
       </row>
+      <row>
+       <property name="text">
+        <string>Công suất</string>
+       </property>
+      </row>
       <column>
        <property name="text">
         <string>1</string>
@@ -1538,9 +1543,9 @@
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>0</y>
+        <y>-10</y>
         <width>381</width>
-        <height>111</height>
+        <height>101</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_9">
@@ -1612,9 +1617,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
+        <y>0</y>
         <width>121</width>
-        <height>91</height>
+        <height>81</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1653,9 +1658,9 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>10</y>
+        <y>0</y>
         <width>151</width>
-        <height>91</height>
+        <height>81</height>
        </rect>
       </property>
       <property name="sizePolicy">

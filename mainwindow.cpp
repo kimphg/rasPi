@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     curChanelIndex = 0;
     updateChanelInfo();
     loadConfigTable();
+
+
 #ifndef Q_OS_WIN
     if (wiringPiSetup () == -1)
     {
@@ -58,6 +60,12 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->lineEdit->setText("Not connected") ;
         return ;
     }
+#else
+//    on_pushButton_num_control_ioupdate_2_pressed();
+//    ui->tabWidget->setCurrentIndex(0);
+//    ui->tabWidget->setVisible(true);
+//    ui->frame->setVisible(false);
+//    warmingDone = true;
 #endif
 }
 
@@ -101,6 +109,7 @@ int MainWindow::onRecvUART()
         if((rd.at(rd.size()-2)==0xff)&&(rd.size()>2))
         {
             int byte = rd.at(rd.size()-1);
+            printf("a:%d",byte);
             if(byte!=0xff)
             {
                 double temp = byte/4.0;
@@ -111,14 +120,13 @@ int MainWindow::onRecvUART()
                 if(!warmingDone)
                 {
 
-                    if(temp>=37)
+                    if(temp>=36)
                     {
                         on_pushButton_num_control_ioupdate_2_pressed();
                         ui->tabWidget->setCurrentIndex(0);
                         ui->tabWidget->setVisible(true);
                         ui->frame->setVisible(false);
                         warmingDone = true;
-
 
                     }
                     else
@@ -731,6 +739,9 @@ void MainWindow::on_pushButton_sort_table_2_pressed()//test button
 
 void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
 {
+#ifdef Q_OS_WIN
+        return;
+#endif
     this->setPalette(QPalette(MY_PATLETTE_WAITING));
     ui->tabWidget->hide();
     showStatus("Device restarting...");

@@ -32,7 +32,7 @@ public:
 	void SaveToFile();
 	void setDefault();
     bool LoadFromFile();
-
+    double tempStart,tempMin,tempMax;
     void addItem(phase_item *item);
     phase_item getItem(int index) const;
     int getItemListSize();

@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include <stdio.h>
 #include <QTimer>
@@ -117,6 +116,28 @@ private slots:
 
     void on_pushButton_4_pressed();
 
+    void on_pushButton_num_control_ioupdate_2_clicked();
+
+    void on_pushButton_skip_warmup_clicked();
+
+    void on_pushButton_return_to_main_2_clicked();
+
+    void on_pushButton_return_to_main_3_clicked();
+
+    void on_pushButton_num_control_phase_2_clicked();
+
+    void on_pushButton_num_back_3_clicked();
+
+    void on_pushButton_num_back_4_clicked();
+
+    void on_pushButton_num_back_5_clicked();
+
+    void on_pushButton_num_back_6_clicked();
+
+    void on_pushButton_num_back_7_clicked();
+
+    void on_pushButton_num_back_2_clicked();
+
 protected:
     void paintEvent(QPaintEvent *event);
 private:
@@ -139,6 +160,7 @@ private:
     void txOff(int chanel);
 
     void sendCommand(unsigned char *command);
+    void Start();
 };
 
 #endif // MAINWINDOW_H

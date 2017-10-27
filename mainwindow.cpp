@@ -3,6 +3,7 @@
 
 #include <QKeyEvent>
 #include <QStatusBar>
+#include <math.h>
 #ifndef Q_OS_WIN
 #include "wiringPi.h"
 #include "wiringSerial.h"
@@ -120,13 +121,9 @@ int MainWindow::onRecvUART()
                 if(!warmingDone)
                 {
 
-                    if(temp>=36)
+                    if(temp>=config.tempStart)// gia tri nay thay doi theo tung thiet bi
                     {
-                        on_pushButton_num_control_ioupdate_2_pressed();
-                        ui->tabWidget->setCurrentIndex(0);
-                        ui->tabWidget->setVisible(true);
-                        ui->frame->setVisible(false);
-                        warmingDone = true;
+                        Start();
 
                     }
                     else
@@ -136,8 +133,7 @@ int MainWindow::onRecvUART()
 
                 }
 
-
-                 if(temp>40||temp<33)
+                 if(temp>config.tempMax||config.tempMin<33)// gia tri nay thay doi theo tung thiet bi
                 {
                     ui->label_temp->setPalette(MY_PATLETTE_HL);
                 }
@@ -162,6 +158,16 @@ int MainWindow::onRecvUART()
     //if(rd.size()>0)ui->lineEdit->setText(ui->lineEdit->text() + rd.toHex());
     //ui->lineEdit->
 
+}
+void MainWindow::Start()
+{
+
+    ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget->setVisible(true);
+    ui->frame->setVisible(false);
+    warmingDone = true;
+    update();
+    on_pushButton_num_control_ioupdate_2_pressed();
 }
 void MainWindow::showStatus(QString str)
 {
@@ -746,8 +752,7 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
     ui->tabWidget->hide();
     showStatus("Device restarting...");
     ui->label_system_message->setText("System initializing...");
-    update();
-
+    repaint();
     command[1] = 0x0b;
     command[2] = 0x0b;
     command[3] = 0x0b;
@@ -756,23 +761,17 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
     command[6] = 0x0b;
     for(int i=0;i<COMMAND_LEN;i++)
     {
-#ifndef Q_OS_WIN
         serialPutchar (fd, command[i]) ;
-#endif
     }
 
-#ifndef Q_OS_WIN
     delay(1000);
     serialFlush(fd);
     update();
-#endif
     int k=0;
     while (true)
     {
         if(onRecvUART()>7)break;
-        #ifndef Q_OS_WIN
             delay(500);
-        #endif
         k++;
         if(k>40)
         {
@@ -781,6 +780,7 @@ void MainWindow::on_pushButton_num_control_ioupdate_2_pressed()
         }
     }
     ui->tabWidget->show();
+    repaint();
     this->setPalette(QPalette(MY_PATLETTE_NORMAL));
 }
 
@@ -973,4 +973,76 @@ void MainWindow::on_pushButton_return_to_main_2_pressed()
 void MainWindow::on_pushButton_4_pressed()
 {
     ui->textEdit_data_log->clear();
+}
+
+void MainWindow::on_pushButton_num_control_ioupdate_2_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_skip_warmup_clicked()
+{
+    this->Start();
+    ui->pushButton_skip_warmup->hide();
+}
+
+void MainWindow::on_pushButton_return_to_main_2_clicked()
+{
+    ui->tabWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_return_to_main_3_clicked()
+{
+    ui->tabWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pushButton_num_control_phase_2_clicked()
+{
+    ui->tabWidget->setCurrentIndex(3);
+    ui->label_unit_2->setText(QString::number(chanelList[8].freq));
+}
+
+void MainWindow::on_pushButton_num_back_3_clicked()
+{
+    ui->lineEdit_antenna_D->setText(QString::number(ui->lineEdit_antenna_D->text().toDouble()+0.1,'f',1));
+}
+
+void MainWindow::on_pushButton_num_back_4_clicked()
+{
+    ui->lineEdit_antenna_D->setText(QString::number(ui->lineEdit_antenna_D->text().toDouble()-0.1,'f',1));
+}
+
+void MainWindow::on_pushButton_num_back_5_clicked()
+{
+    ui->lineEdit_antenna_angle->setText(QString::number(ui->lineEdit_antenna_angle->text().toDouble()+1,'f',1));
+}
+
+void MainWindow::on_pushButton_num_back_6_clicked()
+{
+    ui->lineEdit_antenna_angle->setText(QString::number(ui->lineEdit_antenna_angle->text().toDouble()-1,'f',1));
+}
+
+void MainWindow::on_pushButton_num_back_7_clicked()
+{
+
+    double antenna_D =  (ui->lineEdit_antenna_D->text().toDouble());
+    double freq = chanelList[8].freq;
+    if(!freq)return;
+    double lamda = 300000000.0/freq;
+    double antenna_angle =  (ui->lineEdit_antenna_angle->text().toDouble());
+    antenna_angle = antenna_angle/180.0*3.1415926535;
+    double phase1 = antenna_D/lamda*sin(antenna_angle);
+    double phase2 = antenna_D/lamda*cos(antenna_angle);
+    ui->lineEdit_p1->setText(QString::number(phase1));
+    ui->lineEdit_p2->setText(QString::number(phase2));
+    ui->lineEdit_p3->setText(QString::number(phase1));
+    ui->lineEdit_p4->setText(QString::number(phase2));
+    ui->lineEdit_p5->setText(QString::number(phase1));
+    ui->lineEdit_p6->setText(QString::number(phase2));
+}
+
+
+void MainWindow::on_pushButton_num_back_2_clicked()
+{
+
 }

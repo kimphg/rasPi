@@ -80,7 +80,10 @@ void CConfig::SaveToFile()
         phase_config->SetAttribute("ch8",itemList.at(i).phaseChanel[7]);
         phase_config->SetAttribute("power",itemList.at(i).phaseChanel[8]);
     }
-
+    phase_config = doc.NewElement("sys_config");
+    phase_config->SetAttribute("tempStart",this->tempStart);
+    phase_config->SetAttribute("tempMin",this->tempMin);
+    phase_config->SetAttribute("tempMax",this->tempMax);
     doc.SaveFile(CFG_FILE_NAME);
 
 }
@@ -135,6 +138,16 @@ bool CConfig::LoadFromFile()
            this->itemList.push_back(item);
            pParm=pParm->NextSiblingElement() ;
 
+        }
+        pParm = xmlDoc.FirstChildElement("sys_config");
+        this->tempStart = 37;
+        this->tempMin = 35;this->tempMax = 42;
+        while(pParm)
+        {
+           pParm->QueryDoubleAttribute("tempStart",&tempStart);
+           pParm->QueryDoubleAttribute("tempMin",&tempMin);
+           pParm->QueryDoubleAttribute("tempMax",&tempMax);
+           pParm=pParm->NextSiblingElement() ;
         }
 //        pParm->QueryDoubleAttribute("mLat",&mLat);
 //        pParm->QueryDoubleAttribute("mLong",&mLon);

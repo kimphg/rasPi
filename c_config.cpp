@@ -81,6 +81,7 @@ void CConfig::SaveToFile()
         phase_config->SetAttribute("power",itemList.at(i).phaseChanel[8]);
     }
     phase_config = doc.NewElement("sys_config");
+    doc.LinkEndChild(phase_config);
     phase_config->SetAttribute("tempStart",this->tempStart);
     phase_config->SetAttribute("tempMin",this->tempMin);
     phase_config->SetAttribute("tempMax",this->tempMax);
@@ -155,6 +156,7 @@ bool CConfig::LoadFromFile()
 //        pParm->QueryDoubleAttribute("trueN",&trueN);
 //        const char *pName=pParm->Attribute("mapFilename");
 //        if(pName)mapFilename.append(pName);
+        SaveToFile();
         return true;
     }
 

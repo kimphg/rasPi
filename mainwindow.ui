@@ -141,7 +141,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -154,7 +154,7 @@
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="icon">
-      <iconset resource="res.qrc">
+      <iconset>
        <normaloff>:/tx_on.ico</normaloff>:/tx_on.ico</iconset>
      </attribute>
      <attribute name="title">
@@ -2317,8 +2317,6 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

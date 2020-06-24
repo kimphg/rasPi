@@ -135,6 +135,21 @@ Widget::Widget(QWidget *parent) :
     finaltime   = -9999.0;
 
 
+    //set up connnection
+#ifndef Q_OS_WIN
+    if (wiringPiSetup () == -1)
+    {
+        printf ( "Unable to start wiringPi\n") ;
+        return ;
+    }
+    if ((fd = serialOpen ("/dev/ttyS0", 9600)) < 0)
+    {
+        //printf(ui->lineEdit->text().toStdString().data());
+        //fflush (stdout) ;
+//        ui->lineEdit->setText("Not connected") ;
+        return ;
+    }
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -279,6 +294,7 @@ void Widget::updateconsole(QByteArray incomingdata){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Widget::update_plot() {
+    data.append()
     if(!data.isEmpty()) {
         datalist.clear();
         data.remove("\n");

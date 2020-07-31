@@ -2,16 +2,18 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QtSerialPort>
+//#include <QtSerialPort>
 #include <QTimer>
 #include "qcustomplot/qcustomplot.h"
-
+#include <stdio.h>
+#include "raddsp.h"
 #define MAXSUBPLOTS 3
 #define MAXLINES 3
 
 namespace Ui {
 class Widget;
 }
+
 
 class Widget : public QWidget
 {
@@ -20,7 +22,8 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-
+private:
+    QObject* mythingy;
 private slots:
     void on_Initchar_lineEdit_textChanged(const QString &arg1);
     void on_Serialavailable_comboBox_currentIndexChanged(const QString &arg1);
@@ -38,20 +41,21 @@ private slots:
 
     void number_of_lines_changed(int val);
     void color_changed(int val);
-
+private slots:
+    void deleteObject(QObject* thingy);
 private:
     Ui::Widget *ui;
     QString serialportname;
     QString serialbaud;
     QString initchar;
-    QSerialPort serialport;
+//    QSerialPort serialport;
     QStringList datalist_console;
     QStringList datalist;
     QString lastdatalistline;
     QString firstdatalistline;
-    QString data;
 
-    QList<QList<double> > parseddatalist;
+
+
 
     QTimer* timer;
 
@@ -86,6 +90,7 @@ private:
     void updateconsole(QByteArray incomingdata);
 
     QColor getcolor(int idx);
+    bool setupGPIO();
 };
 
 #endif // WIDGET_H

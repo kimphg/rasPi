@@ -75,6 +75,8 @@ void fft()
 
 
 unsigned short  data1,data2,data3;
+#ifndef Q_OS_WIN
+
 void clkRisingInterrupt(void)
 {
 //    digitalRead(23);
@@ -103,6 +105,9 @@ void clkRisingInterrupt(void)
         bitCount=0;
     }
 }
+
+
+#endif
 QString RadDSP::getDataString()
 {
     //CArray fftData = fft();
@@ -153,18 +158,24 @@ void RadDSP::doWork()
 }
 void RadDSP::StartRead()
 {
+#ifndef Q_OS_WIN
     digitalWrite (EN_PIN, HIGH) ;
     printf("\nEn on");
+#endif
+
 }
 void RadDSP::StopRead()
 {
+#ifndef Q_OS_WIN
     digitalWrite (EN_PIN, LOW) ;
     printf("\nEn off");
+#endif
+
 }
 bool RadDSP::setupGPIO()
 {
 
-
+#ifndef Q_OS_WIN
     pinMode (EN_PIN, OUTPUT) ;//enable
     pinMode (DATA_PIN, INPUT) ;//data
     pinMode (CLOCK_PIN, INPUT) ;//clock
@@ -175,5 +186,7 @@ bool RadDSP::setupGPIO()
           fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
           return false;
       }
+#endif
+
       return true;
 }

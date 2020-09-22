@@ -63,7 +63,8 @@ private:
     QTimer* timer;
     int buf_size;
     int databefore;
-    QString data;
+    QByteArray incomingdata;
+    QByteArray data;
     double initialtime;
     double finaltime;
     bool isfirst;
@@ -94,6 +95,7 @@ private:
 
     QColor getcolor(int idx);
     bool setupGPIO();
+    bool plot_data();
 };
 
 #endif // WIDGET_H

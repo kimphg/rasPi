@@ -12,7 +12,8 @@ TARGET = SerialPlotter
 TEMPLATE = app
 
 
-SOURCES += main.cpp widget.cpp qcustomplot/qcustomplot.cpp
+SOURCES += main.cpp widget.cpp qcustomplot/qcustomplot.cpp \
+    sstest.cpp
 
 HEADERS += widget.h qcustomplot/qcustomplot.h
 

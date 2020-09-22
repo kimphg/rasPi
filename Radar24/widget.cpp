@@ -36,8 +36,8 @@ Widget::Widget(QWidget *parent) :
 
 
     // timer for asincronous plot
-//    timer = new QTimer(this);
-//    connect(timer, SIGNAL(timeout()), this, SLOT(update_plot()));
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update_plot()));
 
 //    ui->frame_setting->setHidden(true);
     lastdatalistline = "";
@@ -189,7 +189,7 @@ void Widget::on_Serialbaud_comboBox_currentIndexChanged(const QString &arg1)
 void Widget::on_Start_pushButton_clicked()
 {
 //    RadDSP::StartRead();
-//    timer->start(2000);
+    timer->start(200);
 //    digitalWrite(22,HIGH);
 
     QSerialPortInfo serialportinfo(serialportname);
@@ -245,23 +245,8 @@ void Widget::on_Stop_pushButton_clicked()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Widget::readData() {
-    QByteArray incomingdata = serialport.readAll();
-    QList<QByteArray> baList = incomingdata.split('!');
-    if(baList.size()==1)
-    {
-        data.append(baList[0]); // data is a qstring
-        update_plot();
+    incomingdata.append(serialport.readAll());
 
-    }
-    else if(baList.size()>=2)
-    {
-        data.append(baList[0]); // data is a qstring
-        update_plot();
-        data.clear();
-        data.append(baList[1]);
-        update_plot();
-//        updateconsole("data\n");
-    }
 
 }
 
@@ -307,13 +292,34 @@ void Widget::updateconsole(QByteArray incomingdata){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //double parseddatalist[BUF_SIZE];
 void Widget::update_plot() {
-//    Complex* floatdata=(RadDSP::getData());
-    //data = CArray(RadDSP::getData());
-    if(data.length()==0)return;
-    QStringList datalist =  data.split("\n");
-    cur_data_type = datalist[0].toInt();
-    if(true) {
+    if(incomingdata.contains('!'))
+    {
+        QList<QByteArray> baList = incomingdata.split('!');
+        int ntokens = baList.size();
+        for(int i=0;i<ntokens-1;i++)
+        {
+            data.append(baList[i]);
+            plot_data();
+            data.clear();
+        }
 
+        data.append(baList.at(ntokens-1));
+        if(plot_data())data.clear();
+        incomingdata.clear();
+    }
+
+}
+bool Widget::plot_data()
+{
+    if(data.length()==0)return false;
+    QList<QByteArray> datalist =  data.split('\n');
+    updateconsole("data len:");
+    updateconsole(QString::number(datalist.length()).toUtf8());
+
+    if(datalist.length()>(buf_size)) {
+        cur_data_type = QString(datalist[1]).toInt();
+        updateconsole("data type:");
+        updateconsole(datalist[1]);
         //--------------------------------------/
         /*datalist.clear();
         data.remove("\n");
@@ -355,12 +361,17 @@ void Widget::update_plot() {
                             {
                                 if(subplot_i==1)
                                 {
-                                Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
-                                Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-100,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-100,Qt::AlignRight);
+                                }
+                                if(subplot_i==0)
+                                {
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-1000,Qt::AlignRight);
                                 }
                                 Subplots[subplot_i].lines[line_i].graph->clearData();
                                 for (int i=1;i<datalist.length();i++) {
-                                    Subplots[subplot_i].lines[line_i].graph->addData(i+1.0,datalist[i].toDouble());
+                                    Subplots[subplot_i].lines[line_i].graph->addData(i,QString(datalist[i]).toDouble());
                                     //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
                                 }
                             }
@@ -385,10 +396,11 @@ void Widget::update_plot() {
         ui->Plot->replot();
 //        data.clear();
 //        parseddatalist.clear();
+        return true;
 
     }
 
-
+    return false;
 //    for (int k = 0; k < datalist.length(); k++) {
 //        QStringList chunks = datalist.at(k).split("\t");
 //        // if it is a plot line, parse the chuncks into doule
@@ -415,7 +427,6 @@ void Widget::update_plot() {
 //    }
 //    ui->Plot->replot();
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

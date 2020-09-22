@@ -76,44 +76,7 @@ void fft()
     //return x;
 }
 
-struct timeval start, end,sample;
-//unsigned short  data1,data2,data3;
-int bitData[12];
-void clkRisingInterrupt(void)
-{
-    gettimeofday(&end, NULL);
-    int time_diff  =end.tv_usec - start.tv_usec;
-//    printf(" %d",time_diff);
-//    fflush(stdout);
-    if(time_diff>60)
-    {
-        printf("bits:%d",bitCount);
-        bitCount=0;
 
-    }
-    gettimeofday(&start, NULL);
-    bitData[bitCount] = digitalRead(DATA_PIN);
-    bitCount++;
-    if(bitCount>11)
-    {
-        bitCount = 0;
-        mdata[byteCount++]=( ( (bitData[0])<<3 ) +( (bitData[1])<<2)+((bitData[2])<<1)+(bitData[3])  );
-//        if(byteCount>=BUF_SIZE)byteCount=0;
-        mdata[byteCount++]=( ( (bitData[4])<<3 ) +( (bitData[5])<<2)+((bitData[6])<<1)+(bitData[7])  );
-//        if(byteCount>=BUF_SIZE)byteCount=0;
-        mdata[byteCount++]=( ( (bitData[8])<<3 ) +( (bitData[9])<<2)+((bitData[10])<<1)+(bitData[11])  );
-        if(byteCount>=BUF_SIZE)
-        {
-            struct timeval oldtime=sample;
-            gettimeofday(&sample, NULL);
-            double timeInterval = (sample.tv_usec - oldtime.tv_usec)/1000000.0;
-            printf("Time %f",timeInterval);
-            fflush(stdout);
-            byteCount=0;
-            fft();
-        }
-    }
-}
 /*
 void clkRisingInterrupt(void)
 {
@@ -197,27 +160,27 @@ void RadDSP::doWork()
 }
 void RadDSP::StartRead()
 {
-    digitalWrite (EN_PIN, HIGH) ;
+//    digitalWrite (EN_PIN, HIGH) ;
     printf("\nEn on");
 }
 void RadDSP::StopRead()
 {
-    digitalWrite (EN_PIN, LOW) ;
+//    digitalWrite (EN_PIN, LOW) ;
     printf("\nEn off");
 }
 bool RadDSP::setupGPIO()
 {
 
 
-    pinMode (EN_PIN, OUTPUT) ;//enable
-    pinMode (DATA_PIN, INPUT) ;//data
-    pinMode (CLOCK_PIN, INPUT) ;//clock
+//    pinMode (EN_PIN, OUTPUT) ;//enable
+//    pinMode (DATA_PIN, INPUT) ;//data
+//    pinMode (CLOCK_PIN, INPUT) ;//clock
 
     // set Pin 17/0 generate an interrupt on high-to-low transitions
       // and attach myInterrupt() to the interrupt
-      if ( wiringPiISR (CLOCK_PIN, INT_EDGE_RISING, &clkRisingInterrupt) < 0 ) {
-          fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
-          return false;
-      }
+//      if ( wiringPiISR (CLOCK_PIN, INT_EDGE_RISING, &clkRisingInterrupt) < 0 ) {
+//          fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
+//          return false;
+//      }
       return true;
 }

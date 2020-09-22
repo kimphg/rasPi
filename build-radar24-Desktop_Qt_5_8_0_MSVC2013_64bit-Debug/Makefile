@@ -211,6 +211,7 @@ Makefile: ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msv
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_config.prf \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_post.prf \
+		.qmake.stash \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds.prf \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\toolchain.prf \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_pre.prf \
@@ -239,6 +240,7 @@ Makefile: ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msv
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupport.prl \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgets.prl \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Gui.prl \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5SerialPort.prl \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Core.prl
 	$(QMAKE) -o Makefile ..\Radar24\radar24.pro -spec win32-msvc2013 "CONFIG+=debug" "CONFIG+=qml_debug"
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_pre.prf:
@@ -379,6 +381,7 @@ C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_functions.prf:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_config.prf:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_post.prf:
+.qmake.stash:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds.prf:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\toolchain.prf:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_pre.prf:
@@ -407,6 +410,7 @@ C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.prl:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupport.prl:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgets.prl:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Gui.prl:
+C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5SerialPort.prl:
 C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Radar24\radar24.pro -spec win32-msvc2013 "CONFIG+=debug" "CONFIG+=qml_debug"

@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Debug
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_QML_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_QML_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -nologo -Zc:wchar_t -FS -Zi -MDd -W3 /Fddebug\SerialPlotter.vc.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -EHsc /Fddebug\SerialPlotter.vc.pdb $(DEFINES)
-INCPATH       = -I..\Radar24 -I. -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtANGLE -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore -Idebug -I. -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013 
+INCPATH       = -I..\Radar24 -I. -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtANGLE -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore -Idebug -I. -IC:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib shell32.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupportd.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Guid.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Cored.lib 
+LIBS          = /LIBPATH:C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib shell32.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupportd.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Guid.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5SerialPortd.lib C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Cored.lib 
 QMAKE         = C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -45,24 +45,18 @@ OBJECTS_DIR   = debug
 
 SOURCES       = ..\Radar24\main.cpp \
 		..\Radar24\widget.cpp \
-		..\Radar24\qcustomplot\qcustomplot.cpp \
-		..\Radar24\raddsp.cpp debug\moc_widget.cpp \
-		debug\moc_qcustomplot.cpp \
-		debug\moc_raddsp.cpp
+		..\Radar24\qcustomplot\qcustomplot.cpp debug\moc_widget.cpp \
+		debug\moc_qcustomplot.cpp
 OBJECTS       = debug\main.obj \
 		debug\widget.obj \
 		debug\qcustomplot.obj \
-		debug\raddsp.obj \
 		debug\moc_widget.obj \
-		debug\moc_qcustomplot.obj \
-		debug\moc_raddsp.obj
+		debug\moc_qcustomplot.obj
 
 DIST          =  ..\Radar24\widget.h \
-		..\Radar24\qcustomplot\qcustomplot.h \
-		..\Radar24\raddsp.h ..\Radar24\main.cpp \
+		..\Radar24\qcustomplot\qcustomplot.h ..\Radar24\main.cpp \
 		..\Radar24\widget.cpp \
-		..\Radar24\qcustomplot\qcustomplot.cpp \
-		..\Radar24\raddsp.cpp
+		..\Radar24\qcustomplot\qcustomplot.cpp
 QMAKE_TARGET  = SerialPlotter
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = SerialPlotter.exe
@@ -168,10 +162,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) SerialPlotter.zip $(SOURCES) $(DIST) ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\angle.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\msvc-base.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\msvc-desktop.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\qconfig.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_accessibility_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_egl_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_purchasing.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_purchasing_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_theme_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\toolchain.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qml_debug.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\resources.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\moc.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\uic.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qmake_use.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\lex.prf ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupportd.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgetsd.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Guid.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Cored.prl    C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\data\dummy.cpp ..\Radar24\widget.h ..\Radar24\qcustomplot\qcustomplot.h ..\Radar24\raddsp.h ..\Radar24\main.cpp ..\Radar24\widget.cpp ..\Radar24\qcustomplot\qcustomplot.cpp ..\Radar24\raddsp.cpp ..\Radar24\widget.ui    
+	$(ZIP) SerialPlotter.zip $(SOURCES) $(DIST) ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\angle.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\msvc-base.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\common\msvc-desktop.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\qconfig.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_accessibility_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_egl_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_purchasing.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_purchasing_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_theme_support_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\toolchain.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\default_pre.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qml_debug.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qt.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\resources.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\moc.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\uic.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\qmake_use.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\lex.prf ..\Radar24\radar24.pro C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\qtmaind.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5PrintSupportd.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Widgetsd.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Guid.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5SerialPortd.prl C:\Qt\Qt5.8.0\5.8\msvc2013_64\lib\Qt5Cored.prl    C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\data\dummy.cpp ..\Radar24\widget.h ..\Radar24\qcustomplot\qcustomplot.h ..\Radar24\main.cpp ..\Radar24\widget.cpp ..\Radar24\qcustomplot\qcustomplot.cpp ..\Radar24\widget.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.obj debug\widget.obj debug\qcustomplot.obj debug\raddsp.obj debug\moc_widget.obj debug\moc_qcustomplot.obj debug\moc_raddsp.obj
+	-$(DEL_FILE) debug\main.obj debug\widget.obj debug\qcustomplot.obj debug\moc_widget.obj debug\moc_qcustomplot.obj
 	-$(DEL_FILE) debug\SerialPlotter.exp debug\SerialPlotter.vc.pdb debug\SerialPlotter.ilk debug\SerialPlotter.idb
 
 distclean: clean 
@@ -197,13 +191,12 @@ compiler_moc_predefs_clean:
 debug\moc_predefs.h: C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\data\dummy.cpp
 	cl -BxC:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -E -Za C:\Qt\Qt5.8.0\5.8\msvc2013_64\mkspecs\features\data\dummy.cpp 2>NUL >debug\moc_predefs.h
 
-compiler_moc_header_make_all: debug\moc_widget.cpp debug\moc_qcustomplot.cpp debug\moc_raddsp.cpp
+compiler_moc_header_make_all: debug\moc_widget.cpp debug\moc_qcustomplot.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_widget.cpp debug\moc_qcustomplot.cpp debug\moc_raddsp.cpp
-debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+	-$(DEL_FILE) debug\moc_widget.cpp debug\moc_qcustomplot.cpp
+debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\QSerialPort \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialport.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobal.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig-bootstrapped.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig.h \
@@ -226,14 +219,10 @@ debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmutex.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnumeric.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qversiontagging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnamespace.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstring.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qchar.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearray.h \
@@ -255,6 +244,15 @@ debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialportglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmargins.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpaintdevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qrect.h \
@@ -270,7 +268,6 @@ debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpolygon.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qregion.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qdatastream.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qline.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtransform.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpainterpath.h \
@@ -685,12 +682,10 @@ debug\moc_widget.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewdialog.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h \
-		..\Radar24\raddsp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QThread \
 		..\Radar24\widget.h \
 		debug\moc_predefs.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/phuong/Documents/GitHub/rasPi/Radar24 -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtGui -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" ..\Radar24\widget.h -o debug\moc_widget.cpp
+	C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/phuong/Documents/GitHub/rasPi/Radar24 -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtGui -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtSerialPort -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" ..\Radar24\widget.h -o debug\moc_widget.cpp
 
 debug\moc_qcustomplot.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QObject \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
@@ -1178,62 +1173,7 @@ debug\moc_qcustomplot.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QObject 
 		..\Radar24\qcustomplot\qcustomplot.h \
 		debug\moc_predefs.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/phuong/Documents/GitHub/rasPi/Radar24 -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtGui -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" ..\Radar24\qcustomplot\qcustomplot.h -o debug\moc_qcustomplot.cpp
-
-debug\moc_raddsp.cpp: C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QObject \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnamespace.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobal.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig-bootstrapped.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtcore-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qsystemdetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qprocessordetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcompilerdetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtypeinfo.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qsysinfo.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qlogging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qflags.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtypetraits.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbasicatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qgenericatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_cxx11.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_msvc.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobalstatic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmutex.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnumeric.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qversiontagging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstring.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qchar.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearray.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qrefcount.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qarraydata.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringbuilder.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qlist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qalgorithms.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiterator.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qhashfunctions.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qpair.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearraylist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringlist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qregexp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringmatcher.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcoreevent.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qscopedpointer.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmetatype.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qvarlengtharray.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcontainerfwd.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QThread \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qthread.h \
-		..\Radar24\raddsp.h \
-		debug\moc_predefs.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/phuong/Documents/GitHub/rasPi/Radar24 -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtGui -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" ..\Radar24\raddsp.h -o debug\moc_raddsp.cpp
+	C:\Qt\Qt5.8.0\5.8\msvc2013_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include debug/moc_predefs.h -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/phuong/Documents/GitHub/rasPi/Radar24 -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtPrintSupport -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtGui -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtSerialPort -IC:/Qt/Qt5.8.0/5.8/msvc2013_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE" -I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE" -I"C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I"C:\Program Files (x86)\Windows Kits\8.1\include\um" -I"C:\Program Files (x86)\Windows Kits\8.1\include\winrt" ..\Radar24\qcustomplot\qcustomplot.h -o debug\moc_qcustomplot.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1741,10 +1681,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 debug\main.obj: ..\Radar24\main.cpp ../Radar24/widget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\QSerialPort \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialport.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobal.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig-bootstrapped.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig.h \
@@ -1767,14 +1706,10 @@ debug\main.obj: ..\Radar24\main.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmutex.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnumeric.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qversiontagging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnamespace.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstring.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qchar.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearray.h \
@@ -1796,6 +1731,15 @@ debug\main.obj: ..\Radar24\main.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialportglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmargins.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpaintdevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qrect.h \
@@ -1811,7 +1755,6 @@ debug\main.obj: ..\Radar24\main.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpolygon.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qregion.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qdatastream.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qline.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtransform.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpainterpath.h \
@@ -2226,15 +2169,12 @@ debug\main.obj: ..\Radar24\main.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewdialog.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h \
-		../Radar24/raddsp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QThread \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QApplication
 
 debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\QSerialPort \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialport.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobal.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig-bootstrapped.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig.h \
@@ -2257,14 +2197,10 @@ debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmutex.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnumeric.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qversiontagging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnamespace.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstring.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qchar.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearray.h \
@@ -2286,6 +2222,15 @@ debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialportglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QWidget \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qwidget.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtgui-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qwindowdefs_win.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmargins.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpaintdevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qrect.h \
@@ -2301,7 +2246,6 @@ debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpolygon.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qregion.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qdatastream.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiodevice.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qline.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qtransform.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtGui\qpainterpath.h \
@@ -2716,13 +2660,12 @@ debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewdialog.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h \
-		../Radar24/raddsp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QThread \
 		..\Radar24\ui_widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QAction \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QApplication \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QButtonGroup \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QComboBox \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QFrame \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QGridLayout \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QGroupBox \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QHBoxLayout \
@@ -2739,7 +2682,9 @@ debug\widget.obj: ..\Radar24\widget.cpp ../Radar24/widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QVBoxLayout \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QMessageBox \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QElapsedTimer \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QMap
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QMap \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\QSerialPortInfo \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtSerialPort\qserialportinfo.h
 
 debug\qcustomplot.obj: ..\Radar24\qcustomplot\qcustomplot.cpp ../Radar24/qcustomplot/qcustomplot.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QObject \
@@ -3226,63 +3171,9 @@ debug\qcustomplot.obj: ..\Radar24\qcustomplot\qcustomplot.cpp ../Radar24/qcustom
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h
 
-debug\raddsp.obj: ..\Radar24\raddsp.cpp ../Radar24/raddsp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QObject \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnamespace.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobal.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig-bootstrapped.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qconfig.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtcore-config.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qsystemdetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qprocessordetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcompilerdetection.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtypeinfo.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qsysinfo.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qlogging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qflags.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qtypetraits.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbasicatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qgenericatomic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_cxx11.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qatomic_msvc.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qglobalstatic.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmutex.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qnumeric.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qversiontagging.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstring.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qchar.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearray.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qrefcount.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qarraydata.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringbuilder.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qlist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qalgorithms.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qiterator.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qhashfunctions.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qpair.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qbytearraylist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringlist.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qregexp.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qstringmatcher.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcoreevent.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qscopedpointer.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qmetatype.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qvarlengtharray.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qcontainerfwd.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qobject_impl.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\QThread \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtCore\qthread.h
-
 debug\moc_widget.obj: debug\moc_widget.cpp 
 
 debug\moc_qcustomplot.obj: debug\moc_qcustomplot.cpp 
-
-debug\moc_raddsp.obj: debug\moc_raddsp.cpp 
 
 ####### Install
 

@@ -7,6 +7,7 @@
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QMap>
+#include <QSerialPortInfo>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -15,10 +16,10 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
 
 //     check all the available serial ports
-//    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-//        ui->Serialavailable_comboBox->addItem(info.portName());
-//    }
-
+    foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+        ui->Serialavailable_comboBox->addItem(info.portName());
+    }
+    buf_size = 128;
     // setup the possible serial baud speed
     QStringList baudlist;
     baudlist << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
@@ -30,15 +31,15 @@ Widget::Widget(QWidget *parent) :
     initchar = ui->Initchar_lineEdit->text();
 
     // serial data available signal
-//    connect(&serialport, SIGNAL(readyRead()), this, SLOT(readData()));
+    connect(&serialport, SIGNAL(readyRead()), this, SLOT(readData()));
 
 
 
     // timer for asincronous plot
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update_plot()));
+//    timer = new QTimer(this);
+//    connect(timer, SIGNAL(timeout()), this, SLOT(update_plot()));
 
-
+//    ui->frame_setting->setHidden(true);
     lastdatalistline = "";
     isfirst = true;
 
@@ -121,7 +122,7 @@ Widget::Widget(QWidget *parent) :
         Subplots[i].NofLines_Spinbox->setMaximum(MAXLINES);
     }
 
-    ui->Numbersubplots_spinBox->setValue(1);
+    ui->Numbersubplots_spinBox->setValue(2);
     ui->Numbersubplots_spinBox->setMaximum(MAXSUBPLOTS);
 
 
@@ -129,8 +130,8 @@ Widget::Widget(QWidget *parent) :
 //    Subplots[0].lines[0].graph = ui->Plot->addGraph(Subplots[0].AxesRect->axis(QCPAxis::atBottom), Subplots[0].AxesRect->axis(QCPAxis::atLeft));
 
     mythingy = new QObject(this);
-    RadDSP* worker = new RadDSP(mythingy, this);
-    connect(worker, SIGNAL(deleteObject(QObject*)), this, SLOT(deleteObject(QObject*)));
+//    RadDSP* worker = new RadDSP(mythingy, this);
+//    connect(worker, SIGNAL(deleteObject(QObject*)), this, SLOT(deleteObject(QObject*)));
     // plot extremes
     initialtime = -9999.0;
     finaltime   = -9999.0;
@@ -164,13 +165,13 @@ void Widget::on_Initchar_lineEdit_textChanged(const QString &arg1)
 
 void Widget::on_Serialavailable_comboBox_currentIndexChanged(const QString &arg1)
 {
-//    serialportname = arg1;
-//    qDebug() << "serial port: " << serialportname;
-//    QSerialPortInfo serialportinfo(serialportname);
+    serialportname = arg1;
+    qDebug() << "serial port: " << serialportname;
+    QSerialPortInfo serialportinfo(serialportname);
 
-//    QString serialinfos = QString("<html><b>Manufacturer:</b>\n%1\n<b>Description:</b>\n%2</html>").arg(serialportinfo.manufacturer(), serialportinfo.description());
+    QString serialinfos = QString("<html><b>Manufacturer:</b>\n%1\n<b>Description:</b>\n%2</html>").arg(serialportinfo.manufacturer(), serialportinfo.description());
 
-//    ui->Serialinfo_textBrowser->setText(serialinfos);
+    ui->Serialinfo_textBrowser->setText(serialinfos);
 
 
 }
@@ -187,33 +188,33 @@ void Widget::on_Serialbaud_comboBox_currentIndexChanged(const QString &arg1)
 
 void Widget::on_Start_pushButton_clicked()
 {
-    RadDSP::StartRead();
-    timer->start(2000);
+//    RadDSP::StartRead();
+//    timer->start(2000);
 //    digitalWrite(22,HIGH);
 
-//    QSerialPortInfo serialportinfo(serialportname);
-//    if (serialportinfo.isBusy()) {
-//        QMessageBox messageBox;
-//        messageBox.critical(0,"Error","The selected serial port is busy");
-//        messageBox.setFixedSize(500,200);
-//        return;
-//    }
-//    if (serialportname.isEmpty()) {
-//        QMessageBox messageBox;
-//        messageBox.warning(0,"Warning","No serial port selected");
-//        messageBox.setFixedSize(500,200);
-//        return;
-//    }
-//    isfirst = true;
-//    serialport.setPortName(serialportname);
-//    serialport.open(QIODevice::ReadWrite);
-//    serialport.setBaudRate( serialbaud.toInt() );
-//    serialport.setDataBits(QSerialPort::Data8);
-//    serialport.setParity(QSerialPort::NoParity);
-//    serialport.setStopBits(QSerialPort::OneStop);
-//    serialport.setFlowControl(QSerialPort::NoFlowControl);
+    QSerialPortInfo serialportinfo(serialportname);
+    if (serialportinfo.isBusy()) {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","The selected serial port is busy");
+        messageBox.setFixedSize(500,200);
+        return;
+    }
+    if (serialportname.isEmpty()) {
+        QMessageBox messageBox;
+        messageBox.warning(0,"Warning","No serial port selected");
+        messageBox.setFixedSize(500,200);
+        return;
+    }
+    isfirst = true;
+    serialport.setPortName(serialportname);
+    serialport.open(QIODevice::ReadWrite);
+    serialport.setBaudRate( serialbaud.toInt() );
+    serialport.setDataBits(QSerialPort::Data8);
+    serialport.setParity(QSerialPort::NoParity);
+    serialport.setStopBits(QSerialPort::OneStop);
+    serialport.setFlowControl(QSerialPort::NoFlowControl);
 
-//    ui->Serialincomingdata_textBrowser->clear();
+    ui->Serialincomingdata_textBrowser->clear();
 
 //    initialtime = -9999.0;
 //    finaltime   = -9999.0;
@@ -223,15 +224,15 @@ void Widget::on_Start_pushButton_clicked()
 
 void Widget::on_Stop_pushButton_clicked()
 {
-        RadDSP::StopRead();
+//        RadDSP::StopRead();
         timer->stop();
 //    QElapsedTimer elapsedtimer;
 //    elapsedtimer.start();
-//    serialport.close();
+    serialport.close();
 
-//    ui->Serialincomingdata_textBrowser->setText(datalist_console.join('\n'));
-//    ui->Serialincomingdata_textBrowser->append(datalist_console.at(10));
-//    ui->Serialincomingdata_textBrowser->clear();
+    ui->Serialincomingdata_textBrowser->setText(datalist_console.join('\n'));
+    ui->Serialincomingdata_textBrowser->append(datalist_console.at(10));
+    ui->Serialincomingdata_textBrowser->clear();
 //    QStringList list = data.split("\n");
 //    for (int i = 0; i < datalist.length()-1; ++i) {
 //        ui->Serialincomingdata_textBrowser->append(datalist.at(i));
@@ -244,11 +245,23 @@ void Widget::on_Stop_pushButton_clicked()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void Widget::readData() {
-//    QByteArray incomingdata = serialport.readAll();
+    QByteArray incomingdata = serialport.readAll();
+    QList<QByteArray> baList = incomingdata.split('!');
+    if(baList.size()==1)
+    {
+        data.append(baList[0]); // data is a qstring
+        update_plot();
 
-//    data.append(incomingdata); // data is a qstring
-//    updateconsole(incomingdata);
-
+    }
+    else if(baList.size()>=2)
+    {
+        data.append(baList[0]); // data is a qstring
+        update_plot();
+        data.clear();
+        data.append(baList[1]);
+        update_plot();
+//        updateconsole("data\n");
+    }
 
 }
 
@@ -292,16 +305,15 @@ void Widget::updateconsole(QByteArray incomingdata){
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-double parseddatalist[BUF_SIZE];
+//double parseddatalist[BUF_SIZE];
 void Widget::update_plot() {
-    Complex* data=(RadDSP::getData());
+//    Complex* floatdata=(RadDSP::getData());
     //data = CArray(RadDSP::getData());
+    if(data.length()==0)return;
+    QStringList datalist =  data.split("\n");
+    cur_data_type = datalist[0].toInt();
     if(true) {
-        for(int i=0;i<BUF_SIZE;i++)
-        {
-            float val = data[i].real();
-            parseddatalist[i]=val;
-        }
+
         //--------------------------------------/
         /*datalist.clear();
         data.remove("\n");
@@ -339,12 +351,21 @@ void Widget::update_plot() {
                 for (int line_i = 0; line_i < MAXLINES; line_i++){
                     if (Subplots[subplot_i].lines[line_i].Line_Groupbox->isVisible()){
                         if(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()<=numberofchunks && Subplots[subplot_i].lines[line_i].Ydata_Spinbox->value()<=numberofchunks) {
-                            Subplots[subplot_i].lines[line_i].graph->clearData();
-                            for (int i=0;i<BUF_SIZE;i++) {
-                                Subplots[subplot_i].lines[line_i].graph->addData(i+1.0,parseddatalist[i]);
-//                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
+                            if(subplot_i==cur_data_type)
+                            {
+                                if(subplot_i==1)
+                                {
+                                Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
+                                Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-100,Qt::AlignRight);
+                                }
+                                Subplots[subplot_i].lines[line_i].graph->clearData();
+                                for (int i=1;i<datalist.length();i++) {
+                                    Subplots[subplot_i].lines[line_i].graph->addData(i+1.0,datalist[i].toDouble());
+                                    //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
+                                }
                             }
-                            //Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(parseddatalist.last().at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1)+1.0, 10.0, Qt::AlignRight);
+//                            Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(parseddatalist.last().at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1)+1.0,
+//                            10.0, Qt::AlignRight);
 //                            Subplots[subplot_i].lines[line_i].graph->rescaleValueAxis();
 //                            Subplots[subplot_i].lines[line_i].Xdata_Spinbox->setStyleSheet("QSpinBox {color: black}");
 //                            Subplots[subplot_i].lines[line_i].Ydata_Spinbox->setStyleSheet("QSpinBox {color: black}");

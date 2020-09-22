@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
@@ -36,12 +37,24 @@ QT_BEGIN_NAMESPACE
 class Ui_Widget
 {
 public:
-    QHBoxLayout *horizontalLayout_2;
-    QVBoxLayout *verticalLayout_2;
-    QGroupBox *groupBox;
-    QPushButton *Start_pushButton;
+    QGridLayout *gridLayout_10;
+    QFrame *frame_control;
+    QGridLayout *gridLayout_11;
+    QLabel *label_2;
+    QLabel *label;
     QPushButton *Stop_pushButton;
+    QPushButton *pushButton;
+    QPushButton *Start_pushButton;
     QPushButton *Save_pushButton;
+    QLabel *label_3;
+    QLabel *label_4;
+    QSplitter *splitter;
+    QCustomPlot *Plot;
+    QScrollBar *horizontalScrollBar;
+    QTextBrowser *Serialincomingdata_textBrowser;
+    QFrame *frame_setting;
+    QVBoxLayout *layout;
+    QGroupBox *groupBox;
     QLineEdit *Initchar_lineEdit;
     QLabel *Initchar_label;
     QComboBox *Serialavailable_comboBox;
@@ -149,41 +162,127 @@ public:
     QLabel *y_label_3_3;
     QLabel *x_label_3_3;
     QLabel *color_label_3_3;
-    QSplitter *splitter;
-    QCustomPlot *Plot;
-    QScrollBar *horizontalScrollBar;
-    QTextBrowser *Serialincomingdata_textBrowser;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QStringLiteral("Widget"));
         Widget->resize(1004, 723);
-        horizontalLayout_2 = new QHBoxLayout(Widget);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        groupBox = new QGroupBox(Widget);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        gridLayout_10 = new QGridLayout(Widget);
+        gridLayout_10->setSpacing(6);
+        gridLayout_10->setContentsMargins(11, 11, 11, 11);
+        gridLayout_10->setObjectName(QStringLiteral("gridLayout_10"));
+        frame_control = new QFrame(Widget);
+        frame_control->setObjectName(QStringLiteral("frame_control"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
-        groupBox->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(frame_control->sizePolicy().hasHeightForWidth());
+        frame_control->setSizePolicy(sizePolicy);
+        frame_control->setFrameShape(QFrame::StyledPanel);
+        frame_control->setFrameShadow(QFrame::Raised);
+        gridLayout_11 = new QGridLayout(frame_control);
+        gridLayout_11->setSpacing(6);
+        gridLayout_11->setContentsMargins(11, 11, 11, 11);
+        gridLayout_11->setObjectName(QStringLiteral("gridLayout_11"));
+        label_2 = new QLabel(frame_control);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout_11->addWidget(label_2, 1, 1, 1, 1);
+
+        label = new QLabel(frame_control);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout_11->addWidget(label, 1, 0, 1, 1);
+
+        Stop_pushButton = new QPushButton(frame_control);
+        Stop_pushButton->setObjectName(QStringLiteral("Stop_pushButton"));
+
+        gridLayout_11->addWidget(Stop_pushButton, 0, 1, 1, 1);
+
+        pushButton = new QPushButton(frame_control);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+
+        gridLayout_11->addWidget(pushButton, 0, 4, 1, 1);
+
+        Start_pushButton = new QPushButton(frame_control);
+        Start_pushButton->setObjectName(QStringLiteral("Start_pushButton"));
+
+        gridLayout_11->addWidget(Start_pushButton, 0, 0, 1, 1);
+
+        Save_pushButton = new QPushButton(frame_control);
+        Save_pushButton->setObjectName(QStringLiteral("Save_pushButton"));
+
+        gridLayout_11->addWidget(Save_pushButton, 0, 5, 1, 1);
+
+        label_3 = new QLabel(frame_control);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout_11->addWidget(label_3, 2, 0, 1, 1);
+
+        label_4 = new QLabel(frame_control);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        gridLayout_11->addWidget(label_4, 2, 1, 1, 1);
+
+
+        gridLayout_10->addWidget(frame_control, 0, 1, 1, 1);
+
+        splitter = new QSplitter(Widget);
+        splitter->setObjectName(QStringLiteral("splitter"));
+        splitter->setOrientation(Qt::Vertical);
+        Plot = new QCustomPlot(splitter);
+        Plot->setObjectName(QStringLiteral("Plot"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(Plot->sizePolicy().hasHeightForWidth());
+        Plot->setSizePolicy(sizePolicy1);
+        splitter->addWidget(Plot);
+        horizontalScrollBar = new QScrollBar(splitter);
+        horizontalScrollBar->setObjectName(QStringLiteral("horizontalScrollBar"));
+        horizontalScrollBar->setMinimumSize(QSize(0, 17));
+        horizontalScrollBar->setMaximumSize(QSize(16777215, 17));
+        horizontalScrollBar->setSingleStep(1);
+        horizontalScrollBar->setOrientation(Qt::Horizontal);
+        splitter->addWidget(horizontalScrollBar);
+        Serialincomingdata_textBrowser = new QTextBrowser(splitter);
+        Serialincomingdata_textBrowser->setObjectName(QStringLiteral("Serialincomingdata_textBrowser"));
+        Serialincomingdata_textBrowser->setEnabled(true);
+        sizePolicy.setHeightForWidth(Serialincomingdata_textBrowser->sizePolicy().hasHeightForWidth());
+        Serialincomingdata_textBrowser->setSizePolicy(sizePolicy);
+        Serialincomingdata_textBrowser->setMinimumSize(QSize(300, 90));
+        QPalette palette;
+        QBrush brush(QColor(0, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        Serialincomingdata_textBrowser->setPalette(palette);
+        splitter->addWidget(Serialincomingdata_textBrowser);
+
+        gridLayout_10->addWidget(splitter, 1, 1, 1, 1);
+
+        frame_setting = new QFrame(Widget);
+        frame_setting->setObjectName(QStringLiteral("frame_setting"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(frame_setting->sizePolicy().hasHeightForWidth());
+        frame_setting->setSizePolicy(sizePolicy2);
+        layout = new QVBoxLayout(frame_setting);
+        layout->setSpacing(6);
+        layout->setContentsMargins(11, 11, 11, 11);
+        layout->setObjectName(QStringLiteral("layout"));
+        groupBox = new QGroupBox(frame_setting);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(groupBox->sizePolicy().hasHeightForWidth());
+        groupBox->setSizePolicy(sizePolicy3);
         groupBox->setMinimumSize(QSize(270, 230));
         groupBox->setMaximumSize(QSize(270, 230));
-        Start_pushButton = new QPushButton(groupBox);
-        Start_pushButton->setObjectName(QStringLiteral("Start_pushButton"));
-        Start_pushButton->setGeometry(QRect(12, 196, 75, 23));
-        Stop_pushButton = new QPushButton(groupBox);
-        Stop_pushButton->setObjectName(QStringLiteral("Stop_pushButton"));
-        Stop_pushButton->setGeometry(QRect(93, 196, 75, 23));
-        Save_pushButton = new QPushButton(groupBox);
-        Save_pushButton->setObjectName(QStringLiteral("Save_pushButton"));
-        Save_pushButton->setGeometry(QRect(174, 196, 75, 23));
         Initchar_lineEdit = new QLineEdit(groupBox);
         Initchar_lineEdit->setObjectName(QStringLiteral("Initchar_lineEdit"));
         Initchar_lineEdit->setGeometry(QRect(10, 160, 99, 20));
@@ -209,15 +308,15 @@ public:
         Serialinfo_label->setObjectName(QStringLiteral("Serialinfo_label"));
         Serialinfo_label->setGeometry(QRect(120, 23, 131, 16));
 
-        verticalLayout_2->addWidget(groupBox);
+        layout->addWidget(groupBox);
 
-        groupBox_2 = new QGroupBox(Widget);
+        groupBox_2 = new QGroupBox(frame_setting);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy4);
         groupBox_2->setMinimumSize(QSize(270, 150));
         groupBox_2->setMaximumSize(QSize(270, 16777215));
         verticalLayout = new QVBoxLayout(groupBox_2);
@@ -230,15 +329,15 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         Numbersubplots_label = new QLabel(groupBox_2);
         Numbersubplots_label->setObjectName(QStringLiteral("Numbersubplots_label"));
-        sizePolicy.setHeightForWidth(Numbersubplots_label->sizePolicy().hasHeightForWidth());
-        Numbersubplots_label->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(Numbersubplots_label->sizePolicy().hasHeightForWidth());
+        Numbersubplots_label->setSizePolicy(sizePolicy3);
 
         horizontalLayout->addWidget(Numbersubplots_label);
 
         Numbersubplots_spinBox = new QSpinBox(groupBox_2);
         Numbersubplots_spinBox->setObjectName(QStringLiteral("Numbersubplots_spinBox"));
-        sizePolicy.setHeightForWidth(Numbersubplots_spinBox->sizePolicy().hasHeightForWidth());
-        Numbersubplots_spinBox->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(Numbersubplots_spinBox->sizePolicy().hasHeightForWidth());
+        Numbersubplots_spinBox->setSizePolicy(sizePolicy3);
         QFont font;
         font.setPointSize(8);
         font.setBold(false);
@@ -270,7 +369,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 256, 390));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 258, 390));
         verticalLayout_6 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -304,7 +403,7 @@ public:
         lines_scrollArea_1->setWidgetResizable(true);
         lines_scrollAreaWidgetContents_1 = new QWidget();
         lines_scrollAreaWidgetContents_1->setObjectName(QStringLiteral("lines_scrollAreaWidgetContents_1"));
-        lines_scrollAreaWidgetContents_1->setGeometry(QRect(0, 0, 198, 208));
+        lines_scrollAreaWidgetContents_1->setGeometry(QRect(0, 0, 181, 218));
         verticalLayout_3 = new QVBoxLayout(lines_scrollAreaWidgetContents_1);
         verticalLayout_3->setSpacing(4);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -312,8 +411,8 @@ public:
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         line_groupBox_1_1 = new QGroupBox(lines_scrollAreaWidgetContents_1);
         line_groupBox_1_1->setObjectName(QStringLiteral("line_groupBox_1_1"));
-        sizePolicy.setHeightForWidth(line_groupBox_1_1->sizePolicy().hasHeightForWidth());
-        line_groupBox_1_1->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_1_1->sizePolicy().hasHeightForWidth());
+        line_groupBox_1_1->setSizePolicy(sizePolicy3);
         line_groupBox_1_1->setMinimumSize(QSize(180, 70));
         line_groupBox_1_1->setMaximumSize(QSize(180, 70));
         gridLayout = new QGridLayout(line_groupBox_1_1);
@@ -324,13 +423,11 @@ public:
         gridLayout->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_1 = new QComboBox(line_groupBox_1_1);
         color_comboBox_1_1->setObjectName(QStringLiteral("color_comboBox_1_1"));
-        QPalette palette;
-        QBrush brush(QColor(0, 0, 0, 255));
-        brush.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_1_1->setPalette(palette);
+        QPalette palette1;
+        palette1.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette1.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette1.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_1_1->setPalette(palette1);
         QFont font1;
         font1.setPointSize(8);
         color_comboBox_1_1->setFont(font1);
@@ -371,8 +468,8 @@ public:
 
         line_groupBox_1_2 = new QGroupBox(lines_scrollAreaWidgetContents_1);
         line_groupBox_1_2->setObjectName(QStringLiteral("line_groupBox_1_2"));
-        sizePolicy.setHeightForWidth(line_groupBox_1_2->sizePolicy().hasHeightForWidth());
-        line_groupBox_1_2->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_1_2->sizePolicy().hasHeightForWidth());
+        line_groupBox_1_2->setSizePolicy(sizePolicy3);
         line_groupBox_1_2->setMinimumSize(QSize(180, 70));
         line_groupBox_1_2->setMaximumSize(QSize(180, 70));
         gridLayout_2 = new QGridLayout(line_groupBox_1_2);
@@ -383,11 +480,11 @@ public:
         gridLayout_2->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_2 = new QComboBox(line_groupBox_1_2);
         color_comboBox_1_2->setObjectName(QStringLiteral("color_comboBox_1_2"));
-        QPalette palette1;
-        palette1.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette1.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_1_2->setPalette(palette1);
+        QPalette palette2;
+        palette2.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette2.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette2.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_1_2->setPalette(palette2);
         color_comboBox_1_2->setFont(font1);
         color_comboBox_1_2->setStyleSheet(QStringLiteral(""));
 
@@ -426,8 +523,8 @@ public:
 
         line_groupBox_1_3 = new QGroupBox(lines_scrollAreaWidgetContents_1);
         line_groupBox_1_3->setObjectName(QStringLiteral("line_groupBox_1_3"));
-        sizePolicy.setHeightForWidth(line_groupBox_1_3->sizePolicy().hasHeightForWidth());
-        line_groupBox_1_3->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_1_3->sizePolicy().hasHeightForWidth());
+        line_groupBox_1_3->setSizePolicy(sizePolicy3);
         line_groupBox_1_3->setMinimumSize(QSize(180, 70));
         line_groupBox_1_3->setMaximumSize(QSize(180, 70));
         gridLayout_3 = new QGridLayout(line_groupBox_1_3);
@@ -438,11 +535,11 @@ public:
         gridLayout_3->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_3 = new QComboBox(line_groupBox_1_3);
         color_comboBox_1_3->setObjectName(QStringLiteral("color_comboBox_1_3"));
-        QPalette palette2;
-        palette2.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette2.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette2.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_1_3->setPalette(palette2);
+        QPalette palette3;
+        palette3.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette3.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_1_3->setPalette(palette3);
         color_comboBox_1_3->setFont(font1);
         color_comboBox_1_3->setStyleSheet(QStringLiteral(""));
 
@@ -513,7 +610,7 @@ public:
         lines_scrollArea_2->setWidgetResizable(true);
         lines_scrollAreaWidgetContents_2 = new QWidget();
         lines_scrollAreaWidgetContents_2->setObjectName(QStringLiteral("lines_scrollAreaWidgetContents_2"));
-        lines_scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 198, 208));
+        lines_scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 181, 218));
         verticalLayout_4 = new QVBoxLayout(lines_scrollAreaWidgetContents_2);
         verticalLayout_4->setSpacing(4);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -521,8 +618,8 @@ public:
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
         line_groupBox_2_1 = new QGroupBox(lines_scrollAreaWidgetContents_2);
         line_groupBox_2_1->setObjectName(QStringLiteral("line_groupBox_2_1"));
-        sizePolicy.setHeightForWidth(line_groupBox_2_1->sizePolicy().hasHeightForWidth());
-        line_groupBox_2_1->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_2_1->sizePolicy().hasHeightForWidth());
+        line_groupBox_2_1->setSizePolicy(sizePolicy3);
         line_groupBox_2_1->setMinimumSize(QSize(180, 70));
         line_groupBox_2_1->setMaximumSize(QSize(180, 70));
         gridLayout_4 = new QGridLayout(line_groupBox_2_1);
@@ -533,11 +630,11 @@ public:
         gridLayout_4->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_1 = new QComboBox(line_groupBox_2_1);
         color_comboBox_2_1->setObjectName(QStringLiteral("color_comboBox_2_1"));
-        QPalette palette3;
-        palette3.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette3.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette3.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_2_1->setPalette(palette3);
+        QPalette palette4;
+        palette4.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette4.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette4.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_2_1->setPalette(palette4);
         color_comboBox_2_1->setFont(font1);
         color_comboBox_2_1->setStyleSheet(QStringLiteral(""));
 
@@ -576,8 +673,8 @@ public:
 
         line_groupBox_2_2 = new QGroupBox(lines_scrollAreaWidgetContents_2);
         line_groupBox_2_2->setObjectName(QStringLiteral("line_groupBox_2_2"));
-        sizePolicy.setHeightForWidth(line_groupBox_2_2->sizePolicy().hasHeightForWidth());
-        line_groupBox_2_2->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_2_2->sizePolicy().hasHeightForWidth());
+        line_groupBox_2_2->setSizePolicy(sizePolicy3);
         line_groupBox_2_2->setMinimumSize(QSize(180, 70));
         line_groupBox_2_2->setMaximumSize(QSize(180, 70));
         gridLayout_5 = new QGridLayout(line_groupBox_2_2);
@@ -588,11 +685,11 @@ public:
         gridLayout_5->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_2 = new QComboBox(line_groupBox_2_2);
         color_comboBox_2_2->setObjectName(QStringLiteral("color_comboBox_2_2"));
-        QPalette palette4;
-        palette4.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette4.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette4.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_2_2->setPalette(palette4);
+        QPalette palette5;
+        palette5.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette5.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette5.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_2_2->setPalette(palette5);
         color_comboBox_2_2->setFont(font1);
         color_comboBox_2_2->setStyleSheet(QStringLiteral(""));
 
@@ -631,8 +728,8 @@ public:
 
         line_groupBox_2_3 = new QGroupBox(lines_scrollAreaWidgetContents_2);
         line_groupBox_2_3->setObjectName(QStringLiteral("line_groupBox_2_3"));
-        sizePolicy.setHeightForWidth(line_groupBox_2_3->sizePolicy().hasHeightForWidth());
-        line_groupBox_2_3->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_2_3->sizePolicy().hasHeightForWidth());
+        line_groupBox_2_3->setSizePolicy(sizePolicy3);
         line_groupBox_2_3->setMinimumSize(QSize(180, 70));
         line_groupBox_2_3->setMaximumSize(QSize(180, 70));
         gridLayout_6 = new QGridLayout(line_groupBox_2_3);
@@ -643,11 +740,11 @@ public:
         gridLayout_6->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_3 = new QComboBox(line_groupBox_2_3);
         color_comboBox_2_3->setObjectName(QStringLiteral("color_comboBox_2_3"));
-        QPalette palette5;
-        palette5.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette5.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette5.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_2_3->setPalette(palette5);
+        QPalette palette6;
+        palette6.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette6.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette6.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_2_3->setPalette(palette6);
         color_comboBox_2_3->setFont(font1);
         color_comboBox_2_3->setStyleSheet(QStringLiteral(""));
 
@@ -718,7 +815,7 @@ public:
         lines_scrollArea_3->setWidgetResizable(true);
         lines_scrollAreaWidgetContents_3 = new QWidget();
         lines_scrollAreaWidgetContents_3->setObjectName(QStringLiteral("lines_scrollAreaWidgetContents_3"));
-        lines_scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 198, 208));
+        lines_scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 181, 218));
         verticalLayout_5 = new QVBoxLayout(lines_scrollAreaWidgetContents_3);
         verticalLayout_5->setSpacing(4);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -726,8 +823,8 @@ public:
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
         line_groupBox_3_1 = new QGroupBox(lines_scrollAreaWidgetContents_3);
         line_groupBox_3_1->setObjectName(QStringLiteral("line_groupBox_3_1"));
-        sizePolicy.setHeightForWidth(line_groupBox_3_1->sizePolicy().hasHeightForWidth());
-        line_groupBox_3_1->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_3_1->sizePolicy().hasHeightForWidth());
+        line_groupBox_3_1->setSizePolicy(sizePolicy3);
         line_groupBox_3_1->setMinimumSize(QSize(180, 70));
         line_groupBox_3_1->setMaximumSize(QSize(180, 70));
         gridLayout_7 = new QGridLayout(line_groupBox_3_1);
@@ -738,11 +835,11 @@ public:
         gridLayout_7->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_1 = new QComboBox(line_groupBox_3_1);
         color_comboBox_3_1->setObjectName(QStringLiteral("color_comboBox_3_1"));
-        QPalette palette6;
-        palette6.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette6.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette6.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_3_1->setPalette(palette6);
+        QPalette palette7;
+        palette7.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette7.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette7.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_3_1->setPalette(palette7);
         color_comboBox_3_1->setFont(font1);
         color_comboBox_3_1->setStyleSheet(QStringLiteral(""));
 
@@ -781,8 +878,8 @@ public:
 
         line_groupBox_3_2 = new QGroupBox(lines_scrollAreaWidgetContents_3);
         line_groupBox_3_2->setObjectName(QStringLiteral("line_groupBox_3_2"));
-        sizePolicy.setHeightForWidth(line_groupBox_3_2->sizePolicy().hasHeightForWidth());
-        line_groupBox_3_2->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_3_2->sizePolicy().hasHeightForWidth());
+        line_groupBox_3_2->setSizePolicy(sizePolicy3);
         line_groupBox_3_2->setMinimumSize(QSize(180, 70));
         line_groupBox_3_2->setMaximumSize(QSize(180, 70));
         gridLayout_8 = new QGridLayout(line_groupBox_3_2);
@@ -793,11 +890,11 @@ public:
         gridLayout_8->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_2 = new QComboBox(line_groupBox_3_2);
         color_comboBox_3_2->setObjectName(QStringLiteral("color_comboBox_3_2"));
-        QPalette palette7;
-        palette7.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette7.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette7.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_3_2->setPalette(palette7);
+        QPalette palette8;
+        palette8.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette8.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette8.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_3_2->setPalette(palette8);
         color_comboBox_3_2->setFont(font1);
         color_comboBox_3_2->setStyleSheet(QStringLiteral(""));
 
@@ -836,8 +933,8 @@ public:
 
         line_groupBox_3_3 = new QGroupBox(lines_scrollAreaWidgetContents_3);
         line_groupBox_3_3->setObjectName(QStringLiteral("line_groupBox_3_3"));
-        sizePolicy.setHeightForWidth(line_groupBox_3_3->sizePolicy().hasHeightForWidth());
-        line_groupBox_3_3->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(line_groupBox_3_3->sizePolicy().hasHeightForWidth());
+        line_groupBox_3_3->setSizePolicy(sizePolicy3);
         line_groupBox_3_3->setMinimumSize(QSize(180, 70));
         line_groupBox_3_3->setMaximumSize(QSize(180, 70));
         gridLayout_9 = new QGridLayout(line_groupBox_3_3);
@@ -848,11 +945,11 @@ public:
         gridLayout_9->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_3 = new QComboBox(line_groupBox_3_3);
         color_comboBox_3_3->setObjectName(QStringLiteral("color_comboBox_3_3"));
-        QPalette palette8;
-        palette8.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette8.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette8.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        color_comboBox_3_3->setPalette(palette8);
+        QPalette palette9;
+        palette9.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
+        palette9.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
+        palette9.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
+        color_comboBox_3_3->setPalette(palette9);
         color_comboBox_3_3->setFont(font1);
         color_comboBox_3_3->setStyleSheet(QStringLiteral(""));
 
@@ -901,46 +998,10 @@ public:
         verticalLayout->addWidget(scrollArea);
 
 
-        verticalLayout_2->addWidget(groupBox_2);
+        layout->addWidget(groupBox_2);
 
 
-        horizontalLayout_2->addLayout(verticalLayout_2);
-
-        splitter = new QSplitter(Widget);
-        splitter->setObjectName(QStringLiteral("splitter"));
-        splitter->setOrientation(Qt::Vertical);
-        Plot = new QCustomPlot(splitter);
-        Plot->setObjectName(QStringLiteral("Plot"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(Plot->sizePolicy().hasHeightForWidth());
-        Plot->setSizePolicy(sizePolicy2);
-        splitter->addWidget(Plot);
-        horizontalScrollBar = new QScrollBar(splitter);
-        horizontalScrollBar->setObjectName(QStringLiteral("horizontalScrollBar"));
-        horizontalScrollBar->setMinimumSize(QSize(0, 17));
-        horizontalScrollBar->setMaximumSize(QSize(16777215, 17));
-        horizontalScrollBar->setSingleStep(1);
-        horizontalScrollBar->setOrientation(Qt::Horizontal);
-        splitter->addWidget(horizontalScrollBar);
-        Serialincomingdata_textBrowser = new QTextBrowser(splitter);
-        Serialincomingdata_textBrowser->setObjectName(QStringLiteral("Serialincomingdata_textBrowser"));
-        Serialincomingdata_textBrowser->setEnabled(true);
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Minimum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(Serialincomingdata_textBrowser->sizePolicy().hasHeightForWidth());
-        Serialincomingdata_textBrowser->setSizePolicy(sizePolicy3);
-        Serialincomingdata_textBrowser->setMinimumSize(QSize(300, 90));
-        QPalette palette9;
-        palette9.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
-        palette9.setBrush(QPalette::Inactive, QPalette::HighlightedText, brush);
-        palette9.setBrush(QPalette::Disabled, QPalette::HighlightedText, brush);
-        Serialincomingdata_textBrowser->setPalette(palette9);
-        splitter->addWidget(Serialincomingdata_textBrowser);
-
-        horizontalLayout_2->addWidget(splitter);
+        gridLayout_10->addWidget(frame_setting, 0, 0, 2, 1);
 
 
         retranslateUi(Widget);
@@ -951,10 +1012,15 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QApplication::translate("Widget", "Widget", Q_NULLPTR));
-        groupBox->setTitle(QApplication::translate("Widget", "Serial Settings", Q_NULLPTR));
-        Start_pushButton->setText(QApplication::translate("Widget", "Start", Q_NULLPTR));
+        label_2->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        label->setText(QApplication::translate("Widget", "Nh\341\273\213p tim:", Q_NULLPTR));
         Stop_pushButton->setText(QApplication::translate("Widget", "Stop", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("Widget", "Hi\341\273\207n t\303\255n hi\341\273\207u", Q_NULLPTR));
+        Start_pushButton->setText(QApplication::translate("Widget", "Start", Q_NULLPTR));
         Save_pushButton->setText(QApplication::translate("Widget", "Save", Q_NULLPTR));
+        label_3->setText(QApplication::translate("Widget", "Nh\341\273\213p th\341\273\237:", Q_NULLPTR));
+        label_4->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("Widget", "Serial Settings", Q_NULLPTR));
         Initchar_label->setText(QApplication::translate("Widget", "Init char", Q_NULLPTR));
         Serialavailable_label->setText(QApplication::translate("Widget", "Available serial ports", Q_NULLPTR));
         Serialbaud_label->setText(QApplication::translate("Widget", "Serial rate", Q_NULLPTR));

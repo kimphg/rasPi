@@ -1,12 +1,16 @@
 #ifndef WIDGET_H
 #define WIDGET_H
-
+#define WINDOW_BUILD
+#ifdef WINDOW_BUILD
+#include <QSerialPort>
+#else
+#endif
 #include <QWidget>
 //#include <QtSerialPort>
 #include <QTimer>
 #include "qcustomplot/qcustomplot.h"
 #include <stdio.h>
-#include "raddsp.h"
+//#include "raddsp.h"
 #define MAXSUBPLOTS 3
 #define MAXLINES 3
 
@@ -48,23 +52,22 @@ private:
     QString serialportname;
     QString serialbaud;
     QString initchar;
-//    QSerialPort serialport;
+#ifndef WINDOW_BUILD
+#else
+    QSerialPort serialport;
+#endif
     QStringList datalist_console;
     QStringList datalist;
     QString lastdatalistline;
     QString firstdatalistline;
-
-
-
-
     QTimer* timer;
-
+    int buf_size;
     int databefore;
-
+    QString data;
     double initialtime;
     double finaltime;
     bool isfirst;
-
+    int cur_data_type ;
 // line struct
     struct Line_struct_t{
         QWidget* Line_Groupbox;

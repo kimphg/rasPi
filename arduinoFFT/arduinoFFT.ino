@@ -33,22 +33,20 @@ void loop()
 //        }
         bytecount=0;
 //        FFT(mdata,mFFTdata_r,mFFTdata_im,BUF_SIZE);
-        
+        Serial.println('!');  
+        Serial.println(0);  
+        for (int i =1;i<BUF_SIZE;i++)
+        {
+            Serial.println(mFFTdata_r[i]);
+        }
+        Serial.flush();
         FFT2(1,FFT_DEGREE,mFFTdata_r,mFFTdata_im);
+        Serial.println('!');  
+        Serial.println(1);  
         for (int i =1;i<BUF_SIZE;i++)
         {
             Serial.println(0.1+sqrt(mFFTdata_r[i]*mFFTdata_r[i]+mFFTdata_im[i]*mFFTdata_im[i]));
         }
-        Serial.println(0);
-        Serial.println(150);
-//        for (int i =1;i<BUF_SIZE;i++)
-//        {
-//            Serial.println(0.1+20*sqrt(mFFTdata_r[i]*mFFTdata_r[i]+mFFTdata_im[i]*mFFTdata_im[i]));
-//        }
-//        Serial.println(0);
-//        Serial.println(50);
-        
-        
     }
     else
     {

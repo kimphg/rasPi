@@ -256,11 +256,7 @@ void Widget::readData() {
 
 void Widget::on_Save_pushButton_clicked()
 {
-    FILE *f = fopen("rad24.dat", "wb");
-    fwrite(RadDSP::getData(), sizeof(Complex), BUF_SIZE, f);
-    fclose(f);
-    /*
-     * // check for no data
+    // check for no data
     if (datalist_console.length() == 0) {
         QMessageBox messageBox;
         messageBox.warning(0,"Warning","No data to save");
@@ -279,7 +275,7 @@ void Widget::on_Save_pushButton_clicked()
         messageBox.setFixedSize(500,200);
         return;
     }
-    fOut.close();*/
+    fOut.close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@ QT       += core gui widgets printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = radar24
+TARGET = SerialPlotter
 TEMPLATE = app
 
 

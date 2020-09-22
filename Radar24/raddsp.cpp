@@ -2,12 +2,15 @@
 #ifndef Q_OS_WIN
 #include "wiringPi.h"
 #include "wiringSerial.h"
-
-
+#include <sys/time.h>
+#include <stdio.h>
 #endif
 int bitCount = 0;
 int byteCount = 0;
-
+//struct timeval {
+//  time_t tv_sec;
+//  suseconds_t tv_usec;
+//};
 #define DATA_PIN 4
 #define CLOCK_PIN 5
 #define EN_PIN 3
@@ -73,15 +76,51 @@ void fft()
     //return x;
 }
 
-
-unsigned short  data1,data2,data3;
-#ifndef Q_OS_WIN
-
+struct timeval start, end,sample;
+//unsigned short  data1,data2,data3;
+int bitData[12];
 void clkRisingInterrupt(void)
 {
-//    digitalRead(23);
+    gettimeofday(&end, NULL);
+    int time_diff  =end.tv_usec - start.tv_usec;
+//    printf(" %d",time_diff);
+//    fflush(stdout);
+    if(time_diff>60)
+    {
+        printf("bits:%d",bitCount);
+        bitCount=0;
+
+    }
+    gettimeofday(&start, NULL);
+    bitData[bitCount] = digitalRead(DATA_PIN);
+    bitCount++;
+    if(bitCount>11)
+    {
+        bitCount = 0;
+        mdata[byteCount++]=( ( (bitData[0])<<3 ) +( (bitData[1])<<2)+((bitData[2])<<1)+(bitData[3])  );
+//        if(byteCount>=BUF_SIZE)byteCount=0;
+        mdata[byteCount++]=( ( (bitData[4])<<3 ) +( (bitData[5])<<2)+((bitData[6])<<1)+(bitData[7])  );
+//        if(byteCount>=BUF_SIZE)byteCount=0;
+        mdata[byteCount++]=( ( (bitData[8])<<3 ) +( (bitData[9])<<2)+((bitData[10])<<1)+(bitData[11])  );
+        if(byteCount>=BUF_SIZE)
+        {
+            struct timeval oldtime=sample;
+            gettimeofday(&sample, NULL);
+            double timeInterval = (sample.tv_usec - oldtime.tv_usec)/1000000.0;
+            printf("Time %f",timeInterval);
+            fflush(stdout);
+            byteCount=0;
+            fft();
+        }
+    }
+}
+/*
+void clkRisingInterrupt(void)
+{
+
     if(bitCount==0)
     {
+        gettimeofday(&start, NULL);
         data1=(digitalRead(DATA_PIN)<<3);
         bitCount=1;
     }
@@ -102,12 +141,12 @@ void clkRisingInterrupt(void)
 //        for(int i=0;i<data[byteCount];i++)printf("0");
         byteCount++;
         if(byteCount>=BUF_SIZE)byteCount=0;
-        bitCount=0;
+        bitCount = 0;
+        gettimeofday(&end, NULL);
+        long useconds = end.tv_usec - start.tv_usec;
+        printf("%ld ",useconds);
     }
-}
-
-
-#endif
+}*/
 QString RadDSP::getDataString()
 {
     //CArray fftData = fft();
@@ -122,7 +161,7 @@ QString RadDSP::getDataString()
 }
 Complex* RadDSP::getData()
 {
-    fft();
+
     return mFFTdata;
 }
 RadDSP::RadDSP(QObject* thingy, QObject* parent)
@@ -158,24 +197,18 @@ void RadDSP::doWork()
 }
 void RadDSP::StartRead()
 {
-#ifndef Q_OS_WIN
     digitalWrite (EN_PIN, HIGH) ;
     printf("\nEn on");
-#endif
-
 }
 void RadDSP::StopRead()
 {
-#ifndef Q_OS_WIN
     digitalWrite (EN_PIN, LOW) ;
     printf("\nEn off");
-#endif
-
 }
 bool RadDSP::setupGPIO()
 {
 
-#ifndef Q_OS_WIN
+
     pinMode (EN_PIN, OUTPUT) ;//enable
     pinMode (DATA_PIN, INPUT) ;//data
     pinMode (CLOCK_PIN, INPUT) ;//clock
@@ -186,7 +219,5 @@ bool RadDSP::setupGPIO()
           fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
           return false;
       }
-#endif
-
       return true;
 }

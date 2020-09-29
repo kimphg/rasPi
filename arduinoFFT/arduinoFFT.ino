@@ -1,6 +1,6 @@
 
-#define BUF_SIZE 1024
-#define FFT_DEGREE 10
+#define BUF_SIZE 2048
+#define FFT_DEGREE 11
 //int mdata[BUF_SIZE];
 float mFFTdata_r[BUF_SIZE];
 float mFFTdata_im[BUF_SIZE];
@@ -8,7 +8,7 @@ int bytecount;
 void setup()
 {
     bytecount=0;
-    Serial.begin(11520);
+    Serial.begin(115200);
 //    Serial.print("start");
 }
 
@@ -51,7 +51,7 @@ void loop()
     }
     else
     {
-      delay(5);
+      delay(2);
       }
     
 }

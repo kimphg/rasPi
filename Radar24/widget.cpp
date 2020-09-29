@@ -19,7 +19,7 @@ Widget::Widget(QWidget *parent) :
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
         ui->Serialavailable_comboBox->addItem(info.portName());
     }
-    buf_size = 128;
+    buf_size = 256;
     // setup the possible serial baud speed
     QStringList baudlist;
     baudlist << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
@@ -350,7 +350,7 @@ bool Widget::plot_data()
 //            ui->Serialincomingdata_textBrowser->append(*i);
         }*/
         int numberofchunks = 2;
-
+        double freqResolution = 100/1024.0;
 
         for (int subplot_i = 0; subplot_i < MAXSUBPLOTS; subplot_i++) {
             if (Subplots[subplot_i].Subplot_Groupbox->isVisible()){
@@ -359,21 +359,48 @@ bool Widget::plot_data()
                         if(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()<=numberofchunks && Subplots[subplot_i].lines[line_i].Ydata_Spinbox->value()<=numberofchunks) {
                             if(subplot_i==cur_data_type)
                             {
-                                if(subplot_i==1)
+                                if(subplot_i==1)//fft data
                                 {
-                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
-                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-100,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-50,Qt::AlignRight);
+                                    Subplots[subplot_i].lines[line_i].graph->clearData();
+                                    double heart_rate;
+                                    double max_amp=0;
+                                    double avr = 0;
+                                    for (int i=1;i<datalist.length();i++) {
+                                        double freq  = (i-1)*freqResolution;
+                                        double amp = QString(datalist[i]).toDouble();
+                                        avr += amp;
+                                        if(freq>0&&freq<3)
+                                        {
+                                            if(amp>max_amp)
+                                            {
+                                                max_amp=amp;
+                                                heart_rate = freq;
+                                            }
+                                        }
+                                        Subplots[subplot_i].lines[line_i].graph->addData(freq,amp);
+                                        //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
+                                    }
+                                    if(datalist.length()>1)
+                                    {
+                                        avr = avr/(datalist.length()-1);
+                                        if(max_amp>5*avr) ui->label_breath_rate->setText(QString::number(heart_rate*60,'f',1));
+                                        else ui->label_breath_rate->setText("Not detected");
+                                    }
+
                                 }
                                 if(subplot_i==0)
                                 {
-                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-buf_size,Qt::AlignRight);
+                                    Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-1000,Qt::AlignRight);
+                                    Subplots[subplot_i].lines[line_i].graph->clearData();
+                                    for (int i=1;i<datalist.length();i++) {
+                                        Subplots[subplot_i].lines[line_i].graph->addData((i-1)*freqResolution,QString(datalist[i]).toDouble());
+                                        //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
+                                    }
                                 }
-                                Subplots[subplot_i].lines[line_i].graph->clearData();
-                                for (int i=1;i<datalist.length();i++) {
-                                    Subplots[subplot_i].lines[line_i].graph->addData(i,QString(datalist[i]).toDouble());
-                                    //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
-                                }
+
                             }
 //                            Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(parseddatalist.last().at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1)+1.0,
 //                            10.0, Qt::AlignRight);

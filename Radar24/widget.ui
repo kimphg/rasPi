@@ -30,7 +30,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_11">
       <item row="1" column="1">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_heart_rate">
         <property name="text">
          <string>--</string>
         </property>
@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="label_breath_rate">
         <property name="text">
          <string>--</string>
         </property>

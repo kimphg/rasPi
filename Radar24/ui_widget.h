@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -40,14 +40,14 @@ public:
     QGridLayout *gridLayout_10;
     QFrame *frame_control;
     QGridLayout *gridLayout_11;
-    QLabel *label_2;
+    QLabel *label_heart_rate;
     QLabel *label;
     QPushButton *Stop_pushButton;
     QPushButton *pushButton;
     QPushButton *Start_pushButton;
     QPushButton *Save_pushButton;
     QLabel *label_3;
-    QLabel *label_4;
+    QLabel *label_breath_rate;
     QSplitter *splitter;
     QCustomPlot *Plot;
     QScrollBar *horizontalScrollBar;
@@ -185,10 +185,10 @@ public:
         gridLayout_11->setSpacing(6);
         gridLayout_11->setContentsMargins(11, 11, 11, 11);
         gridLayout_11->setObjectName(QStringLiteral("gridLayout_11"));
-        label_2 = new QLabel(frame_control);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        label_heart_rate = new QLabel(frame_control);
+        label_heart_rate->setObjectName(QStringLiteral("label_heart_rate"));
 
-        gridLayout_11->addWidget(label_2, 1, 1, 1, 1);
+        gridLayout_11->addWidget(label_heart_rate, 1, 1, 1, 1);
 
         label = new QLabel(frame_control);
         label->setObjectName(QStringLiteral("label"));
@@ -220,10 +220,10 @@ public:
 
         gridLayout_11->addWidget(label_3, 2, 0, 1, 1);
 
-        label_4 = new QLabel(frame_control);
-        label_4->setObjectName(QStringLiteral("label_4"));
+        label_breath_rate = new QLabel(frame_control);
+        label_breath_rate->setObjectName(QStringLiteral("label_breath_rate"));
 
-        gridLayout_11->addWidget(label_4, 2, 1, 1, 1);
+        gridLayout_11->addWidget(label_breath_rate, 2, 1, 1, 1);
 
 
         gridLayout_10->addWidget(frame_control, 0, 1, 1, 1);
@@ -1012,14 +1012,14 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QApplication::translate("Widget", "Widget", Q_NULLPTR));
-        label_2->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        label_heart_rate->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
         label->setText(QApplication::translate("Widget", "Nh\341\273\213p tim:", Q_NULLPTR));
         Stop_pushButton->setText(QApplication::translate("Widget", "Stop", Q_NULLPTR));
         pushButton->setText(QApplication::translate("Widget", "Hi\341\273\207n t\303\255n hi\341\273\207u", Q_NULLPTR));
         Start_pushButton->setText(QApplication::translate("Widget", "Start", Q_NULLPTR));
         Save_pushButton->setText(QApplication::translate("Widget", "Save", Q_NULLPTR));
         label_3->setText(QApplication::translate("Widget", "Nh\341\273\213p th\341\273\237:", Q_NULLPTR));
-        label_4->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        label_breath_rate->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("Widget", "Serial Settings", Q_NULLPTR));
         Initchar_label->setText(QApplication::translate("Widget", "Init char", Q_NULLPTR));
         Serialavailable_label->setText(QApplication::translate("Widget", "Available serial ports", Q_NULLPTR));

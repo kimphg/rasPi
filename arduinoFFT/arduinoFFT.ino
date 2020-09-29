@@ -1,6 +1,6 @@
 
-#define BUF_SIZE 128
-#define FFT_DEGREE 7
+#define BUF_SIZE 1024
+#define FFT_DEGREE 10
 //int mdata[BUF_SIZE];
 float mFFTdata_r[BUF_SIZE];
 float mFFTdata_im[BUF_SIZE];
@@ -8,7 +8,7 @@ int bytecount;
 void setup()
 {
     bytecount=0;
-    Serial.begin(9600);
+    Serial.begin(11520);
 //    Serial.print("start");
 }
 
@@ -16,11 +16,11 @@ void setup()
 void loop()
 {
 //  Serial.print("loop");
-    int a = 0;
+//    int a = 0;
 //    if(bytecount%2==0)a=20;
 //    else a=-20;
 
-    mFFTdata_r[bytecount]=float(analogRead(2))+a;
+    mFFTdata_r[bytecount]=float(analogRead(2));
     mFFTdata_im[bytecount] = 0;
     
     bytecount++;
@@ -39,8 +39,9 @@ void loop()
         {
             Serial.println(mFFTdata_r[i]);
         }
-        Serial.flush();
+        
         FFT2(1,FFT_DEGREE,mFFTdata_r,mFFTdata_im);
+        Serial.flush();
         Serial.println('!');  
         Serial.println(1);  
         for (int i =1;i<BUF_SIZE;i++)
@@ -50,7 +51,7 @@ void loop()
     }
     else
     {
-      delay(50);
+      delay(5);
       }
     
 }

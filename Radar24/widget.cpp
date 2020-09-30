@@ -7,7 +7,13 @@
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QMap>
+#ifdef WINDOW_BUILD
 #include <QSerialPortInfo>
+#else
+//for raspi:apt-get install libqt5serialport5(-dev)
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
+#endif
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -19,7 +25,7 @@ Widget::Widget(QWidget *parent) :
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
         ui->Serialavailable_comboBox->addItem(info.portName());
     }
-    buf_size = 256;
+    buf_size = 4096;
     // setup the possible serial baud speed
     QStringList baudlist;
     baudlist << "1200" << "2400" << "4800" << "9600" << "19200" << "38400" << "57600" << "115200";
@@ -230,9 +236,9 @@ void Widget::on_Stop_pushButton_clicked()
 //    elapsedtimer.start();
     serialport.close();
 
-    ui->Serialincomingdata_textBrowser->setText(datalist_console.join('\n'));
-    ui->Serialincomingdata_textBrowser->append(datalist_console.at(10));
-    ui->Serialincomingdata_textBrowser->clear();
+//    ui->Serialincomingdata_textBrowser->setText(datalist_console.join('\n'));
+//    ui->Serialincomingdata_textBrowser->append(datalist_console.at(10));
+//    ui->Serialincomingdata_textBrowser->clear();
 //    QStringList list = data.split("\n");
 //    for (int i = 0; i < datalist.length()-1; ++i) {
 //        ui->Serialincomingdata_textBrowser->append(datalist.at(i));
@@ -246,7 +252,7 @@ void Widget::on_Stop_pushButton_clicked()
 
 void Widget::readData() {
     incomingdata.append(serialport.readAll());
-
+    updateconsole(incomingdata);
 
 }
 
@@ -350,7 +356,7 @@ bool Widget::plot_data()
 //            ui->Serialincomingdata_textBrowser->append(*i);
         }*/
         int numberofchunks = 2;
-        double freqResolution = 100/1024.0;
+        double freqResolution = 500.0/buf_size;
 
         for (int subplot_i = 0; subplot_i < MAXSUBPLOTS; subplot_i++) {
             if (Subplots[subplot_i].Subplot_Groupbox->isVisible()){

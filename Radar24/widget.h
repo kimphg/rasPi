@@ -1,12 +1,12 @@
 #ifndef WIDGET_H
 #define WIDGET_H
-#define WINDOW_BUILD
+//#define WINDOW_BUILD
 #ifdef WINDOW_BUILD
 #include <QSerialPort>
 #else
+#include <QtSerialPort/QSerialPort>
 #endif
 #include <QWidget>
-//#include <QtSerialPort>
 #include <QTimer>
 #include "qcustomplot/qcustomplot.h"
 #include <stdio.h>
@@ -52,10 +52,7 @@ private:
     QString serialportname;
     QString serialbaud;
     QString initchar;
-#ifndef WINDOW_BUILD
-#else
     QSerialPort serialport;
-#endif
     QStringList datalist_console;
     QStringList datalist;
     QString lastdatalistline;

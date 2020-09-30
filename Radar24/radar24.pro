@@ -4,11 +4,11 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets printsupport serialport
-
+QT       += core gui widgets printsupport
+QT       += serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = SerialPlotter
+TARGET = rad24
 TEMPLATE = app
 
 

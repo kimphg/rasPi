@@ -20,7 +20,7 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
+    ui->frame_setting->setHidden(true);
 //     check all the available serial ports
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
         ui->Serialavailable_comboBox->addItem(info.portName());
@@ -128,7 +128,7 @@ Widget::Widget(QWidget *parent) :
         Subplots[i].NofLines_Spinbox->setMaximum(MAXLINES);
     }
 
-    ui->Numbersubplots_spinBox->setValue(2);
+    ui->Numbersubplots_spinBox->setValue(1);
     ui->Numbersubplots_spinBox->setMaximum(MAXSUBPLOTS);
 
 
@@ -197,7 +197,7 @@ void Widget::on_Start_pushButton_clicked()
 //    RadDSP::StartRead();
     timer->start(200);
 //    digitalWrite(22,HIGH);
-
+    serialportname = "ttyS0";
     QSerialPortInfo serialportinfo(serialportname);
     if (serialportinfo.isBusy()) {
         QMessageBox messageBox;
@@ -365,7 +365,7 @@ bool Widget::plot_data()
                         if(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()<=numberofchunks && Subplots[subplot_i].lines[line_i].Ydata_Spinbox->value()<=numberofchunks) {
                             if(subplot_i==cur_data_type)
                             {
-                                if(subplot_i==1)//fft data
+                                if(subplot_i==0)//fft data
                                 {
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-50,Qt::AlignRight);
@@ -396,7 +396,7 @@ bool Widget::plot_data()
                                     }
 
                                 }
-                                if(subplot_i==0)
+                                else if(subplot_i==0)
                                 {
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-1000,Qt::AlignRight);

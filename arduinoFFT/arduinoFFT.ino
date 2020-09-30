@@ -1,6 +1,6 @@
 
-#define BUF_SIZE 2048
-#define FFT_DEGREE 11
+#define BUF_SIZE 4096
+#define FFT_DEGREE 12
 //int mdata[BUF_SIZE];
 float mFFTdata_r[BUF_SIZE];
 float mFFTdata_im[BUF_SIZE];
@@ -9,13 +9,15 @@ void setup()
 {
     bytecount=0;
     Serial.begin(115200);
+    Serial1.begin(115200);
 //    Serial.print("start");
 }
 
 
 void loop()
 {
-//  Serial.print("loop");
+  //Serial1.print(".");
+ // Serial.print(".");
 //    int a = 0;
 //    if(bytecount%2==0)a=20;
 //    else a=-20;
@@ -33,20 +35,20 @@ void loop()
 //        }
         bytecount=0;
 //        FFT(mdata,mFFTdata_r,mFFTdata_im,BUF_SIZE);
-        Serial.println('!');  
-        Serial.println(0);  
+        /*Serial1.println('!');  
+        Serial1.println(0);  
         for (int i =1;i<BUF_SIZE;i++)
         {
-            Serial.println(mFFTdata_r[i]);
-        }
+            Serial1.println(int(mFFTdata_r[i]));
+        }*/
         
         FFT2(1,FFT_DEGREE,mFFTdata_r,mFFTdata_im);
-        Serial.flush();
-        Serial.println('!');  
-        Serial.println(1);  
+//        Serial1.flush();
+        Serial1.println('!');  
+        Serial1.println(1);  
         for (int i =1;i<BUF_SIZE;i++)
         {
-            Serial.println(0.1+sqrt(mFFTdata_r[i]*mFFTdata_r[i]+mFFTdata_im[i]*mFFTdata_im[i]));
+            Serial1.println(int(sqrt(mFFTdata_r[i]*mFFTdata_r[i]+mFFTdata_im[i]*mFFTdata_im[i])));
         }
     }
     else

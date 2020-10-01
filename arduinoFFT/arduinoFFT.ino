@@ -8,7 +8,7 @@ int bytecount;
 void setup()
 {
     bytecount=0;
-    Serial.begin(115200);
+//    Serial.begin(115200);
     Serial1.begin(115200);
 //    Serial.print("start");
 }
@@ -24,7 +24,7 @@ void loop()
 
     mFFTdata_r[bytecount]=float(analogRead(2));
     mFFTdata_im[bytecount] = 0;
-    
+    Serial1.println(int(mFFTdata_r[bytecount]));
     bytecount++;
     if(bytecount>=BUF_SIZE)
     {
@@ -50,6 +50,9 @@ void loop()
         {
             Serial1.println(int(sqrt(mFFTdata_r[i]*mFFTdata_r[i]+mFFTdata_im[i]*mFFTdata_im[i])));
         }
+        Serial1.flush();
+        Serial1.println('!');  
+        Serial1.println(0); 
     }
     else
     {

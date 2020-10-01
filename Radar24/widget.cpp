@@ -21,6 +21,8 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame_setting->setHidden(true);
+    this->showFullScreen();
+    plot_type=1;
 //     check all the available serial ports
     foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
         ui->Serialavailable_comboBox->addItem(info.portName());
@@ -198,6 +200,7 @@ void Widget::on_Start_pushButton_clicked()
     timer->start(200);
 //    digitalWrite(22,HIGH);
     serialportname = "ttyS0";
+    serialbaud = "115200";
     QSerialPortInfo serialportinfo(serialportname);
     if (serialportinfo.isBusy()) {
         QMessageBox messageBox;
@@ -252,7 +255,7 @@ void Widget::on_Stop_pushButton_clicked()
 
 void Widget::readData() {
     incomingdata.append(serialport.readAll());
-    updateconsole(incomingdata);
+//    updateconsole(incomingdata);
 
 }
 
@@ -358,13 +361,56 @@ bool Widget::plot_data()
         int numberofchunks = 2;
         double freqResolution = 500.0/buf_size;
 
+        if(cur_data_type==plot_type)
+        {
+            if(plot_type==1)
+            {
+            Subplots[0].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
+            Subplots[0].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-50,Qt::AlignRight);
+            }
+            else if(plot_type==0)
+            {
+                Subplots[0].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
+                Subplots[0].AxesRect->axis(QCPAxis::atLeft, 0)->setRange(0,-1000,Qt::AlignRight);
+            }
+            Subplots[0].lines[0].graph->clearData();
+            double heart_rate=0;
+            double max_amp=0;
+            double avr = 0;
+            for (int i=1;i<datalist.length();i++) {
+                double freq  = (i-1)*freqResolution;
+                double amp = QString(datalist[i]).toDouble();
+                avr += amp;
+                if(freq>0&&freq<3)
+                {
+                    if(amp>max_amp)
+                    {
+                        max_amp=amp;
+                        heart_rate = freq;
+                    }
+                }
+                Subplots[0].lines[0].graph->addData(freq,amp);
+                //                                ui->Serialincomingdata_textBrowser->append(QString::number(parseddata.at(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()-1 )));
+            }
+            if(datalist.length()>1)
+            {
+                avr = avr/(datalist.length()-1);
+                if(max_amp>5*avr) ui->label_breath_rate->setText(QString::number(heart_rate*60,'f',1));
+                else ui->label_breath_rate->setText("Not detected");
+            }
+
+        }
+        /*else
         for (int subplot_i = 0; subplot_i < MAXSUBPLOTS; subplot_i++) {
             if (Subplots[subplot_i].Subplot_Groupbox->isVisible()){
                 for (int line_i = 0; line_i < MAXLINES; line_i++){
-                    if (Subplots[subplot_i].lines[line_i].Line_Groupbox->isVisible()){
-                        if(Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()<=numberofchunks && Subplots[subplot_i].lines[line_i].Ydata_Spinbox->value()<=numberofchunks) {
-                            if(subplot_i==cur_data_type)
+                    if (line_i==0)//Subplots[subplot_i].lines[line_i].Line_Groupbox->isVisible())
+                    {
+                        if(true)//Subplots[subplot_i].lines[line_i].Xdata_Spinbox->value()<=numberofchunks && Subplots[subplot_i].lines[line_i].Ydata_Spinbox->value()<=numberofchunks)
+                        {
+                            if(subplot_i==(cur_data_type-1))
                             {
+                                qDebug() << "subplot_i : " << subplot_i;
                                 if(subplot_i==0)//fft data
                                 {
                                     Subplots[subplot_i].AxesRect->axis(QCPAxis::atBottom, 0)->setRange(0,-20,Qt::AlignRight);
@@ -424,7 +470,7 @@ bool Widget::plot_data()
                     }
                 }
             }
-        }
+        }*/
 
         ui->Plot->replot();
 //        data.clear();
@@ -577,24 +623,29 @@ QColor Widget::getcolor(int idx) {
     switch (idx) {
     case 0:
         return Qt::blue;
-        break;
+
     case 1:
         return Qt::red;
-        break;
+
     case 2:
         return Qt::black;
-        break;
+
     case 3:
         return Qt::green;
-        break;
+
     case 4:
         return QColor("#e27f00");
-        break;
+
     case 5:
         return Qt::yellow;
-        break;
+
     default:
         return Qt::blue;
-        break;
+
     }
+}
+
+void Widget::on_checkBox_stateChanged(int arg1)
+{
+    plot_type = arg1;
 }

@@ -47,6 +47,8 @@ private slots:
     void color_changed(int val);
 private slots:
     void deleteObject(QObject* thingy);
+    void on_checkBox_stateChanged(int arg1);
+
 private:
     Ui::Widget *ui;
     QString serialportname;
@@ -58,6 +60,7 @@ private:
     QString lastdatalistline;
     QString firstdatalistline;
     QTimer* timer;
+    bool plot_type ;
     int buf_size;
     int databefore;
     QByteArray incomingdata;

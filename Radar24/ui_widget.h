@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **
-** Created by: Qt User Interface Compiler version 5.11.3
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,13 +10,16 @@
 #define UI_WIDGET_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -415,12 +418,6 @@ public:
         gridLayout->setVerticalSpacing(2);
         gridLayout->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_1 = new QComboBox(line_groupBox_1_1);
-        color_comboBox_1_1->addItem(QString());
-        color_comboBox_1_1->addItem(QString());
-        color_comboBox_1_1->addItem(QString());
-        color_comboBox_1_1->addItem(QString());
-        color_comboBox_1_1->addItem(QString());
-        color_comboBox_1_1->addItem(QString());
         color_comboBox_1_1->setObjectName(QStringLiteral("color_comboBox_1_1"));
         QPalette palette1;
         palette1.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -478,12 +475,6 @@ public:
         gridLayout_2->setVerticalSpacing(2);
         gridLayout_2->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_2 = new QComboBox(line_groupBox_1_2);
-        color_comboBox_1_2->addItem(QString());
-        color_comboBox_1_2->addItem(QString());
-        color_comboBox_1_2->addItem(QString());
-        color_comboBox_1_2->addItem(QString());
-        color_comboBox_1_2->addItem(QString());
-        color_comboBox_1_2->addItem(QString());
         color_comboBox_1_2->setObjectName(QStringLiteral("color_comboBox_1_2"));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -539,12 +530,6 @@ public:
         gridLayout_3->setVerticalSpacing(2);
         gridLayout_3->setContentsMargins(2, 0, 2, 2);
         color_comboBox_1_3 = new QComboBox(line_groupBox_1_3);
-        color_comboBox_1_3->addItem(QString());
-        color_comboBox_1_3->addItem(QString());
-        color_comboBox_1_3->addItem(QString());
-        color_comboBox_1_3->addItem(QString());
-        color_comboBox_1_3->addItem(QString());
-        color_comboBox_1_3->addItem(QString());
         color_comboBox_1_3->setObjectName(QStringLiteral("color_comboBox_1_3"));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -640,12 +625,6 @@ public:
         gridLayout_4->setVerticalSpacing(2);
         gridLayout_4->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_1 = new QComboBox(line_groupBox_2_1);
-        color_comboBox_2_1->addItem(QString());
-        color_comboBox_2_1->addItem(QString());
-        color_comboBox_2_1->addItem(QString());
-        color_comboBox_2_1->addItem(QString());
-        color_comboBox_2_1->addItem(QString());
-        color_comboBox_2_1->addItem(QString());
         color_comboBox_2_1->setObjectName(QStringLiteral("color_comboBox_2_1"));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -701,12 +680,6 @@ public:
         gridLayout_5->setVerticalSpacing(2);
         gridLayout_5->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_2 = new QComboBox(line_groupBox_2_2);
-        color_comboBox_2_2->addItem(QString());
-        color_comboBox_2_2->addItem(QString());
-        color_comboBox_2_2->addItem(QString());
-        color_comboBox_2_2->addItem(QString());
-        color_comboBox_2_2->addItem(QString());
-        color_comboBox_2_2->addItem(QString());
         color_comboBox_2_2->setObjectName(QStringLiteral("color_comboBox_2_2"));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -762,12 +735,6 @@ public:
         gridLayout_6->setVerticalSpacing(2);
         gridLayout_6->setContentsMargins(2, 0, 2, 2);
         color_comboBox_2_3 = new QComboBox(line_groupBox_2_3);
-        color_comboBox_2_3->addItem(QString());
-        color_comboBox_2_3->addItem(QString());
-        color_comboBox_2_3->addItem(QString());
-        color_comboBox_2_3->addItem(QString());
-        color_comboBox_2_3->addItem(QString());
-        color_comboBox_2_3->addItem(QString());
         color_comboBox_2_3->setObjectName(QStringLiteral("color_comboBox_2_3"));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -863,12 +830,6 @@ public:
         gridLayout_7->setVerticalSpacing(2);
         gridLayout_7->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_1 = new QComboBox(line_groupBox_3_1);
-        color_comboBox_3_1->addItem(QString());
-        color_comboBox_3_1->addItem(QString());
-        color_comboBox_3_1->addItem(QString());
-        color_comboBox_3_1->addItem(QString());
-        color_comboBox_3_1->addItem(QString());
-        color_comboBox_3_1->addItem(QString());
         color_comboBox_3_1->setObjectName(QStringLiteral("color_comboBox_3_1"));
         QPalette palette7;
         palette7.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -924,12 +885,6 @@ public:
         gridLayout_8->setVerticalSpacing(2);
         gridLayout_8->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_2 = new QComboBox(line_groupBox_3_2);
-        color_comboBox_3_2->addItem(QString());
-        color_comboBox_3_2->addItem(QString());
-        color_comboBox_3_2->addItem(QString());
-        color_comboBox_3_2->addItem(QString());
-        color_comboBox_3_2->addItem(QString());
-        color_comboBox_3_2->addItem(QString());
         color_comboBox_3_2->setObjectName(QStringLiteral("color_comboBox_3_2"));
         QPalette palette8;
         palette8.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -985,12 +940,6 @@ public:
         gridLayout_9->setVerticalSpacing(2);
         gridLayout_9->setContentsMargins(2, 0, 2, 2);
         color_comboBox_3_3 = new QComboBox(line_groupBox_3_3);
-        color_comboBox_3_3->addItem(QString());
-        color_comboBox_3_3->addItem(QString());
-        color_comboBox_3_3->addItem(QString());
-        color_comboBox_3_3->addItem(QString());
-        color_comboBox_3_3->addItem(QString());
-        color_comboBox_3_3->addItem(QString());
         color_comboBox_3_3->setObjectName(QStringLiteral("color_comboBox_3_3"));
         QPalette palette9;
         palette9.setBrush(QPalette::Active, QPalette::HighlightedText, brush);
@@ -1058,123 +1007,141 @@ public:
 
     void retranslateUi(QWidget *Widget)
     {
-        Widget->setWindowTitle(QApplication::translate("Widget", "Widget", nullptr));
-        label_heart_rate->setText(QApplication::translate("Widget", "--", nullptr));
-        label->setText(QApplication::translate("Widget", "Nh\341\273\213p tim:", nullptr));
-        label_3->setText(QApplication::translate("Widget", "Nh\341\273\213p th\341\273\237:", nullptr));
-        label_breath_rate->setText(QApplication::translate("Widget", "--", nullptr));
-        Start_pushButton->setText(QApplication::translate("Widget", "Start", nullptr));
-        Stop_pushButton->setText(QApplication::translate("Widget", "Stop", nullptr));
-        checkBox->setText(QApplication::translate("Widget", "FFT", nullptr));
-        groupBox->setTitle(QApplication::translate("Widget", "Serial Settings", nullptr));
-        Initchar_label->setText(QApplication::translate("Widget", "Init char", nullptr));
-        Serialavailable_label->setText(QApplication::translate("Widget", "Available serial ports", nullptr));
-        Serialbaud_label->setText(QApplication::translate("Widget", "Serial rate", nullptr));
-        Serialinfo_label->setText(QApplication::translate("Widget", "Serial info", nullptr));
-        groupBox_2->setTitle(QApplication::translate("Widget", "Plot Settings", nullptr));
-        Numbersubplots_label->setText(QApplication::translate("Widget", "Subplots:", nullptr));
-        Subplot_groupBox_1->setTitle(QApplication::translate("Widget", "Subplot 1", nullptr));
-        line_groupBox_1_1->setTitle(QApplication::translate("Widget", "Line 1", nullptr));
-        color_comboBox_1_1->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_1_1->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_1_1->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_1_1->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_1_1->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_1_1->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_1_1->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_1_1->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_1_1->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_1_2->setTitle(QApplication::translate("Widget", "Line 2", nullptr));
-        color_comboBox_1_2->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_1_2->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_1_2->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_1_2->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_1_2->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_1_2->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_1_2->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_1_2->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_1_2->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_1_3->setTitle(QApplication::translate("Widget", "Line 3", nullptr));
-        color_comboBox_1_3->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_1_3->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_1_3->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_1_3->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_1_3->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_1_3->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_1_3->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_1_3->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_1_3->setText(QApplication::translate("Widget", "color", nullptr));
-        Subplot_groupBox_2->setTitle(QApplication::translate("Widget", "Subplot 2", nullptr));
-        line_groupBox_2_1->setTitle(QApplication::translate("Widget", "Line 1", nullptr));
-        color_comboBox_2_1->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_2_1->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_2_1->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_2_1->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_2_1->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_2_1->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_2_1->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_2_1->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_2_1->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_2_2->setTitle(QApplication::translate("Widget", "Line 2", nullptr));
-        color_comboBox_2_2->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_2_2->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_2_2->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_2_2->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_2_2->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_2_2->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_2_2->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_2_2->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_2_2->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_2_3->setTitle(QApplication::translate("Widget", "Line 3", nullptr));
-        color_comboBox_2_3->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_2_3->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_2_3->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_2_3->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_2_3->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_2_3->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_2_3->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_2_3->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_2_3->setText(QApplication::translate("Widget", "color", nullptr));
-        Subplot_groupBox_3->setTitle(QApplication::translate("Widget", "Subplot 3", nullptr));
-        line_groupBox_3_1->setTitle(QApplication::translate("Widget", "Line 1", nullptr));
-        color_comboBox_3_1->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_3_1->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_3_1->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_3_1->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_3_1->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_3_1->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_3_1->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_3_1->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_3_1->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_3_2->setTitle(QApplication::translate("Widget", "Line 2", nullptr));
-        color_comboBox_3_2->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_3_2->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_3_2->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_3_2->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_3_2->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_3_2->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_3_2->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_3_2->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_3_2->setText(QApplication::translate("Widget", "color", nullptr));
-        line_groupBox_3_3->setTitle(QApplication::translate("Widget", "Line 3", nullptr));
-        color_comboBox_3_3->setItemText(0, QApplication::translate("Widget", "blue", nullptr));
-        color_comboBox_3_3->setItemText(1, QApplication::translate("Widget", "red", nullptr));
-        color_comboBox_3_3->setItemText(2, QApplication::translate("Widget", "black", nullptr));
-        color_comboBox_3_3->setItemText(3, QApplication::translate("Widget", "green", nullptr));
-        color_comboBox_3_3->setItemText(4, QApplication::translate("Widget", "orange", nullptr));
-        color_comboBox_3_3->setItemText(5, QApplication::translate("Widget", "yellow", nullptr));
-
-        y_label_3_3->setText(QApplication::translate("Widget", "y", nullptr));
-        x_label_3_3->setText(QApplication::translate("Widget", "x", nullptr));
-        color_label_3_3->setText(QApplication::translate("Widget", "color", nullptr));
+        Widget->setWindowTitle(QApplication::translate("Widget", "Widget", Q_NULLPTR));
+        label_heart_rate->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        label->setText(QApplication::translate("Widget", "Nh\341\273\213p tim:", Q_NULLPTR));
+        label_3->setText(QApplication::translate("Widget", "Nh\341\273\213p th\341\273\237:", Q_NULLPTR));
+        label_breath_rate->setText(QApplication::translate("Widget", "--", Q_NULLPTR));
+        Start_pushButton->setText(QApplication::translate("Widget", "Start", Q_NULLPTR));
+        Stop_pushButton->setText(QApplication::translate("Widget", "Stop", Q_NULLPTR));
+        checkBox->setText(QApplication::translate("Widget", "FFT", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("Widget", "Serial Settings", Q_NULLPTR));
+        Initchar_label->setText(QApplication::translate("Widget", "Init char", Q_NULLPTR));
+        Serialavailable_label->setText(QApplication::translate("Widget", "Available serial ports", Q_NULLPTR));
+        Serialbaud_label->setText(QApplication::translate("Widget", "Serial rate", Q_NULLPTR));
+        Serialinfo_label->setText(QApplication::translate("Widget", "Serial info", Q_NULLPTR));
+        groupBox_2->setTitle(QApplication::translate("Widget", "Plot Settings", Q_NULLPTR));
+        Numbersubplots_label->setText(QApplication::translate("Widget", "Subplots:", Q_NULLPTR));
+        Subplot_groupBox_1->setTitle(QApplication::translate("Widget", "Subplot 1", Q_NULLPTR));
+        line_groupBox_1_1->setTitle(QApplication::translate("Widget", "Line 1", Q_NULLPTR));
+        color_comboBox_1_1->clear();
+        color_comboBox_1_1->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_1_1->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_1_1->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_1_1->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_1_2->setTitle(QApplication::translate("Widget", "Line 2", Q_NULLPTR));
+        color_comboBox_1_2->clear();
+        color_comboBox_1_2->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_1_2->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_1_2->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_1_2->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_1_3->setTitle(QApplication::translate("Widget", "Line 3", Q_NULLPTR));
+        color_comboBox_1_3->clear();
+        color_comboBox_1_3->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_1_3->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_1_3->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_1_3->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        Subplot_groupBox_2->setTitle(QApplication::translate("Widget", "Subplot 2", Q_NULLPTR));
+        line_groupBox_2_1->setTitle(QApplication::translate("Widget", "Line 1", Q_NULLPTR));
+        color_comboBox_2_1->clear();
+        color_comboBox_2_1->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_2_1->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_2_1->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_2_1->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_2_2->setTitle(QApplication::translate("Widget", "Line 2", Q_NULLPTR));
+        color_comboBox_2_2->clear();
+        color_comboBox_2_2->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_2_2->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_2_2->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_2_2->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_2_3->setTitle(QApplication::translate("Widget", "Line 3", Q_NULLPTR));
+        color_comboBox_2_3->clear();
+        color_comboBox_2_3->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_2_3->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_2_3->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_2_3->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        Subplot_groupBox_3->setTitle(QApplication::translate("Widget", "Subplot 3", Q_NULLPTR));
+        line_groupBox_3_1->setTitle(QApplication::translate("Widget", "Line 1", Q_NULLPTR));
+        color_comboBox_3_1->clear();
+        color_comboBox_3_1->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_3_1->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_3_1->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_3_1->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_3_2->setTitle(QApplication::translate("Widget", "Line 2", Q_NULLPTR));
+        color_comboBox_3_2->clear();
+        color_comboBox_3_2->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_3_2->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_3_2->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_3_2->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
+        line_groupBox_3_3->setTitle(QApplication::translate("Widget", "Line 3", Q_NULLPTR));
+        color_comboBox_3_3->clear();
+        color_comboBox_3_3->insertItems(0, QStringList()
+         << QApplication::translate("Widget", "blue", Q_NULLPTR)
+         << QApplication::translate("Widget", "red", Q_NULLPTR)
+         << QApplication::translate("Widget", "black", Q_NULLPTR)
+         << QApplication::translate("Widget", "green", Q_NULLPTR)
+         << QApplication::translate("Widget", "orange", Q_NULLPTR)
+         << QApplication::translate("Widget", "yellow", Q_NULLPTR)
+        );
+        y_label_3_3->setText(QApplication::translate("Widget", "y", Q_NULLPTR));
+        x_label_3_3->setText(QApplication::translate("Widget", "x", Q_NULLPTR));
+        color_label_3_3->setText(QApplication::translate("Widget", "color", Q_NULLPTR));
     } // retranslateUi
 
 };

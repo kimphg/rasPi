@@ -2597,15 +2597,13 @@ release\widget.obj: widget.cpp widget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h \
 		ui_widget.h \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QAction \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QApplication \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QButtonGroup \
+		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QCheckBox \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QComboBox \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QFrame \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QGridLayout \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QGroupBox \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QHBoxLayout \
-		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QHeaderView \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QLineEdit \
 		C:\Qt\Qt5.8.0\5.8\msvc2013_64\include\QtWidgets\QPushButton \
